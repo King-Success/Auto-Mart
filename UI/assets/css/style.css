@@ -292,6 +292,79 @@ label em {
     }
 }
 
+
+/* login start */
+
+#login {
+    padding-top: 80px;
+    height: 690px;
+}
+
+.logo__title {
+    padding: 30px 15px;
+}
+
+.login__card {
+    width: 100%;
+    max-width: 450px;
+    height: 380px;
+    background: #092467;
+    border-radius: 8px;
+    color: white;
+}
+
+.login__card input[type="text"], .login__card input[type="password"] {
+    width: 80%;
+    height: 40px;
+    border: none;
+    margin-bottom: 13px;
+    padding-left: 10px;
+    border-radius: 4px;
+    font-size: inherit;
+    transition: all 0.2s ease-in-out;
+}
+
+.login__card input[type="text"]:focus, input[type="password"]:focus {
+    padding: 0 10px;
+}
+
+.login__card button {
+    width: 82.5%;
+    height: 40px;
+    border: none;
+    background: #e7edf5;
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin-top: 10px;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.forgot__password {
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .login__card {
+        width: 50%;
+        min-width: 280px;
+        height: 320px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .login__card {
+        width: 80%;
+        min-width: 100px;
+        font-size: 13px;
+    }
+}
+
 /* footer */
 .copyright {
     width: 100%;
