@@ -491,6 +491,104 @@ button:hover {
 
 }
 
+
+/* all cars start */
+
+.all__cars {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 0;
+    margin: 0 auto;
+}
+
+.search__sort {
+    width: 100%;
+    display: flex;
+    padding: 40px 0;
+}
+
+.search__sort .search {
+    width: 40%;
+    text-align: center;
+}
+
+.search__sort .price, .search__sort .make, .search__sort .state, .search__sort .go {
+    width: 15%;
+    text-align: center;
+}
+
+.search__sort input[type="text"], .search__sort select, .search__sort button {
+    width: 85%;
+    height: 40px;
+    border: 1px solid #092467;
+    margin-top: 5px;
+    margin-bottom: 13px;
+    padding-left: 10px;
+    border-radius: 2px;
+    font-size: inherit;
+    transition: all 0.2s;
+    color: #092467;
+}
+
+.search__sort select {
+    height: 45px;
+}
+
+.search__sort button {
+    background: #092467;
+    border-radius: 6px;
+    color: white;
+    height: 45px;
+}
+
+.all__cars__grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.all__cars__grid .grid {
+    height: 340px;
+    margin-bottom: 5px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between
+}
+
+.grid .post {
+    width: 250px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid .post a {
+    text-decoration: none;
+}
+
+.grid .post img {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.grid .post .details {
+    padding: 10px;
+    text-align: center;
+}
+
+.grid .post .details h2, .grid .post .details em {
+    margin: 0;
+}
+
+.grid .actions {
+    border-top: 1px solid gray;
+    padding: 5px;
+    display: flex;
+    justify-content: space-around;
+}
+
 /* footer */
 .copyright {
     width: 100%;
