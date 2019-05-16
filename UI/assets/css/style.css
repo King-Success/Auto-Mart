@@ -766,6 +766,192 @@ button:hover {
     }
 }
 
+
+/* car start  */
+
+.car {
+    width: 80%;
+    display: flex;
+    padding: 40px 0;
+    margin: 40px auto;
+    justify-content: space-between;
+}
+
+.car hr {
+    border: 1px solid white;
+    margin: 4px 0;
+}
+
+.car .car__details {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.car__details .main__image img {
+    width: 100%;
+    height: 100%;
+}
+
+.car__details .extra__images {
+    height: 200px;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0;
+}
+
+.car__details .extra__images img {
+    width: 24.8%;
+}
+
+.car__detail .header {
+    text-align: justify;
+    padding: 0 20px;
+}
+
+.car__detail .header h1 {
+    margin: 15px 0 8px 0;
+}
+
+.car__detail .specs ul {
+    list-style-type: none;
+    padding: 0 20px;
+}
+
+.car__detail .specs ul li {
+    padding-bottom: 3px;
+}
+
+.car__detail .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.car__detail .actions .buy {
+    width: 100%;
+    padding-left: 35px;
+}
+
+.car__detail .actions .others {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.car__detail .actions button {
+    background: #092467;
+    border-radius: 6px;
+    color: white;
+    height: 45px;
+    cursor: pointer;
+}
+
+.car__detail .actions .buy button {
+    width: 300px;
+}
+
+.car__detail .actions .others button {
+    width: 150px;
+    height: 30px;
+}
+
+.car__detail .actions .others .fav {
+    background: #5d9b00;
+    margin: 0 2px;
+}
+
+.car__detail .actions .others .report {
+    background: red;
+    margin: 0 2px;
+}
+
+.car .seller__details {
+    width: 28%;
+}
+
+.seller__details .details__card {
+    width: 100%;
+    background: #092467;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.seller__details .details__card .price {
+    height: 12%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seller__details .details__card .avater__card {
+    height: 58%;
+}
+
+.seller__details .details__card .avater__card {
+    width: 80%;
+    margin: 0 auto;
+    height: 245px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.seller__details .details__card .avater__card .avater {
+    background: gainsboro;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    position: relative;
+}
+
+.seller__details .details__card .avater__card .avater img {
+    width: 50%;
+    position: absolute;
+    top: 60%;
+    left: 60%;
+}
+
+.seller__details .details__card .avater__card .name {
+    padding-top: 20px;
+}
+
+.seller__details .details__card .actions {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.seller__details .details__card .actions button {
+    width: 70%;
+    background: #092467;
+    border-radius: 6px;
+    color: white;
+    height: 45px;
+    cursor: pointer;
+}
+
+.seller__details .details__card .actions .show__contact {
+    background: #5d9b00;
+    margin: 0 2px;
+}
+
+.seller__details .details__card .actions .start__chat {
+    background: red;
+    margin: 0 2px;
+}
+
+.seller__details .details__card .actions .leave__feedback {
+    color: white;
+    text-decoration: none;
+}
+
 /* footer */
 .copyright {
     width: 100%;
