@@ -589,6 +589,183 @@ button:hover {
     justify-content: space-around;
 }
 
+
+/* profile start*/
+
+.profile {
+    margin: 0 auto;
+    display: flex;
+    width: 90%;
+    padding: 40px;
+    justify-content: space-between;
+}
+
+.profile .aside {
+    width: 25%;
+}
+
+.profile .aside .avater__card {
+    background: white;
+    width: 80%;
+    margin: 0 auto;
+    height: 245px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.avater__card .avater {
+    background: gainsboro;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    position: relative;
+}
+
+.avater__card .avater img {
+    width: 50%;
+    position: absolute;
+    top: 60%;
+    left: 60%;
+}
+
+.avater__card .name {
+    padding-top: 20px;
+}
+
+.profile .main {
+    width: 78%;
+}
+
+.profile .main .grid {
+    width: 99%;
+    height: 240px;
+    background: white;
+    margin: 5px 5px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.main .grid .grid__image {
+    width: 25%;
+}
+
+.grid__image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+}
+
+.main .grid .grid__description {
+    width: 75%;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid__description .text {
+    height: 85%;
+    border-bottom: 1px solid gainsboro;
+}
+
+.grid__description .text li strong {
+    color: #092467;
+}
+
+.grid__description .text ul {
+    list-style-type: none;
+    padding: 0 5px;
+}
+
+.grid__description .text li .price {
+    color: red;
+}
+
+.grid__description .actions {
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.grid__description .actions a {
+    color: #092467;
+}
+
+.grid__description .actions .sold {
+    color: red !important;
+}
+
+@media only screen and (max-width: 1200px) {
+    .profile {
+        width: 95%;
+        padding: 40px 0;
+    }
+}
+
+@media only screen and (max-width: 920px) {
+    .profile {
+        flex-direction: column;
+        align-items: center;
+    }
+    .profile .aside {
+        width: 300px;
+        margin-bottom: 20px;
+    }
+    .profile .main {
+        width: 95%;
+    }
+    .profile .main .grid {
+        flex-direction: column;
+        height: inherit;
+        padding-bottom: 15px;
+    }
+
+    .profile .main .grid .grid__image{
+        width: 100%;
+    }
+    .main .grid .grid__description{
+        width: 100%;
+        padding: 0;
+        align-items: center;
+    }
+
+    .main .grid .grid__description .text{
+        width: 80%;
+        font-size: 17px !important;
+    }
+
+    .main .grid .grid__description .actions{
+        padding-top: 15px;
+    }
+
+    .main .grid .grid__description .text .title{
+        text-align: center;
+    }
+
+    .main .grid .grid__description .actions a {
+        margin: 0 10px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+
+    h1{
+        font-size: 23px !important;
+    }
+
+    .main .grid .grid__description .actions a {
+        margin: 0 20px;
+    }
+
+    .main .grid .grid__description .actions :nth-child(2),
+    .main .grid .grid__description .actions :nth-child(3){
+        display: none;
+    }
+}
+
 /* footer */
 .copyright {
     width: 100%;
