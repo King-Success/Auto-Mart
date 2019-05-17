@@ -119,8 +119,6 @@ body {
     color: aliceblue !important;
 }
 
-
-
 .front-main-nav li {
     text-align: center;
     margin: 15px auto;
@@ -224,11 +222,15 @@ body {
     }
 }
 
+/* banner start */
+
+/* @media screen and (min-width: 768px) { */
+
 .banner {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 765px;
+    height: 570px;
     background: #092467;
 }
 
@@ -247,14 +249,25 @@ body {
     position: absolute;
     color: white;
     max-width: 700px;
-    margin-top: 60px;
+    margin-top: 175px;
     text-align: center;
     -webkit-font-smoothing: antialiased;
 }
 
+.banner__text h1 {
+    font-size: 25px;
+    padding: 0 15px;
+}
+
+.banner__text p {
+    font-size: 15px;
+    padding: 0 10px;
+}
+
 .banner__text .buttons__wrapper {
-    margin-top: 360px;
-    padding-top: 35px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px 0 20px;
     height: 100px;
 }
 
@@ -278,6 +291,92 @@ body {
     background: #e32c2c;
     color: rgb(241, 240, 240);
     border-color: #e32c2c;
+}
+
+@media screen and (min-width: 480px) {
+    .banner {
+        height: 678px;
+    }
+    .banner__text {
+        margin-top: 20px;
+    }
+    .banner__image {
+        padding-top: 190px;
+    }
+    .banner__text h1 {
+        font-size: 35px;
+    }
+    .banner__text p {
+        font-size: 20px;
+        padding: 0 40px;
+    }
+    .banner__text .buttons__wrapper {
+        display: block;
+        margin-top: 0;
+    }
+    .buttons__wrapper .btn {
+        padding-left: 45px;
+        padding-right: 45px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .banner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 765px;
+        background: #092467;
+    }
+    .banner__image {
+        padding-top: 140px;
+    }
+    .banner__image img {
+        width: 100%;
+        height: 100%;
+        opacity: 0.90;
+    }
+    .banner__text {
+        position: absolute;
+        color: white;
+        max-width: 1110px;
+        margin-top: 60px;
+        text-align: center;
+        -webkit-font-smoothing: antialiased;
+    }
+    .banner__text h1 {
+        font-size: 40px;
+    }
+    .banner__text p {
+        font-size: 25px;
+    }
+    .buttons__wrapper .btn {
+        padding-left: 90px;
+        padding-right: 90px;
+    }
+    .buttons__wrapper .btn:hover {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+    .buttons__wrapper .btn:nth-child(2) {
+        background: #e32c2c;
+        color: rgb(241, 240, 240);
+        border-color: #e32c2c;
+    }
+}
+
+@media screen and (min-width: 980px) {
+    .banner__image {
+        padding-top: 80px;
+        position: relative;
+        width: 100%;
+    }
+    .banner__text h1 {
+        font-size: 45px;
+    }
+    .banner__text p {
+        font-size: 27px;
+    }
 }
 
 /* sign up start */
@@ -376,7 +475,6 @@ label em {
 @media only screen and (max-width: 920px) {
     .main__wrapper {
         width: 80%;
-        /* background: red; */
     }
     .card__wrapper {
         position: inherit;
@@ -620,6 +718,32 @@ button:hover {
 }
 
 .search__sort .search {
+    width: 20%
+}
+
+.search__sort .state__make {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1
+}
+
+.search__sort .state__make .state, .search__sort .state__make .make {
+    flex-grow: 1;
+}
+
+.search__sort .price__filter {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.search__sort .price__filter .price, .search__sort .price__filter .go {
+    flex-grow: 1;
+}
+
+.search__sort .search {
     width: 40%;
     text-align: center;
 }
@@ -660,18 +784,25 @@ button:hover {
 }
 
 .all__cars__grid .grid {
-    height: 340px;
     margin-bottom: 5px;
     padding: 5px;
     display: flex;
-    justify-content: space-between
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .grid .post {
-    width: 250px;
+    width: 300px;
+    height: 300px;
     background: white;
     display: flex;
     flex-direction: column;
+    margin: 5px;
+    transition: all 1s
+}
+
+.grid .post:hover {
+    transform: scale(1.1)
 }
 
 .grid .post a {
@@ -697,6 +828,37 @@ button:hover {
     padding: 5px;
     display: flex;
     justify-content: space-around;
+}
+
+@media screen and (max-width: 768px) {
+    .search__sort {
+        flex-direction: column
+    }
+    .search__sort .search {
+        width: 100%;
+    }
+    .search__sort .state__make {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .search__sort .state__make .state, .search__sort .state__make .make {
+        flex-grow: 1;
+    }
+    .search__sort .price__filter {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    .search__sort .price__filter .price .search__sort .price__filter .filter {
+        flex-grow: 1;
+    }
+    .search__sort input[type="text"], .search__sort select, .search__sort button {
+        width: 90%
+    }
+    .search__sort .price, .search__sort .make, .search__sort .state, .search__sort .go {
+        width: 95%;
+    }
 }
 
 /* profile start*/
@@ -869,8 +1031,9 @@ button:hover {
 /* car start  */
 
 .car {
-    width: 80%;
+    width: 100%;
     display: flex;
+    flex-direction: column;
     padding: 40px 0;
     margin: 40px auto;
     justify-content: space-between;
@@ -882,9 +1045,14 @@ button:hover {
 }
 
 .car .car__details {
-    width: 70%;
+    /* padding: 0 10px; */
+    width: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.car__details .main__image {
+    padding: 0 6px;
 }
 
 .car__details .main__image img {
@@ -896,7 +1064,7 @@ button:hover {
     height: 200px;
     display: flex;
     justify-content: space-between;
-    padding: 2px 0;
+    padding: 2px 6px;
 }
 
 .car__details .extra__images img {
@@ -929,14 +1097,14 @@ button:hover {
 
 .car__detail .actions .buy {
     width: 100%;
-    padding-left: 35px;
+    text-align: center;
 }
 
 .car__detail .actions .others {
     width: 100%;
     padding: 10px;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .car__detail .actions button {
@@ -967,16 +1135,17 @@ button:hover {
 }
 
 .car .seller__details {
-    width: 28%;
+    width: 100%;
 }
 
 .seller__details .details__card {
-    width: 100%;
+    /* width: 100%; */
     background: #092467;
     height: 550px;
     display: flex;
     flex-direction: column;
     color: white;
+    margin: 0 6px;
 }
 
 .seller__details .details__card .price {
@@ -1049,6 +1218,56 @@ button:hover {
 .seller__details .details__card .actions .leave__feedback {
     color: white;
     text-decoration: none;
+}
+
+@media screen and (max-width: 580px) {
+    .car__details .extra__images {
+        flex-direction: column;
+        width: 100%;
+        height: inherit;
+    }
+    .car__details .extra__images img {
+        width: 80%;
+        margin: 5px auto;
+    }
+}
+
+@media screen and (min-width: 680px) {
+    .car {
+        width: 80%;
+        flex-direction: row;
+    }
+    .car .car__details {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+    }
+    .car .seller__details {
+        width: 28%;
+    }
+    .car__detail .actions .others {
+        justify-content: flex-end;
+    }
+    .car__detail .actions .buy {
+        padding-left: 35px;
+        text-align: left
+    }
+    .seller__details .details__card {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    .car {
+        width: 95%;
+        flex-direction: row;
+    }
+    .car .car__details {
+        width: 65%
+    }
+    .car .seller__details {
+        width: 35%;
+    }
 }
 
 /* footer */
