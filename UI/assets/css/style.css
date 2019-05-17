@@ -1221,16 +1221,14 @@ button:hover {
 }
 
 @media screen and (max-width: 580px) {
-    .car__details .extra__images{
+    .car__details .extra__images {
         flex-direction: column;
         width: 100%;
         height: inherit;
     }
-
-    .car__details .extra__images img{
+    .car__details .extra__images img {
         width: 80%;
         margin: 5px auto;
-
     }
 }
 
@@ -1247,33 +1245,27 @@ button:hover {
     .car .seller__details {
         width: 28%;
     }
-
     .car__detail .actions .others {
         justify-content: flex-end;
     }
-
     .car__detail .actions .buy {
         padding-left: 35px;
         text-align: left
     }
-    
-
-.seller__details .details__card {
-    width: 100%;
+    .seller__details .details__card {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 980px) {
-
     .car {
         width: 95%;
         flex-direction: row;
     }
-
     .car .car__details {
         width: 65%
     }
-
-    .car .seller__details{
+    .car .seller__details {
         width: 35%;
     }
 }
