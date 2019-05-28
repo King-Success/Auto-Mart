@@ -4,11 +4,12 @@ import AuthValidator from '../middlewares/authValidator';
 
 const router = express.Router();
 
-const { createAccount } = AuthController;
-const { validateSignUp, userExists } = AuthValidator;
+const { createAccount, loginUser } = AuthController;
+const { validateSignUp, userExists, validateLogin } = AuthValidator;
 
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
+router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 
 export default router;
