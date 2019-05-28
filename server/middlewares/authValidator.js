@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import debug from 'debug';
 import Helpers from '../helpers';
 import UserModel from '../models/users';
+import jwt from 'jsonwebtoken'
 
 const debugg = debug('authValidator');
 const { extractErrors } = Helpers;
@@ -90,6 +91,40 @@ class AuthValidator {
       });
     }
     return next();
+  }
+
+   /**
+   *
+   * Validates authorization token
+   * @static
+   * @param {object} req - request
+   * @param {object} res - response
+   * @param {object} next - callback
+   * @returns
+   */
+  static isTokenValid(req, res, next) {
+    try {
+      let authorization;
+      if (req.headers.token) authorization = req.headers.token;
+      else if (req.headers.authorization) authorization = req.headers.authorization.split(' ')[1];
+      if (!authorization) {
+        return res.status(401).json({ status: 401, error: 'You must log in to continue' });
+      }
+      jwt.verify(authorization, process.env.SECRET, (err, decoded) => {
+        if (err) {
+          return res.status(401).json({ status: 401, error: 'Invalid token, kindly log in to continue' });
+        }
+        const { id } = decoded;
+        const user = UserModel.find(usr => usr.id === id);
+        if (user) {
+          req.body.tokenPayload = decoded;
+          return next();
+        }
+        return res.status(401).json({ status: 401, error: 'User with the specified token does not exist' });
+      });
+    } catch (err) {
+      return res.status(401).json({ status: 401, error: 'Internal server error, please try again' });
+    }
   }
 }
 
