@@ -1255,7 +1255,7 @@ button:hover {
     .seller__details .details__card {
         width: 100%;
     }
-}
+/* } */
 
 @media screen and (max-width: 980px) {
     .car {
@@ -1280,4 +1280,5 @@ button:hover {
     color: black;
     text-align: center;
     -webkit-font-smoothing: antialiased;
+}
 }
