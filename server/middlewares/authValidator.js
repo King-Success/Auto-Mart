@@ -1,8 +1,8 @@
 import dotenv from 'dotenv';
 import debug from 'debug';
+import jwt from 'jsonwebtoken';
 import Helpers from '../helpers';
 import UserModel from '../models/users';
-import jwt from 'jsonwebtoken'
 
 const debugg = debug('authValidator');
 const { extractErrors } = Helpers;
@@ -93,7 +93,7 @@ class AuthValidator {
     return next();
   }
 
-   /**
+  /**
    *
    * Validates authorization token
    * @static
