@@ -3,6 +3,8 @@ import AuthController from '../controllers/authController';
 import AuthValidator from '../middlewares/authValidator';
 import CarController from '../controllers/carController';
 import CarValidator from '../middlewares/carValidator';
+import OrderValidator from '../middlewares/orderValidator';
+import OrderController from '../controllers/orderController';
 
 
 const router = express.Router();
@@ -10,7 +12,9 @@ const router = express.Router();
 const { createAccount, loginUser } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid } = AuthValidator;
 const { createCarAd } = CarController;
-const { validateCar } = CarValidator;
+const { validateCar, isCarExist } = CarValidator;
+const { validateOrder } = OrderValidator;
+const { createOrder } = OrderController;
 
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
@@ -21,4 +25,7 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 const carBaseUrl = '/api/v1/car';
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
 
+// Order routes
+const orderBaseUrl = '/api/v1/order';
+router.post(`${orderBaseUrl}`, isTokenValid, validateOrder, isCarExist, createOrder);
 export default router;
