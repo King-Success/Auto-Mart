@@ -13,8 +13,8 @@ const { createAccount, loginUser } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid } = AuthValidator;
 const { createCarAd } = CarController;
 const { validateCar, isCarExist } = CarValidator;
-const { validateOrder } = OrderValidator;
-const { createOrder } = OrderController;
+const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
+const { createOrder, updateOrderPrice } = OrderController;
 
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
@@ -28,4 +28,6 @@ router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
 // Order routes
 const orderBaseUrl = '/api/v1/order';
 router.post(`${orderBaseUrl}`, isTokenValid, validateOrder, isCarExist, createOrder);
+router.patch(`${orderBaseUrl}/:orderId/price`, isTokenValid, isOrderOwner, validateAmount, updateOrderPrice);
+
 export default router;
