@@ -10,8 +10,8 @@ import OrderController from '../controllers/orderController';
 const router = express.Router();
 
 const { createAccount, loginUser } = AuthController;
-const { validateSignUp, userExists, validateLogin, isTokenValid } = AuthValidator;
-const { createCarAd, updateCarAdStatus, updateCarAdPrice, getACar, getAllCars } = CarController;
+const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
+const { createCarAd, updateCarAdStatus, updateCarAdPrice, getACar, getAllCars, deleteCarAd } = CarController;
 const { validateCar, isCarExist, isCarOwner, validateStatus, validatePrice, validateParams } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
 const { createOrder, updateOrderPrice } = OrderController;
@@ -28,6 +28,7 @@ router.patch(`${carBaseUrl}/:carId/status`, isTokenValid, isCarExist, isCarOwner
 router.patch(`${carBaseUrl}/:carId/price`, isTokenValid, isCarExist, isCarOwner, validatePrice, updateCarAdPrice);
 router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
 router.get(`${carBaseUrl}`, isTokenValid, validateParams, getAllCars);
+router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
 // Order routes
 const orderBaseUrl = '/api/v1/order';
