@@ -61,5 +61,16 @@ class CarValidator {
     }
     return next();
   }
+
+  static validatePrice(req, res, next) {
+    req.checkBody('price', 'Car price is required').notEmpty().trim().isFloat()
+      .withMessage('Car price must contain decimal point');
+
+    const errors = req.validationErrors();
+    if (errors) {
+      return res.status(400).json({ status: 400, errors: extractErrors(errors) });
+    }
+    return next();
+  }
 }
 export default CarValidator;

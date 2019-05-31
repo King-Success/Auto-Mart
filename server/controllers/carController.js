@@ -52,6 +52,29 @@ class CarController {
     }
   }
 
+  static async updateCarAdPrice(req, res) {
+    const { carId } = req.params;
+    const { price } = req.body;
+    try {
+      let car = carModel.find(car => car.id === carId);
+      car = { ...car, price };
+      for (let i = 0; i < carModel.length; i += 1) {
+        if (carModel[i].id === carId) {
+          carModel.splice(i, 1);
+          carModel.push(car);
+          return res.status(200).json({
+            status: 200,
+            data: [car],
+            message: 'Car Ad updated successfully',
+          });
+        }
+      }
+      return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal Server error' });
+    }
+  }
+
 }
 
 export default CarController;
