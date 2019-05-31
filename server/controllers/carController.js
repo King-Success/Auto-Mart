@@ -75,6 +75,22 @@ class CarController {
     }
   }
 
+  static async getACar(req, res) {
+    const { carId } = req.params;
+    try {
+      const car = carModel.find(car => car.id === carId);
+      if (car) {
+        return res.status(200).json({ status: 200, data: [car] });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: `Car with id: ${carId} does not exist`,
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    }
+  }
+
 }
 
 export default CarController;
