@@ -11,7 +11,7 @@ const router = express.Router();
 
 const { createAccount, loginUser } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid } = AuthValidator;
-const { createCarAd, updateCarAdStatus, updateCarAdPrice } = CarController;
+const { createCarAd, updateCarAdStatus, updateCarAdPrice, getACar } = CarController;
 const { validateCar, isCarExist, isCarOwner, validateStatus, validatePrice } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
 const { createOrder, updateOrderPrice } = OrderController;
@@ -26,6 +26,7 @@ const carBaseUrl = '/api/v1/car';
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
 router.patch(`${carBaseUrl}/:carId/status`, isTokenValid, isCarExist, isCarOwner, validateStatus, updateCarAdStatus);
 router.patch(`${carBaseUrl}/:carId/price`, isTokenValid, isCarExist, isCarOwner, validatePrice, updateCarAdPrice);
+router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
 
 // Order routes
 const orderBaseUrl = '/api/v1/order';
