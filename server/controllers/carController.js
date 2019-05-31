@@ -91,6 +91,43 @@ class CarController {
     }
   }
 
+  static async getAllCars(req, res) {
+    const { status, minPrice, maxPrice, state, manufacturer, bodyType } = req.query;
+    let cars;
+    let error;
+    try {
+      if (status && minPrice && maxPrice) {
+        cars = carModel.filter(car => (car.status === status)
+          && (Number(car.price) >= Number(minPrice)) && (Number(car.price) <= Number(maxPrice)));
+        if (!cars.length) error = `No car exist with status: ${status} and price between ${minPrice} and ${maxPrice}`;
+      } else if (status && state) {
+        cars = carModel.filter(car => car.status === status && car.state === state);
+        if (!cars.length) error = `No car exist with state: ${state}`;
+      } else if (status && manufacturer) {
+        cars = carModel.filter(car => car.status === status && car.manufacturer === manufacturer);
+        if (!cars.length) error = `No car exist with manufacturer: ${manufacturer}`;
+      } else if (status && bodyType) {
+        cars = carModel.filter(car => car.status === status && car.bodyType === bodyType);
+        if (!cars.length) error = `No car exist with body type: ${bodyType}`;
+      } else if (status) {
+        cars = carModel.filter(car => car.status === status);
+        if (!cars.length) error = `No car exist with status: ${status}`;
+      } else {
+        cars = carModel;
+        if (!cars.length) error = 'No car found';
+      }
+      if (cars.length) {
+        return res.status(200).json({ status: 200, data: [cars] });
+      }
+      return res.status(404).json({
+        status: 404,
+        error,
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    }
+  }
+
 }
 
 export default CarController;
