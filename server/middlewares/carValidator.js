@@ -1,5 +1,6 @@
 import Helpers from '../helpers';
 import carModel from '../models/cars';
+import authValidator from './authValidator';
 
 const { extractErrors } = Helpers;
 
@@ -71,6 +72,30 @@ class CarValidator {
       return res.status(400).json({ status: 400, errors: extractErrors(errors) });
     }
     return next();
+  }
+
+  static validateParams(req, res, next) {
+    const keys = Object.keys(req.query);
+    const allowedStatus = ['available', 'sold'];
+    if (keys.length === 0) {
+      return authValidator.isAdmin(req, res, next);
+    }
+    keys.forEach((key) => {
+      switch (req.params[key]) {
+        case 'status':
+          if (!allowedStatus.includes(req.params[keys])) return res.status(400).json({ status: 400, errors: 'status must either be sold or availble' });
+          break;
+        case 'minPrice':
+          if (!req.params.maxPrice) return res.status({ status: 400, error: 'There must also be a maxPrice' });
+          break;
+        case 'maxPrice':
+          if (!req.params.minPrice) return res.status({ status: 400, error: 'There must also be a minPrice' });
+          break;
+        default:
+          return res.status({ status: 400, error: 'Invalid filter provided' });
+      }
+    });
+    next();
   }
 }
 export default CarValidator;
