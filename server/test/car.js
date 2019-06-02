@@ -59,6 +59,7 @@ describe('Car endpoints', () => {
         .send(newCar)
         .set('authorization', userToken)
         .end((err, res) => {
+            console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.errors[0]).to.eql('Car state is required');
           done();
@@ -71,6 +72,7 @@ describe('Car endpoints', () => {
         .send(newCar)
         .set('authorization', userToken)
         .end((err, res) => {
+            console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.errors[0]).to.eql('Car price is required');
           done();
@@ -83,6 +85,7 @@ describe('Car endpoints', () => {
         .send(newCar)
         .set('authorization', userToken)
         .end((err, res) => {
+            console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.errors[0]).to.eql('Car manufacturer is required');
           done();
@@ -95,6 +98,7 @@ describe('Car endpoints', () => {
         .send(newCar)
         .set('authorization', userToken)
         .end((err, res) => {
+            console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.errors[0]).to.eql('Car model is required');
           done();
@@ -107,6 +111,7 @@ describe('Car endpoints', () => {
         .send(newCar)
         .set('authorization', userToken)
         .end((err, res) => {
+            console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.errors[0]).to.eql('Car body type is required');
           done();
@@ -118,6 +123,7 @@ describe('Car endpoints', () => {
         .send(defaultCar)
         .set('authorization', userToken)
         .end((err, res) => {
+            console.log(res.body)
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('data');
           expect(res.body.data).to.be.an('array');
