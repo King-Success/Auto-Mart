@@ -4,6 +4,7 @@
   "description": "Auto Mart is a market place where buyers and sellers exchange money for cars",
   "main": "./server/app.js",
   "scripts": {
+    "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint ./server --fix",
     "test": "mocha --require @babel/register ./server/test/**/*.js  --exit",
