@@ -19,6 +19,7 @@ describe('Car endpoints', () => {
       .post('/api/v1/auth/login')
       .send(defaultUser)
       .end((err, res) => {
+          console.log(res.body)
         const token = res.body.data[0].token;
         userToken = `Bearer ${token}`;
       });

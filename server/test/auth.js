@@ -190,6 +190,7 @@ describe('Authentication endpoints', () => {
         .post(`${baseUrl}/login`)
         .send(defaultUser)
         .end((err, res) => {
+        console.log(res.body)
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('data');
           expect(res.body).to.have.property('message');
