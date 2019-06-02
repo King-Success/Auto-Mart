@@ -146,7 +146,6 @@ class CarController {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
     }
   }
-
 }
 
 export default CarController;
