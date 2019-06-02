@@ -114,6 +114,7 @@ class AuthValidator {
       }
       jwt.verify(authorization, process.env.SECRET, (err, decoded) => {
         if (err) {
+          console.log(err)
           return res.status(401).json({ status: 401, error: 'Invalid token, kindly log in to continue' });
         }
         const { id } = decoded;
