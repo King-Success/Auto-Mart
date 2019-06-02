@@ -1,7 +1,6 @@
 import Helpers from '../helpers';
 import carModel from '../models/cars';
 import authValidator from './authValidator';
-
 const { extractErrors } = Helpers;
 
 class CarValidator {

@@ -1,6 +1,6 @@
 import shortId from 'shortid';
 import carModel from '../models/cars';
-
+import Helper  from '../helpers/index'
 class CarController {
   /**
            *
@@ -35,17 +35,7 @@ class CarController {
     try {
       let car = carModel.find(car => car.id === carId);
       car = { status, ...car };
-      for (let i = 0; i < carModel.length; i += 1) {
-        if (carModel[i].id === carId) {
-          carModel.splice(i, 1);
-          carModel.push(car);
-          return res.status(200).json({
-            status: 200,
-            data: [car],
-            message: 'Car Ad updated successfully',
-          });
-        }
-      }
+      Helper.updateModel(req, res, carModel, car, carId, 'Car')
       return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
@@ -58,17 +48,7 @@ class CarController {
     try {
       let car = carModel.find(car => car.id === carId);
       car = { ...car, price };
-      for (let i = 0; i < carModel.length; i += 1) {
-        if (carModel[i].id === carId) {
-          carModel.splice(i, 1);
-          carModel.push(car);
-          return res.status(200).json({
-            status: 200,
-            data: [car],
-            message: 'Car Ad updated successfully',
-          });
-        }
-      }
+      Helper.updateModel(req, res, carModel, car, carId, 'Car')
       return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
