@@ -139,23 +139,22 @@ class AuthValidator {
   * @returns
   */
 
- static isAdmin(req, res, next) {
-  try {
-    const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
+  static isAdmin(req, res, next) {
+    try {
+      const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
 
-    if (!authorization) {
-      return res.status(401).json({ status: 401, message: 'Invalid token, kindly log in to continue' });
+      if (!authorization) {
+        return res.status(401).json({ status: 401, message: 'Invalid token, kindly log in to continue' });
+      }
+      const verifiedToken = verifyToken(authorization);
+      if (!verifiedToken.isAdmin) {
+        return res.status(401).json({ status: 401, message: 'Only an Admin can perform this task' });
+      }
+    } catch (err) {
+      return res.status(401).json({ status: 500, message: 'Internal server error, please try again' });
     }
-    const verifiedToken = verifyToken(authorization);
-    if (!verifiedToken.isAdmin) {
-      return res.status(401).json({ status: 401, message: 'Only an Admin can perform this task' });
-    }
-  } catch (err) {
-    console.log(err)
-    return res.status(401).json({ status: 500, message: 'Internal server error, please try again' });
+    return next();
   }
-  return next();
-}
 }
 
 export default AuthValidator;

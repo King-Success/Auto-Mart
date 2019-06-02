@@ -11,8 +11,10 @@ const router = express.Router();
 
 const { createAccount, loginUser } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
-const { createCarAd, updateCarAdStatus, updateCarAdPrice, getACar, getAllCars, deleteCarAd } = CarController;
-const { validateCar, isCarExist, isCarOwner, validateStatus, validatePrice, validateParams } = CarValidator;
+const { createCarAd, updateCarAdStatus, updateCarAdPrice,
+  getACar, getAllCars, deleteCarAd } = CarController;
+const { validateCar, isCarExist, isCarOwner, validateStatus,
+  validatePrice, validateParams } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
 const { createOrder, updateOrderPrice } = OrderController;
 
