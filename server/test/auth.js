@@ -133,7 +133,6 @@ describe('Authentication endpoints', () => {
         .post(`${baseUrl}/signup`)
         .send(defaultUser)
         .end((err, res) => {
-            console.log(res.body)
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('data');
           expect(res.body.data).to.be.an('array');
@@ -154,7 +153,6 @@ describe('Authentication endpoints', () => {
         .post(`${baseUrl}/login`)
         .send(newUser)
         .end((err, res) => {
-            console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.errors[0]).to.eql('Email is required');
           done();
@@ -166,7 +164,6 @@ describe('Authentication endpoints', () => {
         .post(`${baseUrl}/login`)
         .send(newUser)
         .end((err, res) => {
-            console.log(res.body)
           expect(res).to.have.status(400);
           expect(res.body.errors[0]).to.eql('Password is required');
           done();
@@ -190,7 +187,6 @@ describe('Authentication endpoints', () => {
         .post(`${baseUrl}/login`)
         .send(defaultUser)
         .end((err, res) => {
-        console.log(res.body)
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('data');
           expect(res.body).to.have.property('message');
