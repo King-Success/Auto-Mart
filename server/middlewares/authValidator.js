@@ -5,6 +5,7 @@ import Helpers from '../helpers';
 import Auth from '../helpers/auth';
 import UserModel from '../models/users';
 
+const SECRET = process.env.SECRET || 'SuperSecretTokenKeyXXX&*&';
 const { verifyToken } = Auth;
 const debugg = debug('authValidator');
 const { extractErrors } = Helpers;
@@ -112,7 +113,7 @@ class AuthValidator {
       if (!authorization) {
         return res.status(401).json({ status: 401, error: 'You must log in to continue' });
       }
-      jwt.verify(authorization, process.env.SECRET, (err, decoded) => {
+      jwt.verify(authorization, SECRET, (err, decoded) => {
         if (err) {
           console.log(err)
           return res.status(401).json({ status: 401, error: 'Invalid token, kindly log in to continue' });
