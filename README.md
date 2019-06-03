@@ -27,3 +27,7 @@ My Pivotal Tracker board can be found [ here ](https://www.pivotaltracker.com/n/
 10. User can view all unsold cars within a price range.
 11. Admin can delete a posted AD record.
 12. Admin can view all posted ads whether sold or unsold.
+13. User can view all cars of a specific body type.
+14. User can view all unsold cars of a specific make (manufacturer).
+15. User can view all used unsold cars.
+16. User can view all new unsold cars.
