@@ -74,7 +74,7 @@ class Helpers {
               <div class="container">
                 <h1>Auto Mart</h1>
                 <h3>Built by: <a href="https://twitter.com/StoicDeveloper_">Stoic Developer</a></h3> <hr>
-                <h2>Read Documentaion <a href="">Here</a></h2> 
+                <h2>Read Documentaion <a href="/api/docs">Here</a></h2> 
               </div>
             </body>
             </html>`;
