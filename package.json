@@ -6,9 +6,10 @@
   "scripts": {
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "dev": "DEBUG=http nodemon --exec babel-node ./server/app.js",
     "lint": "eslint ./server --fix",
-    "test": "mocha --require @babel/register ./server/test/**/*.js  --exit",
-    "dev": "DEBUG=http nodemon --exec babel-node ./server/app.js"
+    "start": "export NODE_ENV=production && babel-node ./server/app.js",
+    "test": "mocha --require @babel/register ./server/test/**/*.js  --exit"
   },
   "repository": {
     "type": "git",
