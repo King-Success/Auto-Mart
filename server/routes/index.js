@@ -5,6 +5,7 @@ import CarController from '../controllers/carController';
 import CarValidator from '../middlewares/carValidator';
 import OrderValidator from '../middlewares/orderValidator';
 import OrderController from '../controllers/orderController';
+import helpers from '../helpers'
 
 
 const router = express.Router();
@@ -17,6 +18,10 @@ const { validateCar, isCarExist, isCarOwner, validateStatus,
   validatePrice, validateParams } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
 const { createOrder, updateOrderPrice } = OrderController;
+
+router.get('/', (req, res) => {
+  res.send(helpers.apiLandingPage());
+})
 
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
