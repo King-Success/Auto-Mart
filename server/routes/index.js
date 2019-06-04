@@ -5,8 +5,10 @@ import CarController from '../controllers/carController';
 import CarValidator from '../middlewares/carValidator';
 import OrderValidator from '../middlewares/orderValidator';
 import OrderController from '../controllers/orderController';
+import swagger from 'swagger-ui-express';
 import helpers from '../helpers'
 
+const docs = require('../../swagger.json')
 
 const router = express.Router();
 
@@ -22,6 +24,18 @@ const { createOrder, updateOrderPrice } = OrderController;
 router.get('/', (req, res) => {
   res.send(helpers.apiLandingPage());
 })
+
+// Documentaion 
+router.use('/api/docs', swagger.serve);
+router.get('/api/docs', swagger.setup(docs));
+
+// 404 Routes
+router.get('*', (req, res, next) => {
+  res.status(404).json({
+    message: 'Invalid Endpoint',
+  });
+  return next();
+});
 
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
