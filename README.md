@@ -8,10 +8,16 @@ Auto Mart, users can sell their cars or buy from trusted dealerships or private 
 
 
 ### UI Templates
-My UI templates can be found here: [ UI ](https://king-success.github.io/Auto-Mart/)
+My UI templates can be found here: [ UI ](https://king-success.github.io/Auto-Mart)
 
 ### Pivotal Tracker
 My Pivotal Tracker board can be found [ here ](https://www.pivotaltracker.com/n/projects/2348962)
+
+### API Documentation
+My API documentation can be found [ here ](https://andela-auto-mart.herokuapp.com/api/docs)
+
+### Heroku Link
+My Heroku Link can be found [ here ](https://andela-auto-mart.herokuapp.com)
 
 
 ### Key Application Features
