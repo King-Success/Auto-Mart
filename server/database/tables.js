@@ -1,0 +1,57 @@
+const users = `CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    firstname VARCHAR(50) NOT NULL,
+    lastname VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    isAdmin BOOLEAN DEFAULT false,
+    password VARCHAR(100) NOT NULL,
+    phone VARCHAR(15) NOT NULL UNIQUE,
+    passportUrl VARCHAR(200) DEFAULT NULL,
+    address VARCHAR(200) DEFAULT NULL,
+    createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`;
+
+const cars = `CREATE TABLE IF NOT EXISTS cars(
+    id SERIAL PRIMARY KEY,
+    owner INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    state VARCHAR(100) NOT NULL,
+    status VARCHAR(100) DEFAULT('Available'),
+    price Numeric(12, 2) NOT NULL,
+    manufacturer VARCHAR(200) NOT NULL,
+    model VARCHAR(200) NOT NULL,
+    bodyType VARCHAR(200) NOT NULL,
+    mainImageUrl VARCHAR(200) NOT NULL,
+    leftImageUrl VARCHAR(200) DEFAULT NULL,
+    rightImageUrl VARCHAR(200) DEFAULT NULL,
+    frontImageUrl VARCHAR(200) DEFAULT NULL,
+    backImageUrl VARCHAR(200) DEFAULT NULL,
+    createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`;
+
+const orders = `CREATE TABLE IF NOT EXISTS orders(
+    id SERIAL PRIMARY KEY,
+    buyer INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    carId INTEGER REFERENCES cars(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    amount Numeric(12, 2) NOT NULL,
+    status VARCHAR(100) DEFAULT('pending'),
+    createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`;
+
+const flags = `CREATE TABLE IF NOT EXISTS flags(
+    id SERIAL PRIMARY KEY,
+    carId INTEGER REFERENCES cars(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    reason VARCHAR(100) NOT NULL,
+    description VARCHAR(255),
+    createdOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updatedOn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  )`;
+
+export default {
+  users,
+  cars,
+  orders,
+  flags,
+};
