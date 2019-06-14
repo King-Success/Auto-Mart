@@ -12,24 +12,25 @@ class UserController {
      * @param {object} res - response
      */
   static async createAccount(req, res) {
-    /* istanbul ignore next */
-    const isAdmin = false;
-    const id = shortId.generate();
     try {
-      const { firstName, lastName, email, phone, password, address } = req.body;
+      const { firstname, lastname, email, phone, password, address } = req.body;
       const hashedpassword = passwordHash.generate(password);
-      const user = {
-        id, firstName, lastName, email, phone, address, isAdmin, password: hashedpassword,
-      };
-      userModel.push(user);
-      const token = await generateToken({ id, isAdmin });
-      return res.status(201).json({
-        status: 201,
-        data: [{
-          token, user,
-        }],
-      });
+      const values = [firstname, lastname, email, hashedpassword, phone, address];
+      const user = await userModel.create(values);
+      if (user) {
+        const { id, isadmin } = user;
+        const token = await generateToken({ id, isadmin });
+        return res.status(201).json({
+          status: 201,
+          data: [{ token, user }],
+        });
+      }
     } catch (err) {
+      if (err.constraint === 'users_email_key') {
+        return res.status(409).json({ error: true, message: 'User with this email already exists' });
+      } if (err.constraint === 'users_phone_key') {
+        return res.status(409).json({ error: true, message: 'User with this phone number already exit' });
+      }
       return res.status(500).json({ error: true, message: 'Internal Server error' });
     }
   }
