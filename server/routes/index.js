@@ -29,14 +29,6 @@ router.get('/', (req, res) => {
 router.use('/api/docs', swagger.serve);
 router.get('/api/docs', swagger.setup(docs));
 
-// 404 Routes
-router.get('*', (req, res, next) => {
-  res.status(404).json({
-    message: 'Invalid Endpoint',
-  });
-  return next();
-});
-
 // Auth routes
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
@@ -45,10 +37,10 @@ router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
 // Car routes
 const carBaseUrl = '/api/v1/car';
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
+router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
 router.patch(`${carBaseUrl}/:carId/status`, isTokenValid, isCarExist, isCarOwner, validateStatus, updateCarAdStatus);
 router.patch(`${carBaseUrl}/:carId/price`, isTokenValid, isCarExist, isCarOwner, validatePrice, updateCarAdPrice);
 router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
-router.get(`${carBaseUrl}`, isTokenValid, validateParams, getAllCars);
 router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
 // Order routes
