@@ -68,8 +68,8 @@ class CarValidator {
   }
 
   static validatePrice(req, res, next) {
-    req.checkBody('price', 'Car price is required').notEmpty().trim().isFloat()
-      .withMessage('Car price must contain decimal point');
+    req.checkBody('price', 'Car price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
+      .withMessage('Car price must be a valid number in two decimal place, e.g 123000.00');
 
     const errors = req.validationErrors();
     if (errors) {
