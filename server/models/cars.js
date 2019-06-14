@@ -73,5 +73,24 @@ class Car {
       client.release();
     }
   }
+
+  static async getByStatus(status) {
+    const values = [status];
+    const client = await pool.connect();
+    let cars;
+    const text = 'SELECT * FROM cars WHERE status = $1';
+    try {
+      cars = await client.query({ text, values });
+      if (cars.rows && cars.rowCount) {
+        cars = cars.rows;
+        return cars;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
 }
 export default Car;
