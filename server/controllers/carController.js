@@ -106,6 +106,23 @@ class CarController {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
     }
   }
+
+  static async getCarsByStatus(req, res) {
+    const { status } = req.query;
+    try {
+      const cars = await carModel.getByStatus(status);
+      if (cars) {
+        return res.status(200).json({ status: 200, data: [cars] });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: `No car exist with status: ${status}`,
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    }
+  }
+
 }
 
 export default CarController;
