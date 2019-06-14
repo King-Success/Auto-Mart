@@ -123,6 +123,23 @@ class CarController {
     }
   }
 
+  static async getCarsByState(req, res) {
+    const { status, state } = req.query;
+    const filter = { name: 'state', value: state };
+    try {
+      const cars = await carModel.getByFilter(status, filter);
+      if (cars) {
+        return res.status(200).json({ status: 200, data: [cars] });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: `No car exist with state: ${state}`,
+      });
+    } catch (err) {
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    }
+  }
+
 }
 
 export default CarController;
