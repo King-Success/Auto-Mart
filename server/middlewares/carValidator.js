@@ -24,10 +24,10 @@ class CarValidator {
     return next();
   }
 
-  static isCarExist(req, res, next) {
+  static async isCarExist(req, res, next) {
     const carId = req.params.carId || req.body.carId;
     try {
-      const car = carModel.find(cr => cr.id === carId);
+      const car = await carModel.getById(carId);
       if (!car) {
         return res.status(404).json({ status: 404, error: `Car Ad with id: ${carId} does not exist` });
       }
@@ -37,11 +37,11 @@ class CarValidator {
     }
   }
 
-  static isCarOwner(req, res, next) {
+  static async isCarOwner(req, res, next) {
     const { id: ownerId } = req.body.tokenPayload;
     const { carId } = req.params;
     try {
-      const car = carModel.find(cr => cr.id === carId);
+      const car = await carModel.getById(carId);
       if (car) {
         if (car.owner === ownerId) {
           return next();
@@ -55,8 +55,8 @@ class CarValidator {
   }
 
   static validateStatus(req, res, next) {
-    req.checkBody('status', 'Car status is required').notEmpty().trim().isIn(['sold', 'available'])
-      .withMessage('Car status can only be sold or available')
+    req.checkBody('status', 'Car status is required').notEmpty().trim().isIn(['Sold', 'Available'])
+      .withMessage('Car status can only be Sold or Available, notice the uppercase')
       .isString()
       .withMessage('Car status must be a string');
 
