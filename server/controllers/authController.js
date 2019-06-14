@@ -41,18 +41,20 @@ class UserController {
    * @param {object} res - response
    */
   static async loginUser(req, res) {
-    const { email, password } = req.body;
     try {
-      const user = userModel.find(usr => (usr.email === email)
-        && (passwordHash.verify(password, usr.password)));
-      if (user && user !== undefined) {
-        const { id, isAdmin } = user;
-        const token = await generateToken({ id, isAdmin });
-        return res.status(200).json({ data: [{ token, user }], message: 'Login successful' });
+      const { email, password } = req.body;
+      const user = await userModel.findByEmail(email);
+      if (user) {
+        if (passwordHash.verify(password, user.password)) {
+          const { id, isadmin } = user;
+          const token = await generateToken({ id, isadmin });
+          return res.status(200).json({ data: [{ token, user }], message: 'Login successful' });
+        }
+        return res.status(401).json({ error: true, message: 'Invalid email or password' });
       }
       return res.status(401).json({ error: true, message: 'Invalid email or password' });
     } catch (err) {
-      return res.status(500).json({ error: true, message: 'Internal server error' });
+      return res.status(500).json({ error: true, message: 'Internal Server error' });
     }
   }
 }
