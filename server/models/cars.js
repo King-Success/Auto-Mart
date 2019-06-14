@@ -19,5 +19,22 @@ class Car {
       await client.release();
     }
   }
+
+  static async getAll() {
+    const client = await pool.connect();
+    let cars;
+    const text = 'SELECT * FROM cars';
+    try {
+      cars = await client.query({ text });
+      if (cars.rows && cars.rowCount) {
+        return cars.rows;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
 }
 export default Car;
