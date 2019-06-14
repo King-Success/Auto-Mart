@@ -36,5 +36,42 @@ class Car {
       client.release();
     }
   }
+
+  static async getById(id) {
+    const values = [id];
+    const client = await pool.connect();
+    let car;
+    const text = 'SELECT * FROM cars WHERE id = $1 LIMIT 1';
+    try {
+      car = await client.query({ text, values });
+      if (car.rows && car.rowCount) {
+        car = car.rows[0];
+        return car;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
+
+  static async update(id, data) {
+    const values = [data.value, id];
+    const client = await pool.connect();
+    let car;
+    const text = `UPDATE cars SET ${data.name} = $1 WHERE id = $2 RETURNING *`;
+    try {
+      car = await client.query({ text, values });
+      if (car.rowCount) {
+        return car.rows[0];
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
 }
 export default Car;

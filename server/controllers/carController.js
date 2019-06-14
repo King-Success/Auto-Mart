@@ -23,11 +23,16 @@ class CarController {
   static async updateCarAdStatus(req, res) {
     const { carId } = req.params;
     const { status } = req.body;
+    const data = { name: 'status', value: status };
     try {
-      let car = carModel.find(car => car.id === carId);
-      car = { status, ...car };
-      Helper.updateModel(req, res, carModel, car, carId, 'Car')
-      return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
+      const car = await carModel.update(carId, data);
+      if (car) {
+        return res.status(200).json({
+          status: 200,
+          data: [car],
+          message: 'Car Ad updated successfully',
+        });
+      }
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
     }
