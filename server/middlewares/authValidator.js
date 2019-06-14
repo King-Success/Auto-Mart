@@ -105,7 +105,7 @@ class AuthValidator {
    * @param {object} next - callback
    * @returns
    */
-  static isTokenValid(req, res, next) {
+  static async isTokenValid(req, res, next) {
     try {
       let authorization;
       if (req.headers.token) authorization = req.headers.token;
@@ -113,12 +113,12 @@ class AuthValidator {
       if (!authorization) {
         return res.status(401).json({ status: 401, error: 'You must log in to continue' });
       }
-      jwt.verify(authorization, SECRET, (err, decoded) => {
+      jwt.verify(authorization, process.env.SECRET, async (err, decoded) => {
         if (err) {
           return res.status(401).json({ status: 401, error: 'Invalid token, kindly log in to continue' });
         }
         const { id } = decoded;
-        const user = UserModel.find(usr => usr.id === id);
+        const user = await UserModel.findById(id);
         if (user) {
           req.body.tokenPayload = decoded;
           return next();
@@ -126,7 +126,7 @@ class AuthValidator {
         return res.status(401).json({ status: 401, error: 'User with the specified token does not exist' });
       });
     } catch (err) {
-      return res.status(401).json({ status: 401, error: 'Internal server error, please try again' });
+      return res.status(401).json({ status: 401, error: 'Kindly login to continue' });
     }
   }
 

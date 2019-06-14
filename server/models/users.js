@@ -38,5 +38,24 @@ class User {
       client.release();
     }
   }
+
+  static async findById(id) {
+    const values = [id];
+    const client = await pool.connect();
+    let user;
+    const text = 'SELECT * FROM users WHERE id = $1';
+    try {
+      user = await client.query({ text, values });
+      if (user.rows && user.rowCount) {
+        user = user.rows[0];
+        return user;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
 }
 export default User;

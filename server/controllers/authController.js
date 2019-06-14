@@ -1,5 +1,4 @@
 import passwordHash from 'password-hash';
-import shortId from 'shortid';
 import Auth from '../helpers/auth';
 import userModel from '../models/users';
 
