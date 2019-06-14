@@ -59,14 +59,14 @@ class AuthValidator {
   static async userExists(req, res, next) {
     const { email } = req.body;
     try {
-      const user = UserModel.find(usr => usr.email === email);
-      if (user && user !== undefined) {
+      const user = await UserModel.findByEmail(email);
+      if (user) {
         return res.status(409).json({
           status: 409, error: `User with email ${email} already exists`,
         });
       }
     } catch (err) {
-      debugg(err);
+      console.log(err);
     }
     return next();
   }
