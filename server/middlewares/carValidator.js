@@ -80,25 +80,37 @@ class CarValidator {
 
   static validateParams(req, res, next) {
     const keys = Object.keys(req.query);
-    const allowedStatus = ['available', 'sold'];
+    const allowedStatuses = ['Available', 'Sold'];
+    const allowedStates = ['New', 'Used'];
+    let error;
     if (keys.length === 0) {
       return authValidator.isAdmin(req, res, next);
     }
     keys.forEach((key) => {
-      switch (req.params[key]) {
+      switch (key) {
         case 'status':
-          if (!allowedStatus.includes(req.params[keys])) return res.status(400).json({ status: 400, errors: 'status must either be sold or availble' });
+          if (!allowedStatuses.includes(req.query[key])) error = 'status must either be Sold or Availble, notice the uppercase';
           break;
         case 'minPrice':
-          if (!req.params.maxPrice) return res.status({ status: 400, error: 'There must also be a maxPrice' });
+          if (!req.query.maxPrice) error = 'There must also be a maxPrice';
           break;
         case 'maxPrice':
-          if (!req.params.minPrice) return res.status({ status: 400, error: 'There must also be a minPrice' });
+          if (!req.query.minPrice) error = 'There must also be a minPrice';
+          break;
+        case 'state':
+          if (!allowedStates.includes(req.query[key])) error = 'state must either be Used or New, notice the uppercase';
+          break;
+        case 'manufacturer':
+          break;
+        case 'bodyType':
           break;
         default:
-          return res.status({ status: 400, error: 'Invalid filter provided' });
+          error = 'Invalid filter provided';
       }
     });
+    if (error) {
+      return res.status(400).json({ status: 400, error });
+    }
     next();
   }
 }
