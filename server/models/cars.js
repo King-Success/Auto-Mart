@@ -130,5 +130,24 @@ class Car {
       client.release();
     }
   }
+
+  static async delete(id) {
+    const values = [id];
+    const client = await pool.connect();
+    let car;
+    const text = 'DELETE FROM cars WHERE id = $1 RETURNING id';
+    try {
+      car = await client.query({ text, values });
+      if (car.rowCount) {
+        return true;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
+
 }
 export default Car;

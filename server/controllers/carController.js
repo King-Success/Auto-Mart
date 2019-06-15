@@ -90,15 +90,13 @@ class CarController {
   static async deleteCarAd(req, res) {
     const { carId } = req.params;
     try {
-      for (let i = 0; i < carModel.length; i += 1) {
-        if (carModel[i].id === carId) {
-          carModel.splice(i, 1);
-          return res.status(200).json({
-            status: 204,
-            data: [],
-            message: 'Car Ad deleted successfully',
-          });
-        }
+      const car = await carModel.delete(carId);
+      if (car) {
+        return res.status(200).json({
+          status: 204,
+          data: [],
+          message: 'Car Ad deleted successfully',
+        });
       }
       return res.status(404).json({ status: 404, message: `Car with id: ${carId} not found` });
     } catch (err) {
