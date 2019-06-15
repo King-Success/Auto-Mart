@@ -92,10 +92,14 @@ class CarValidator {
           if (!allowedStatuses.includes(req.query[key])) error = 'status must either be Sold or Availble, notice the uppercase';
           break;
         case 'minPrice':
-          if (!req.query.maxPrice) error = 'There must also be a maxPrice';
+          req.checkQuery('maxPrice', 'There must also be a maxPrice').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
+            .withMessage('Maximum price must be a valid number in two decimal place, e.g 123000.00');
+          error = req.validationErrors()[0];
           break;
         case 'maxPrice':
-          if (!req.query.minPrice) error = 'There must also be a minPrice';
+          req.checkQuery('minPrice', 'There must also be a minPrice').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
+            .withMessage('Minimum price must be a valid number in two decimal place, e.g 123000.00');
+          error = req.validationErrors()[0];
           break;
         case 'state':
           if (!allowedStates.includes(req.query[key])) error = 'state must either be Used or New, notice the uppercase';
@@ -109,7 +113,7 @@ class CarValidator {
       }
     });
     if (error) {
-      return res.status(400).json({ status: 400, error });
+      return res.status(400).json({ status: 400, error: error.msg || error });
     }
     next();
   }
