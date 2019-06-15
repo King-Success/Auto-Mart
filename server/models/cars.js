@@ -111,5 +111,24 @@ class Car {
       client.release();
     }
   }
+
+  static async getByPrice(status, minPrice, maxPrice) {
+    const values = [status, minPrice, maxPrice];
+    const client = await pool.connect();
+    let car;
+    const text = 'SELECT * FROM cars WHERE status = $1 AND price BETWEEN $2 AND $3';
+    try {
+      car = await client.query({ text, values });
+      if (car.rows && car.rowCount) {
+        car = car.rows;
+        return car;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
 }
 export default Car;

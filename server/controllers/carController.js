@@ -157,6 +157,23 @@ class CarController {
     }
   }
 
+  static async getCarsByPriceRange(req, res) {
+    const { status, minPrice, maxPrice } = req.query;
+    try {
+      const cars = await carModel.getByPrice(status, minPrice, maxPrice);
+      if (cars) {
+        return res.status(200).json({ status: 200, data: [cars] });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: `No car exist with price between ${minPrice} and ${maxPrice}`,
+      });
+    } catch (err) {
+      console.log(err)
+      return res.status(500).json({ status: 500, error: 'Internal server error' });
+    }
+  }
+
 }
 
 export default CarController;
