@@ -16,12 +16,11 @@ class OrderValidator {
     }
     return next();
   }
-
-  static isOrderOwner(req, res, next) {
+  static async isOrderOwner(req, res, next) {
     const { id: buyerId } = req.body.tokenPayload;
     const { orderId } = req.params;
     try {
-      const order = OrderModel.find(odr => odr.id === orderId);
+      const order = await OrderModel.getById(orderId);
       if (order) {
         if (order.buyer === buyerId) {
           return next();
@@ -35,7 +34,7 @@ class OrderValidator {
   }
 
   static validateAmount(req, res, next) {
-    req.checkBody('amount', 'Order amount is required').notEmpty().trim().isCurrency({ allow_negatives: false, require_decimal: true })
+    req.checkBody('amount', 'Order amount is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
       .withMessage('Order amount must be a valid number in two decimal place, e.g 123000.00');
 
     const errors = req.validationErrors();
