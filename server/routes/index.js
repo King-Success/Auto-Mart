@@ -15,7 +15,7 @@ const router = express.Router();
 const { createAccount, loginUser } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
 const { createCarAd, updateCarAdStatus, updateCarAdPrice,
-  getACar, getAllCars, deleteCarAd, getCarsByStatus, getCarsByState } = CarController;
+  getACar, getAllCars, deleteCarAd, getCarsByStatus, getCarsByState, getCarsByManufacturer } = CarController;
 const { validateCar, isCarExist, isCarOwner, validateStatus,
   validatePrice, validateParams } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
@@ -42,6 +42,7 @@ router.patch(`${carBaseUrl}/:carId/status`, isTokenValid, isCarExist, isCarOwner
 router.patch(`${carBaseUrl}/:carId/price`, isTokenValid, isCarExist, isCarOwner, validatePrice, updateCarAdPrice);
 router.get(`${carBaseUrl}/getByStatus`, isTokenValid, validateParams, getCarsByStatus);
 router.get(`${carBaseUrl}/getByState`, isTokenValid, validateParams, getCarsByState);
+router.get(`${carBaseUrl}/getByManufacturer`, isTokenValid, validateParams, getCarsByManufacturer);
 router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
 router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
