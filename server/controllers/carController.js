@@ -57,9 +57,9 @@ class CarController {
   }
 
   static async getACar(req, res) {
-    const { carId } = req.params;
     try {
-      const car = carModel.find(car => car.id === carId);
+      const { carId } = req.params;
+      const car = await carModel.getById(carId);
       if (car) {
         return res.status(200).json({ status: 200, data: [car] });
       }
