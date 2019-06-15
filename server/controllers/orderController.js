@@ -20,17 +20,20 @@ class OrderController {
     }
   }
 
-  static async updateOrderPrice(req, res) {
+  static async updateOrderAmount(req, res) {
+    const { orderId } = req.params;
+    const { amount } = req.body;
+    const data = { name: 'amount', value: amount };
     try {
-      const { orderId } = req.params;
-      const { amount } = req.body;
-      let order = orderModel.find(order => order.id === orderId);
-      if (!order) {
-        return res.status(400).json({ status: 400, message: `Purchase order with id: ${orderId} does not exist` });
+      const order = await orderModel.update(orderId, data);
+      if (order) {
+        return res.status(200).json({
+          status: 200,
+          data: [order],
+          message: 'Car order updated successfully',
+        });
       }
-      order = { ...order, amount };
-      Helper.updateModel(req, res, orderModel, order, orderId, 'Order')
-      return res.status(500).json({ status: 500, error: 'Oops, something happend, try again' });
+      return res.status(500).json({ status: 404, error: `Car order with id: ${orderId} does not exist` });
     } catch (err) {
       return res.status(500).json({ status: 500, error: 'Internal Server error' });
     }

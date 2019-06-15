@@ -20,7 +20,7 @@ const { createCarAd, updateCarAdStatus, updateCarAdPrice,
 const { validateCar, isCarExist, isCarOwner, validateStatus,
   validatePrice, validateParams } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
-const { createOrder, updateOrderPrice } = OrderController;
+const { createOrder, updateOrderAmount } = OrderController;
 
 router.get('/', (req, res) => {
   res.send(helpers.apiLandingPage());
@@ -52,6 +52,6 @@ router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 // Order routes
 const orderBaseUrl = '/api/v1/order';
 router.post(`${orderBaseUrl}`, isTokenValid, validateOrder, isCarExist, createOrder);
-router.patch(`${orderBaseUrl}/:orderId/price`, isTokenValid, isOrderOwner, validateAmount, updateOrderPrice);
+router.patch(`${orderBaseUrl}/:orderId/amount`, isTokenValid, isOrderOwner, validateAmount, updateOrderAmount);
 
 export default router;
