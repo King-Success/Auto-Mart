@@ -438,6 +438,10 @@ describe('Car endpoints', function () {
 				.get(`${baseUrl}/getByPrice?status=Available&minPrice=12000000`)
 				.set('authorization', userToken)
 				.end((err, res) => {
+					expect(res).to.have.status(400)
+					expect(res.body).to.have.property('error')
+					expect(res.body.error).to.be.eql('There must also be a maxPrice');
+					done()
 				})
 		})
 		it('It should return all car Ads filtered by price', (done) => {
