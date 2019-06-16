@@ -7,7 +7,6 @@ import UserModel from '../models/users';
 
 const SECRET = process.env.SECRET || 'SuperSecretTokenKeyXXX&*&';
 const { verifyToken } = Auth;
-const debugg = debug('authValidator');
 const { extractErrors } = Helpers;
 dotenv.config();
 
@@ -113,7 +112,7 @@ class AuthValidator {
       if (!authorization) {
         return res.status(401).json({ status: 401, error: 'You must log in to continue' });
       }
-      jwt.verify(authorization, process.env.SECRET, async (err, decoded) => {
+      jwt.verify(authorization, SECRET, async (err, decoded) => {
         if (err) {
           return res.status(401).json({ status: 401, error: 'Invalid token, kindly log in to continue' });
         }
@@ -140,22 +139,22 @@ class AuthValidator {
   * @returns
   */
 
- static isAdmin(req, res, next) {
-  try {
-    const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
+  static isAdmin(req, res, next) {
+    try {
+      const authorization = req.headers.authorization.split(' ')[1] || req.headers.token;
 
-    if (!authorization) {
-      return res.status(401).json({ status: 401, message: 'Invalid token, kindly log in to continue' });
+      if (!authorization) {
+        return res.status(401).json({ status: 401, message: 'Invalid token, kindly log in to continue' });
+      }
+      const verifiedToken = verifyToken(authorization);
+      if (!verifiedToken.isadmin) {
+        return res.status(401).json({ status: 401, message: 'Only an Admin can perform this task' });
+      }
+    } catch (err) {
+      return res.status(401).json({ status: 500, message: 'Internal server error, please try again' });
     }
-    const verifiedToken = verifyToken(authorization);
-    if (!verifiedToken.isadmin) {
-      return res.status(401).json({ status: 401, message: 'Only an Admin can perform this task' });
-    }
-  } catch (err) {
-    return res.status(401).json({ status: 500, message: 'Internal server error, please try again' });
+    return next();
   }
-  return next();
-}
 }
 
 export default AuthValidator;

@@ -6,6 +6,9 @@ cache:
     - "node_modules"
 env: 
   - SECRET=SuperSecretTokenKeyXXX&*& DB_URL=postgres://tpysktxx:Q3JLGS8Jd8saRWFSP9OWjY7GjiSDtL-S@raja.db.elephantsql.com:5432/tpysktxx
-before_script: npm run pretest
+before_script: 
+ - npm run migrate:reset
+ - npm run migrate 
+ - npm run seed
 script: npm test
 after_success: npm run coveralls
