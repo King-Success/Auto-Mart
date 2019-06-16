@@ -23,13 +23,13 @@ describe('Car endpoints', function () {
 		const userRes = await chai.request(app)
 			.post('/api/v1/auth/login')
 			.send(defaultUser);
-		console.log(userRes)
+		console.log(userRes.body.data)
 		const token1 = userRes.body.data[0].token;
 		userToken = `Bearer ${token1}`;
 		const adminRes = await chai.request(app)
 			.post('/api/v1/auth/login')
 			.send(admin);
-		console.log(adminRes)
+		console.log(adminRes.body.data)
 		const token2 = adminRes.body.data[0].token;
 		adminToken = `Bearer ${token2}`;
 	});
@@ -216,12 +216,12 @@ describe('Car endpoints', function () {
 				.send(defaultCar)
 				.set('authorization', userToken);
 			carId = car.body.data[0].id;
-			console.log(car)
+			console.log(car.body.data)
 			const wrongUser = await chai.request(app)
 				.post('/api/v1/auth/signup')
 				.send(user)
 			wrongCarOwnerToken = `Bearer ${wrongUser.body.data[0].token}`;
-			console.log(wrongUser)
+			console.log(wrongUser.body.data)
 
 		});
 
@@ -322,13 +322,13 @@ describe('Car endpoints', function () {
 				.send(defaultCar)
 				.set('authorization', userToken);
 			carId = car.body.data[0].id;
-			console.log(car)
+			console.log(car.body.data)
 
 			const wrongUser = await chai.request(app)
 				.post('/api/v1/auth/signup')
 				.send(user);
 			wrongCarOwnerToken = `Bearer ${wrongUser.body.data[0].token}`;
-			console.log(wrongUser)
+			console.log(wrongUser.body.data)
 
 		});
 
