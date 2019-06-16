@@ -10,7 +10,6 @@
     "lint": "eslint ./server --fix",
     "migrate": "DEBUG=migrate babel-node ./server/database/index.js",
     "migrate:reset": "DEBUG=migrate:reset babel-node ./server/database/reset",
-    "pretest": "npm run migrate:reset && npm run migrate && npm run seed",
     "seed": "DEBUG=seed babel-node ./server/database/seeds",
     "start": "export NODE_ENV=production && babel-node ./server/app.js",
     "test": "mocha --require @babel/register ./server/test/**/*.js  --exit"
