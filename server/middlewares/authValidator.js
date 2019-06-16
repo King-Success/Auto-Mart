@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import debug from 'debug';
 import jwt from 'jsonwebtoken';
 import Helpers from '../helpers';
 import Auth from '../helpers/auth';
