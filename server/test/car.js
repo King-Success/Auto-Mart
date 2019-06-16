@@ -26,12 +26,14 @@ describe('Car endpoints', function () {
 		console.log(userRes.body.data)
 		const token1 = userRes.body.data[0].token;
 		userToken = `Bearer ${token1}`;
+		console.log(userToken)
 		const adminRes = await chai.request(app)
 			.post('/api/v1/auth/login')
 			.send(admin);
 		console.log(adminRes.body.data)
 		const token2 = adminRes.body.data[0].token;
 		adminToken = `Bearer ${token2}`;
+		console.log(adminToken)
 	});
 	describe('Create car ad', () => {
 		const defaultCar = {
