@@ -148,6 +148,5 @@ class Car {
       client.release();
     }
   }
-
 }
 export default Car;

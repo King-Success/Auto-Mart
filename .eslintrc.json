@@ -15,7 +15,8 @@
         "array-callback-return": 0,
         "consistent-return" : 0,
         "prefer-destructuring": 0,
-        "no-shadow": "off"
+        "no-shadow": "off",
+        "func-names": "off"
     }
   
   }
