@@ -1,14 +1,14 @@
 import chai from 'chai';
 import chaiHTTP from 'chai-http';
-import app from '../app';
 import passwordHash from 'password-hash';
+import app from '../app';
 
 chai.use(chaiHTTP);
 const { expect } = chai;
 const baseUrl = '/api/v1/auth';
-const Hashedpassword = passwordHash.generate('password')
+const Hashedpassword = passwordHash.generate('password');
 describe('Authentication endpoints', function () {
-  this.timeout(0)
+  this.timeout(0);
   describe('Sign up', () => {
     const defaultUser = {
       firstname: 'Lorem',
@@ -16,7 +16,7 @@ describe('Authentication endpoints', function () {
       email: 'lorem@gmail.com',
       phone: '08087765646',
       password: Hashedpassword,
-      address: '123 Gate av, New York, USA'
+      address: '123 Gate av, New York, USA',
     };
     it('It should ensure that first name is not empty', (done) => {
       const newUser = { ...defaultUser, firstname: '' };
@@ -31,7 +31,7 @@ describe('Authentication endpoints', function () {
             done();
           });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that last name is not empty', (done) => {
@@ -44,10 +44,10 @@ describe('Authentication endpoints', function () {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Last name is required');
             expect(res.body.errors[1]).to.eql('Last name can only contain alphabets');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that email is not empty', (done) => {
@@ -60,10 +60,10 @@ describe('Authentication endpoints', function () {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Email is required');
             expect(res.body.errors[1]).to.eql('Invalid email');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that email is a valid one', (done) => {
@@ -75,10 +75,10 @@ describe('Authentication endpoints', function () {
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Invalid email');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that phone number is not empty', (done) => {
@@ -91,10 +91,10 @@ describe('Authentication endpoints', function () {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('The phone number is required');
             expect(res.body.errors[1]).to.eql('Enter a valid phone number');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that phone number is not less than 11 characters', (done) => {
@@ -106,10 +106,10 @@ describe('Authentication endpoints', function () {
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Enter a valid phone number');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that password is not empty', (done) => {
@@ -122,10 +122,10 @@ describe('Authentication endpoints', function () {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Password is required');
             expect(res.body.errors[1]).to.eql('Password cannot be less then 6 characters');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that password is not not less than 6 characters', (done) => {
@@ -137,10 +137,10 @@ describe('Authentication endpoints', function () {
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Password cannot be less then 6 characters');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that address is not empty', (done) => {
@@ -152,10 +152,10 @@ describe('Authentication endpoints', function () {
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Address is required');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should return a user exist error', (done) => {
@@ -168,10 +168,10 @@ describe('Authentication endpoints', function () {
           .end((err, res) => {
             expect(res).to.have.status(409);
             expect(res.body.error).to.eql(`User with email ${email} already exists`);
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should successfully signup user', (done) => {
@@ -184,10 +184,10 @@ describe('Authentication endpoints', function () {
             expect(res.body).to.have.property('data');
             expect(res.body.data).to.be.an('array');
             expect(res.body.data).to.have.length(1);
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
   });
@@ -207,10 +207,10 @@ describe('Authentication endpoints', function () {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Email is required');
             expect(res.body.errors[1]).to.eql('Invalid email');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should ensure that password is not empty', (done) => {
@@ -222,10 +222,10 @@ describe('Authentication endpoints', function () {
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Password is required');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should return invalid email or password', (done) => {
@@ -239,10 +239,10 @@ describe('Authentication endpoints', function () {
             expect(res.body.error).to.eql(true);
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.eql('Invalid email or password');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
     it('It should successfully login user', (done) => {
@@ -257,10 +257,10 @@ describe('Authentication endpoints', function () {
             expect(res.body.data).to.be.an('array');
             expect(res.body.data).to.have.length(1);
             expect(res.body.message).to.eql('Login successful');
-            done()
-          })
+            done();
+          });
       } catch (err) {
-        console.log(err)
+        throw err;
       }
     });
   });

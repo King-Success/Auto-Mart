@@ -1,14 +1,14 @@
 import express from 'express';
+import swagger from 'swagger-ui-express';
 import AuthController from '../controllers/authController';
 import AuthValidator from '../middlewares/authValidator';
 import CarController from '../controllers/carController';
 import CarValidator from '../middlewares/carValidator';
 import OrderValidator from '../middlewares/orderValidator';
 import OrderController from '../controllers/orderController';
-import swagger from 'swagger-ui-express';
-import helpers from '../helpers'
+import helpers from '../helpers';
 
-const docs = require('../../swagger.json')
+const docs = require('../../swagger.json');
 
 const router = express.Router();
 
@@ -24,9 +24,9 @@ const { createOrder, updateOrderAmount } = OrderController;
 
 router.get('/', (req, res) => {
   res.send(helpers.apiLandingPage());
-})
+});
 
-// Documentaion 
+// Documentaion
 router.use('/api/docs', swagger.serve);
 router.get('/api/docs', swagger.setup(docs));
 

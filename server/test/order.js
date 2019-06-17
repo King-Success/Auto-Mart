@@ -7,12 +7,12 @@ const { expect } = chai;
 const baseUrl = '/api/v1/order';
 
 describe('Order endpoints', function () {
-  this.timeout(0)
+  this.timeout(0);
   let userToken;
   before('Login to get access token', async () => {
     const defaultUser = {
       email: 'elon.user@gmail.com',
-      password: 'secret'
+      password: 'secret',
     };
     const userRes = await chai.request(app)
       .post('/api/v1/auth/login')
@@ -22,10 +22,10 @@ describe('Order endpoints', function () {
   });
   describe('Create new order', () => {
     const defaultOrder = {
-        carId: 1,
-        amount: '45000000.00'
+      carId: 1,
+      amount: '45000000.00',
     };
-    const invalidCarId = 6859
+    const invalidCarId = 6859;
     it('It should ensure that car id is not empty', (done) => {
       const newOrder = { ...defaultOrder, carId: '' };
       chai.request(app)
@@ -52,17 +52,17 @@ describe('Order endpoints', function () {
         });
     });
     it('It should ensure that car exist', (done) => {
-        const newOrder = { ...defaultOrder, carId: invalidCarId };
-        chai.request(app)
-          .post(`${baseUrl}`)
-          .send(newOrder)
-          .set('authorization', userToken)
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            expect(res.body.error).to.eql(`Car Ad with id: ${invalidCarId} does not exist`);
-            done();
-          });
-      });
+      const newOrder = { ...defaultOrder, carId: invalidCarId };
+      chai.request(app)
+        .post(`${baseUrl}`)
+        .send(newOrder)
+        .set('authorization', userToken)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.error).to.eql(`Car Ad with id: ${invalidCarId} does not exist`);
+          done();
+        });
+    });
     it('It should successfully create an order', (done) => {
       chai.request(app)
         .post(`${baseUrl}`)
@@ -81,8 +81,7 @@ describe('Order endpoints', function () {
   describe('Update order amount', () => {
     const newAmount = { amount: '1200000.00' };
     const invalidAmount = { amount: '120000' };
-const orderId = 1
-const invalidOrderId = 699
+    const orderId = 1;
     it('It should ensure that amount is provided', (done) => {
       chai.request(app)
         .patch(`${baseUrl}/${orderId}/amount`)
@@ -98,8 +97,8 @@ const invalidOrderId = 699
 
     it('It should return invalid amount error', (done) => {
       chai.request(app)
-      .patch(`${baseUrl}/${orderId}/amount`)
-      .send(invalidAmount)
+        .patch(`${baseUrl}/${orderId}/amount`)
+        .send(invalidAmount)
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
@@ -110,7 +109,7 @@ const invalidOrderId = 699
 
     it('It should successfully update order amount', (done) => {
       chai.request(app)
-      .patch(`${baseUrl}/${orderId}/amount`)
+        .patch(`${baseUrl}/${orderId}/amount`)
         .send(newAmount)
         .set('authorization', userToken)
         .end((err, res) => {

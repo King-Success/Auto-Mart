@@ -5,7 +5,7 @@ const { extractErrors } = Helpers;
 
 class OrderValidator {
   static validateOrder(req, res, next) {
-    req.checkBody('carId', 'Car Id is required').notEmpty().trim()
+    req.checkBody('carId', 'Car Id is required').notEmpty().trim();
     req.checkBody('amount', 'Order amount is required').notEmpty()
       .isCurrency({ allow_negatives: false, require_decimal: true })
       .withMessage('Order amount must be a valid number in two decimal place, e.g 123000.00');
@@ -16,6 +16,7 @@ class OrderValidator {
     }
     return next();
   }
+
   static async isOrderOwner(req, res, next) {
     const { id: buyerId } = req.body.tokenPayload;
     const { orderId } = req.params;

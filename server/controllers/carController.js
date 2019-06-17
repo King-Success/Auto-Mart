@@ -1,6 +1,6 @@
 import carModel from '../models/cars';
-class CarController {
 
+class CarController {
   static async createCarAd(req, res) {
     try {
       const { id: owner } = req.body.tokenPayload;
@@ -166,7 +166,6 @@ class CarController {
         error: `No car exist with price between ${minPrice} and ${maxPrice}`,
       });
     } catch (err) {
-      console.log(err)
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     }
   }
@@ -187,7 +186,6 @@ class CarController {
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     }
   }
-
 }
 
 export default CarController;

@@ -1,7 +1,6 @@
 import orderModel from '../models/order';
 
 class OrderController {
-
   static async createOrder(req, res) {
     try {
       const { id: buyer } = req.body.tokenPayload;
