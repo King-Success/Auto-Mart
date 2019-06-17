@@ -12,7 +12,7 @@
     "migrate:reset": "DEBUG=migrate:reset babel-node ./server/database/reset",
     "seed": "DEBUG=seed babel-node ./server/database/seeds",
     "start": "export NODE_ENV=production && babel-node ./server/app.js",
-    "test": "mocha --require @babel/register ./server/test/**/*.js  --exit"
+    "test": "npm run migrate:reset && npm run migrate && npm run seed && mocha --require @babel/register ./server/test/**/*.js  --exit"
   },
   "repository": {
     "type": "git",
