@@ -1,808 +1,957 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "version": "1.0",
-        "title": "AUTO MART",
-        "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers"
-    },
-    "schemes": [
-        "https"
-    ],
-    "host": "andela-auto-mart.herokuapp.com",
-    "basePath": "/api/v1",
-    "securityDefinitions": {
-        "Bearer": {
-            "type": "bearer",
-            "name": "Authorization",
-            "in": "header"
-        }
-    },
-    "tags": [
-        {
-            "name": "Auth",
-            "description": "Endpoint for Authentication"
-        },
-        {
-            "name": "Car",
-            "description": "Endpoint for Users"
-        },
-        {
-            "name": "Order",
-            "description": "Endpoint for political offices"
-        }
-    ],
-    "paths": {
-        "/auth/signup": {
-            "post": {
-                "description": "User can create an account",
-                "summary": "Sign up",
-                "tags": [
-                    "Auth"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing user information",
-                        "schema": {
-                            "$ref": "#/requestBody/signUpRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Account created successfully"
-                    },
-                    "400": {
-                        "description": "Please fill in the fields"
-                    },
-                    "409": {
-                        "description": "User with email/phone already exists"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/responseBody/signUpResponse"
-                    }
-                }
-            }
-        },
-        "/auth/login": {
-            "post": {
-                "description": "User can login in",
-                "summary": "Login in",
-                "tags": [
-                    "Auth"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing user login information",
-                        "schema": {
-                            "$ref": "#/requestBody/loginRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Login successful"
-                    },
-                    "400": {
-                        "description": "Please fill in the fields"
-                    },
-                    "401": {
-                        "description": "Invalid email or password"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "/car": {
-            "get": {
-                "description": "(Admin) Get all cars sold or not",
-                "summary": "Return a list of all cars Ads on the system sold or not",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "No car found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/createCarRequest"
-                    }
-                }
-            }
-        },
-        "/car?status={status}": {
-            "get": {
-                "description": "Get all cars based on status",
-                "summary": "Returns all cars that matches the filter",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "status",
-                        "required": true,
-                        "description": "The status of the car Ad"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "No Car found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/createCarRequest"
-                    }
-                }
-            }
-        },
-        "/car?status={status}&minPrice={minPrice}&maxPrice={maxPrice}": {
-            "get": {
-                "description": "Get all cars based on status, max price and min price",
-                "summary": "Returns all cars that matches the filters",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "status",
-                        "required": true,
-                        "description": "The status of the car Ad"
-                    },
-                    {
-                        "in": "query",
-                        "name": "minPrice",
-                        "required": true,
-                        "description": "The minimium price of the car Ad"
-                    },
-                    {
-                        "in": "query",
-                        "name": "maxPrice",
-                        "required": true,
-                        "description": "The maximum price of car Ad"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "No Car found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/createCarRequest"
-                    }
-                }
-            }
-        },
-        "/car?status={status}&state={state}": {
-            "get": {
-                "description": "Get all cars based on status and state",
-                "summary": "Returns all cars that matches the filters",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "status",
-                        "required": true,
-                        "description": "The status of the car Ad"
-                    },
-                    {
-                        "in": "query",
-                        "name": "state",
-                        "required": true,
-                        "description": "The state of the car Ad"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "No Car found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/createCarRequest"
-                    }
-                }
-            }
-        },
-        "/car?status={status}&manufacturer={manufacturer}": {
-            "get": {
-                "description": "Get all cars based on status and manufacturer",
-                "summary": "Returns all cars that matches the filters",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "status",
-                        "required": true,
-                        "description": "The status of the car Ad"
-                    },
-                    {
-                        "in": "query",
-                        "name": "manufacturer",
-                        "required": true,
-                        "description": "The manufacturer of the car Ad"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "No Car found with status = status and manufacturer = manufacturer"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/createCarRequest"
-                    }
-                }
-            }
-        },
-        "/car?status={status}&bodyType={bodyType}": {
-            "get": {
-                "description": "Get all cars based on status and bodyType",
-                "summary": "Returns all cars that matches the filters",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "status",
-                        "required": true,
-                        "description": "The status of the car Ad"
-                    },
-                    {
-                        "in": "query",
-                        "name": "bodyType",
-                        "required": true,
-                        "description": "The body type of the car Ad"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "No Car found with status = status and bodyType = bodyType"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/createCarRequest"
-                    }
-                }
-            }
-        },
-        "/users/{carId}": {
-            "delete": {
-                "description": "Delete a single car Ad",
-                "summary": "(Admin) Deletes the car Ad with the id of carId",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "carId",
-                        "required": true,
-                        "description": "The Id of the car Ad to be deleted"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Car Ad delete successfully"
-                    },
-                    "404": {
-                        "description": "Car not Found"
-                    },
-                    "401": {
-                        "description": "Only an admin can perfrom this task"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "/car": {
-            "post": {
-                "description": "Create new car Ad",
-                "summary": "Handles Creating of car Ads by users",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing data for the new car Ad",
-                        "schema": {
-                            "$ref": "#/requestBody/createCarRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Car Ad created successfully"
-                    },
-                    "400": {
-                        "description": "Some fields are empty or invalid data format"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "/car/{carId}": {
-            "get": {
-                "description": "Get a single car Ad",
-                "summary": "Returns a single car Ad with the car id",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "carId",
-                        "required": true,
-                        "description": "The Id of the car Ad"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    },
-                    "404": {
-                        "description": "Car not found"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    },
-                    "schema": {
-                        "$ref": "#/requestBody/createCarRequest"
-                    }
-                }
-            }
-        },
-        "/car/{carId}/status": {
-            "patch": {
-                "description": "Update car Ad status",
-                "summary": "Handle update of car Ad status",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "carId",
-                        "required": true,
-                        "description": "The id of the car Ad to be updated"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing the new car status",
-                        "schema": {
-                            "$ref": "#/requestBody/patchCarStatusRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Car Ad susccessfully updated"
-                    },
-                    "400": {
-                        "description": "Validation Error"
-                    },
-                    "404": {
-                        "description": "Car not found"
-                    },
-                    "401": {
-                        "description": "Authentication error or permission denied"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "/car/{carId}/price": {
-            "patch": {
-                "description": "Update car Ad price",
-                "summary": "Handle update of car Ad price",
-                "tags": [
-                    "Car"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "carId",
-                        "required": true,
-                        "description": "The id of the car Ad to be updated"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing the new car price",
-                        "schema": {
-                            "$ref": "#/requestBody/patchCarStatusRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Car Ad susccessfully updated"
-                    },
-                    "400": {
-                        "description": "Validation Error"
-                    },
-                    "404": {
-                        "description": "Car not found"
-                    },
-                    "401": {
-                        "description": "Authentication error or permission denied"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "/order/{orderId}/price": {
-            "patch": {
-                "description": "Update order amount",
-                "summary": "Handle update of order amount",
-                "tags": [
-                    "Order"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "orderId",
-                        "required": true,
-                        "description": "The id of the order to be updated"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing the new order amount",
-                        "schema": {
-                            "$ref": "#/requestBody/orderRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Order susccessfully updated"
-                    },
-                    "400": {
-                        "description": "Validation Error"
-                    },
-                    "404": {
-                        "description": "Order not found"
-                    },
-                    "401": {
-                        "description": "Authentication error or permission denied"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "/order": {
-            "post": {
-                "description": "Create new order record",
-                "summary": "Handles Creating of new Order record by users",
-                "tags": [
-                    "Order"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ],
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "required": true,
-                        "description": "This is the request body object containing data for the new order",
-                        "schema": {
-                            "$ref": "#/requestBody/orderRequest"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Order created successfully"
-                    },
-                    "400": {
-                        "description": "Some fields are empty or invalid data format"
-                    },
-                    "500": {
-                        "description": "Internal server error"
-                    }
-                }
-            }
-        },
-        "requestBody": {
-            "signUpRequest": {
-                "title": "Signup Request",
-                "type": "object",
-                "properties": {
-                    "firstname": {
-                        "description": "first name of the user",
-                        "type": "string"
-                    },
-                    "lastname": {
-                        "description": "last name of the user",
-                        "type": "string"
-                    },
-                    "email": {
-                        "description": "email of the user",
-                        "type": "string"
-                    },
-                    "phone": {
-                        "description": "Phone number of the user",
-                        "type": "string"
-                    },
-                    "password": {
-                        "description": "The Password of the user",
-                        "type": "string"
-                    },
-                    "address": {
-                        "description": "The Address of the user",
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "firstName": "John",
-                    "lastName": "Doe",
-                    "email": "johndoe@example.com",
-                    "password": "secret",
-                    "phone": "09000000000",
-                    "address": "123 Ajao Estate"
-                },
-                "required": [
-                    "phone, email, firstName, lastName, password, address"
-                ]
-            },
-            "loginRequest": {
-                "title": "Login Request",
-                "type": "object",
-                "properties": {
-                    "email": {
-                        "description": "email address of the user user",
-                        "type": "string"
-                    },
-                    "password": {
-                        "description": "The Password of the user",
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "email": "johndoe@example.com",
-                    "password": "password12"
-                },
-                "required": [
-                    "email, password,"
-                ]
-            },
-            "createCarRequest": {
-                "title": "Create new car Ad",
-                "type": "object",
-                "properties": {
-                    "state": {
-                        "description": "The state of the new car [Used or New]",
-                        "type": "string"
-                    },
-                    "price": {
-                        "description": "The price of the new car (In two decimal places)",
-                        "type": "float"
-                    },
-                    "manufacturer": {
-                        "description": "The manufacturer of the new car",
-                        "type": "string"
-                    },
-                    "model": {
-                        "description": "The model of the new car",
-                        "type": "string"
-                    },
-                    "bodyType": {
-                        "description": "The body type of the new car",
-                        "type": "string"
-                    }
-                },
-                "example": {
-                    "state": "New",
-                    "price": 17000000.00,
-                    "manufacturer": "Toyota",
-                    "model": "Avalon",
-                    "bodytype": "Car"
-                },
-                "required": [
-                    "state",
-                    "price",
-                    "manufacture",
-                    "model",
-                    "bodyType"
-                ]
-            },
-            "orderRequest": {
-                "title": "Update order",
-                "type": "object",
-                "properties": {
-                    "carId": {
-                        "description": "The Id of the car to be ordered",
-                        "type": "integer"
-                    },
-                    "amount": {
-                        "description": "The amount offered for the car",
-                        "type": "float"
-                    }
-                },
-                "example": {
-                    "carId": 1,
-                    "amount": 17000000.00
-                },
-                "required": [
-                    "carId, amount"
-                ]
-            },
-            "patchCarPriceRequest": {
-                "title": "store user petition",
-                "type": "object",
-                "properties": {
-                    "office": {
-                        "description": "The Id of the candidate's office",
-                        "type": "integer"
-                    },
-                    "body": {
-                        "description": "The description of the petition",
-                        "type": "string"
-                    },
-                    "evidence": {
-                        "description": "Image or/and video evidence",
-                        "type": "array"
-                    }
-                },
-                "example": {
-                    "office": 1,
-                    "body": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",
-                    "evidence": []
-                },
-                "required": [
-                    "office, body"
-                ]
-            }
-        },
-        "responseBody": {}
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "AUTO MART",
+    "description": "Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers"
+  },
+  "schemes": [
+    "https"
+  ],
+  "host": "andela-auto-mart.herokuapp.com",
+  "basePath": "/api/v1",
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "bearer",
+      "name": "Authorization",
+      "in": "header"
     }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Endpoint for Authentication"
+    },
+    {
+      "name": "Car",
+      "description": "Endpoint for Users"
+    },
+    {
+      "name": "Order",
+      "description": "Endpoint for political offices"
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "description": "User can create an account",
+        "summary": "Sign up",
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing user information",
+            "schema": {
+              "$ref": "#/requestBody/user"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Account created successfully"
+          },
+          "400": {
+            "description": "Please fill in the fields"
+          },
+          "409": {
+            "description": "User with email/phone already exists"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/user"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "description": "User can login in",
+        "summary": "Login in",
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing user login information",
+            "schema": {
+              "$ref": "#/requestBody/login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "400": {
+            "description": "Please fill in the fields"
+          },
+          "401": {
+            "description": "Invalid email or password"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/user"
+          }
+        }
+      }
+    },
+    "/car": {
+      "get": {
+        "description": "(Admin) Get all cars sold or not",
+        "summary": "Return a list of all cars Ads on the system sold or not",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "No car found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/cars"
+          }
+        }
+      }
+    },
+    "/car/getByStatus?status={status}": {
+      "get": {
+        "description": "Get all cars based on status",
+        "summary": "Returns all cars that matches the filter",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": true,
+            "description": "The status of the car Ad"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "No Car found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/cars"
+          }
+        }
+      }
+    },
+    "/car/getByPrice?status={status}&minPrice={minPrice}&maxPrice={maxPrice}": {
+      "get": {
+        "description": "Get all cars based on status, max price and min price",
+        "summary": "Returns all cars that matches the filters",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": true,
+            "description": "The status of the car Ad"
+          },
+          {
+            "in": "query",
+            "name": "minPrice",
+            "required": true,
+            "description": "The minimium price of the car Ad"
+          },
+          {
+            "in": "query",
+            "name": "maxPrice",
+            "required": true,
+            "description": "The maximum price of car Ad"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "No Car found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/cars"
+          }
+        }
+      }
+    },
+    "/car/getByState?status={status}&state={state}": {
+      "get": {
+        "description": "Get all cars based on status and state",
+        "summary": "Returns all cars that matches the filters",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": true,
+            "description": "The status of the car Ad"
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "required": true,
+            "description": "The state of the car Ad"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "No Car found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/cars"
+          }
+        }
+      }
+    },
+    "/car/getByManufacturer?status={status}&manufacturer={manufacturer}": {
+      "get": {
+        "description": "Get all cars based on status and manufacturer",
+        "summary": "Returns all cars that matches the filters",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": true,
+            "description": "The status of the car Ad"
+          },
+          {
+            "in": "query",
+            "name": "manufacturer",
+            "required": true,
+            "description": "The manufacturer of the car Ad"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "No Car found with status = status and manufacturer = manufacturer"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/cars"
+          }
+        }
+      }
+    },
+    "/car/getByBodyType?status={status}&bodyType={bodyType}": {
+      "get": {
+        "description": "Get all cars based on status and bodyType",
+        "summary": "Returns all cars that matches the filters",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status",
+            "required": true,
+            "description": "The status of the car Ad"
+          },
+          {
+            "in": "query",
+            "name": "bodyType",
+            "required": true,
+            "description": "The body type of the car Ad"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "No Car found with status = status and bodyType = bodyType"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/cars"
+          }
+        }
+      }
+    },
+    "/car/{carId}": {
+      "delete": {
+        "description": "Delete a single car Ad",
+        "summary": "(Admin) Deletes the car Ad with the id of carId",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "The Id of the car Ad to be deleted"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car Ad delete successfully"
+          },
+          "404": {
+            "description": "Car not Found"
+          },
+          "401": {
+            "description": "Only an admin can perfrom this task"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/deleteCar"
+          }
+        }
+      }
+    },
+    "/car": {
+      "post": {
+        "description": "Create new car Ad",
+        "summary": "Handles Creating of car Ads by users",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing data for the new car Ad",
+            "schema": {
+              "$ref": "#/requestBody/car"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car Ad created successfully"
+          },
+          "400": {
+            "description": "Some fields are empty or invalid data format"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/singleCar"
+          }
+        }
+      }
+    },
+    "/car/{carId}": {
+      "get": {
+        "description": "Get a single car Ad",
+        "summary": "Returns a single car Ad with the car id",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "The Id of the car Ad"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Car not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/singleCar"
+          }
+        }
+      }
+    },
+    "/car/{carId}/status": {
+      "patch": {
+        "description": "Update car Ad status",
+        "summary": "Handle update of car Ad status",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "The id of the car Ad to be updated"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing the new car status",
+            "schema": {
+              "$ref": "#/requestBody/updateStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car Ad susccessfully updated"
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "404": {
+            "description": "Car not found"
+          },
+          "401": {
+            "description": "Authentication error or permission denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/singleCar"
+          }
+        }
+      }
+    },
+    "/car/{carId}/price": {
+      "patch": {
+        "description": "Update car Ad price",
+        "summary": "Handle update of car Ad price",
+        "tags": [
+          "Car"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "carId",
+            "required": true,
+            "description": "The id of the car Ad to be updated"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing the new car price",
+            "schema": {
+              "$ref": "#/requestBody/updatePrice"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car Ad susccessfully updated"
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "404": {
+            "description": "Car not found"
+          },
+          "401": {
+            "description": "Authentication error or permission denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/singleCar"
+          }
+        }
+      }
+    },
+    "/order/{orderId}/amount": {
+      "patch": {
+        "description": "Update order amount",
+        "summary": "Handle update of order amount",
+        "tags": [
+          "Order"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "description": "The id of the order to be updated"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing the new order amount",
+            "schema": {
+              "$ref": "#/requestBody/updateOrder"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order susccessfully updated"
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "404": {
+            "description": "Order not found"
+          },
+          "401": {
+            "description": "Authentication error or permission denied"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/order"
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+        "description": "Create new order record",
+        "summary": "Handles Creating of new Order record by users",
+        "tags": [
+          "Order"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing data for the new order",
+            "schema": {
+              "$ref": "#/requestBody/order"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order created successfully"
+          },
+          "400": {
+            "description": "Some fields are empty or invalid data format"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/order"
+          }
+        }
+      }
+    }
+  },
+  "requestBody": {
+    "user": {
+      "title": "User",
+      "type": "object",
+      "properties": {
+        "firstname": {
+          "description": "first name of the user",
+          "type": "string"
+        },
+        "lastname": {
+          "description": "last name of the user",
+          "type": "string"
+        },
+        "email": {
+          "description": "email of the user",
+          "type": "string"
+        },
+        "phone": {
+          "description": "Phone number of the user",
+          "type": "string"
+        },
+        "passportUrl": {
+          "description": "The url of the user profile image",
+          "type": "string"
+        },
+        "password": {
+          "description": "The Password of the user",
+          "type": "string"
+        },
+        "address": {
+          "description": "The Address of the user",
+          "type": "string"
+        }
+      },
+      "example": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "johndoe@example.com",
+        "password": "secret",
+        "phone": "09000000000",
+        "passportUrl": "https://cloudinary.com/user123",
+        "address": "123 Ajao Estate"
+      },
+      "required": [
+        "phone, email, firstName, lastName, password, address"
+      ]
+    },
+    "order": {
+      "title": "Order",
+      "type": "object",
+      "properties": {
+        "carId": {
+          "description": "Id of car to be orderd",
+          "type": "string"
+        },
+        "amount": {
+          "description": "Order amount",
+          "type": "string"
+        }
+      },
+      "example": {
+        "carId": 1,
+        "amount": 1200000.00
+      },
+      "required": [
+        "carId, amount"
+      ]
+    },
+    "updateOrder": {
+      "title": "Order",
+      "type": "object",
+      "properties": {
+        "amount": {
+          "description": "Order amount",
+          "type": "string"
+        }
+      },
+      "example": {
+        "amount": 1200000.00
+      },
+      "required": [
+        "amount"
+      ]
+    },
+    "login": {
+      "title": "Login",
+      "type": "object",
+      "properties": {
+        "email": {
+          "description": "email address of the user user",
+          "type": "string"
+        },
+        "password": {
+          "description": "The Password of the user",
+          "type": "string"
+        }
+      },
+      "example": {
+        "email": "johndoe@example.com",
+        "password": "password12"
+      },
+      "required": [
+        "email, password,"
+      ]
+    },
+    "updateStatus": {
+      "title": "Update Status",
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "new status of car ad",
+          "type": "string"
+        }
+      },
+      "example": {
+        "status": "Sold"
+      },
+      "required": [
+        "status"
+      ]
+    },
+    "updatePrice": {
+      "title": "Update Price",
+      "type": "object",
+      "properties": {
+        "price": {
+          "description": "new price of car ad",
+          "type": "string"
+        }
+      },
+      "example": {
+        "price": "1200000.00"
+      },
+      "required": [
+        "price"
+      ]
+    },
+    "car": {
+      "title": "Car",
+      "type": "object",
+      "properties": {
+        "state": {
+          "description": "The state of the new car [Used or New]",
+          "type": "string"
+        },
+        "price": {
+          "description": "The price of the new car (In two decimal places)",
+          "type": "float"
+        },
+        "manufacturer": {
+          "description": "The manufacturer of the new car",
+          "type": "string"
+        },
+        "model": {
+          "description": "The model of the new car",
+          "type": "string"
+        },
+        "bodyType": {
+          "description": "The body type of the new car",
+          "type": "string"
+        },
+        "mainImageUrl": {
+          "description": "The main image url of the car Ad"
+        }
+      },
+      "example": {
+        "state": "New",
+        "price": 17000000.00,
+        "manufacturer": "Toyota",
+        "model": "Avalon",
+        "bodytype": "Car",
+        "mainImageUrl": "http://cloudinary.com/image3.jgp"
+      },
+      "required": [
+        "state",
+        "price",
+        "manufacture",
+        "model",
+        "bodyType",
+        "mainImageUrl"
+      ]
+    }
+  },
+  "responseBody": {
+    "user": {
+      "example": {
+        "status": 201,
+        "data": [
+          {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiaXNhZG1pbiI6ZmFsc2UsImlhdCI6MTU2MDYxMzYwOSwiZXhwIjoxNTYwNzAwMDA5fQ.VmVWWfy1c3ANDD9P4Arcf2qZPu_Az8dfhJYXPZSu5IY",
+            "user": {
+              "id": 5,
+              "firstname": "Chukwu",
+              "lastname": "Arinze",
+              "email": "code4kingsww@gmail.com",
+              "isadmin": false,
+              "phone": "08065549875",
+              "passporturl": null,
+              "address": "AJao estate",
+              "createdon": "2019-06-15T14:46:48.928Z"
+            }
+          }
+        ]
+      }
+    },
+    "cars": {
+      "example": {
+        "status": 200,
+        "data": [
+          {
+            "id": 1,
+            "owner": 1,
+            "state": "New",
+            "status": "Available",
+            "price": "6500000.00",
+            "manufacturer": "Tesla",
+            "model": "model S",
+            "bodytype": "car",
+            "mainimageurl": "https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg",
+            "leftimageurl": null,
+            "rightimageurl": null,
+            "frontimageurl": null,
+            "backimageurl": null,
+            "createdon": "2019-06-14T20:12:17.167Z",
+            "updatedon": "2019-06-14T20:12:17.167Z"
+          },
+          {
+            "id": 2,
+            "owner": 1,
+            "state": "Used",
+            "status": "Available",
+            "price": "1500000.00",
+            "manufacturer": "Toyota",
+            "model": "Avalon 2006",
+            "bodytype": "car",
+            "mainimageurl": "https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg",
+            "leftimageurl": null,
+            "rightimageurl": null,
+            "frontimageurl": null,
+            "backimageurl": null,
+            "createdon": "2019-06-14T20:12:17.222Z",
+            "updatedon": "2019-06-14T20:12:17.222Z"
+          }
+        ]
+      }
+    },
+    "singleCar": {
+      "example": {
+        "status": 200,
+        "data": [
+          {
+            "id": 1,
+            "owner": 1,
+            "state": "New",
+            "status": "Available",
+            "price": "6500000.00",
+            "manufacturer": "Tesla",
+            "model": "model S",
+            "bodytype": "car",
+            "mainimageurl": "https://res.cloudinary.com/drjpxke9z/image/upload/v1549984207/pdp_nucvwu.jpg",
+            "leftimageurl": null,
+            "rightimageurl": null,
+            "frontimageurl": null,
+            "backimageurl": null,
+            "createdon": "2019-06-14T20:12:17.167Z",
+            "updatedon": "2019-06-14T20:12:17.167Z"
+          }
+        ]
+      }
+    },
+    "order": {
+      "example": {
+        "status": 200,
+        "data": [
+          {
+            "id": 1,
+            "carId": 1,
+            "amount": "12300000.00",
+            "createdon": "2019-06-14T20:12:17.167Z",
+            "updatedon": "2019-06-14T20:12:17.167Z"
+          }
+        ]
+      }
+    },
+    "deleteCar": {
+      "status": 204,
+      "data": [],
+      "message": "Car Ad deleted successfully"
+    }
+  }
 }
