@@ -37,3 +37,4 @@ My Heroku Link can be found [ here ](https://andela-auto-mart.herokuapp.com)
 14. User can view all unsold cars of a specific make (manufacturer).
 15. User can view all used unsold cars.
 16. User can view all new unsold cars.
+17. User can reset password.

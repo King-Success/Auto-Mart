@@ -57,5 +57,23 @@ class User {
       client.release();
     }
   }
+
+  static async updateByEmail(email, data) {
+    const values = [data.value, email];
+    const client = await pool.connect();
+    let car;
+    const text = `UPDATE users SET ${data.name} = $1 WHERE email = $2 RETURNING *`;
+    try {
+      car = await client.query({ text, values });
+      if (car.rowCount) {
+        return car.rows[0];
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
 }
 export default User;
