@@ -6,6 +6,8 @@ import CarController from '../controllers/carController';
 import CarValidator from '../middlewares/carValidator';
 import OrderValidator from '../middlewares/orderValidator';
 import OrderController from '../controllers/orderController';
+import FlagController from '../controllers/flagController';
+import FlagValidator from '../middlewares/flagValidator';
 import helpers from '../helpers';
 
 const docs = require('../../swagger.json');
@@ -21,6 +23,8 @@ const { validateCar, isCarExist, isCarOwner, validateStatus,
   validatePrice, validateParams } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
 const { createOrder, updateOrderAmount } = OrderController;
+const { createFlag } = FlagController;
+const { validateFlag } = FlagValidator;
 
 router.get('/', (req, res) => {
   res.send(helpers.apiLandingPage());
@@ -59,5 +63,9 @@ router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 const orderBaseUrl = '/api/v1/order';
 router.post(`${orderBaseUrl}`, isTokenValid, validateOrder, isCarExist, createOrder);
 router.patch(`${orderBaseUrl}/:orderId/amount`, isTokenValid, isOrderOwner, validateAmount, updateOrderAmount);
+
+//Flag route
+const flagBaseUrl = '/api/v1/flag';
+router.post(`${flagBaseUrl}`, isTokenValid, validateFlag, isCarExist, createFlag)
 
 export default router;
