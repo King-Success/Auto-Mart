@@ -12,7 +12,7 @@ const docs = require('../../swagger.json');
 
 const router = express.Router();
 
-const { createAccount, loginUser } = AuthController;
+const { createAccount, loginUser, resetPassword, resetPasswordForm, passwordResetEmail } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
 const { createCarAd, updateCarAdStatus, updateCarAdPrice,
   getACar, getAllCars, deleteCarAd, getCarsByStatus, getCarsByState, getCarsByManufacturer,
@@ -34,6 +34,12 @@ router.get('/api/docs', swagger.setup(docs));
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
 router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+
+//Password reset routes
+const passwordResetBaseUrl = '/api/v1/users'
+router.post(`${passwordResetBaseUrl}/:email/resetPassword`, passwordResetEmail);
+router.get(`${passwordResetBaseUrl}/reset/:token`, resetPasswordForm);
+router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 
 // Car routes
 const carBaseUrl = '/api/v1/car';
