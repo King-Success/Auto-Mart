@@ -28,7 +28,11 @@
     },
     {
       "name": "Order",
-      "description": "Endpoint for political offices"
+      "description": "Endpoint for making car Orders"
+    },
+    {
+      "name": "Flag",
+      "description": "Endpoint for flaging/reporting a car Ad"
     }
   ],
   "paths": {
@@ -110,6 +114,94 @@
           },
           "response": {
             "$ref": "#/responseBody/user"
+          }
+        }
+      }
+    },
+    "/user/:email/resetPassword": {
+      "post": {
+        "description": "User can reset password",
+        "summary": "Password reset",
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "description": "The email address of the user"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reset password link sent to mail successfully"
+          },
+          "404": {
+            "description": "Account not Found"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/resetPasswordEmail"
+          }
+        }
+      }
+    },
+    "/user/reset/:token": {
+      "get": {
+        "description": "User can reset password",
+        "summary": "Password reset",
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "html/form"
+        ],
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "token",
+            "required": true,
+            "description": "The token of the user"
+          }
+        ],
+        "responses": {
+          "Error: Invalid Token": {
+            "description": "The token provided has expired or is not valid"
+          },
+          "Success: Input password form": {
+            "description": "A form to input and confirm new password"
+          }
+        }
+      }
+    },
+    "/user/reset": {
+      "post": {
+        "description": "User can reset password",
+        "summary": "Password reset",
+        "tags": [
+          "Auth"
+        ],
+        "produces": [
+          "html/text"
+        ],
+        "security": [],
+        "responses": {
+          "Error: Password too short": {
+            "description": "Password provided must be atleast 6 characters long"
+          },
+          "Error: Password mismatch": {
+            "description": "Password provided does not match"
+          },
+          "Success: Input password form": {
+            "description": "Password reset successful"
           }
         }
       }
@@ -662,6 +754,43 @@
           }
         }
       }
+    },
+    "/flag": {
+      "post": {
+        "description": "Flag a car Ad",
+        "summary": "Create a new car flag record",
+        "tags": [
+          "Flag"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "description": "This is the request body object containing data for the new car Ad flag",
+            "schema": {
+              "$ref": "#/requestBody/flag"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Car Ad flag created successfully"
+          },
+          "400": {
+            "description": "Some fields are empty or invalid data format"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "response": {
+            "$ref": "#/responseBody/flagCreated"
+          }
+        }
+      }
     }
   },
   "requestBody": {
@@ -730,6 +859,32 @@
       },
       "required": [
         "carId, amount"
+      ]
+    },
+    "flag": {
+      "title": "Flag",
+      "type": "object",
+      "properties": {
+        "carId": {
+          "description": "Id of car to be flaged",
+          "type": "string"
+        },
+        "reason": {
+          "description": "Reason for flaging car Ad",
+          "type": "string"
+        },
+        "description": {
+          "description": "Description of the incident result to flaging",
+          "type": "string"
+        }
+      },
+      "example": {
+        "carId": 3,
+        "reason": "Fake car images",
+        "description": "car Ad contains fake images"
+      },
+      "required": [
+        "carId, reason, description"
       ]
     },
     "updateOrder": {
@@ -952,6 +1107,22 @@
       "status": 204,
       "data": [],
       "message": "Car Ad deleted successfully"
+    },
+    "resetPasswordEmail": {
+      "status": 200,
+      "message": "Check your mail for password reset link",
+      "email": "code4kingsww@gmail.com"
+    },
+    "flagCreated": {
+      "status": 201,
+      "data": [
+        {
+          "carId": 3,
+          "reason": "Fake car images",
+          "description": "car Ad contains fake images"
+        }
+      ],
+      "message": "Car Ad has been flaged successfully"
     }
   }
 }
