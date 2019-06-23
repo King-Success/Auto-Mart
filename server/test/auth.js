@@ -1,7 +1,10 @@
 import chai from 'chai';
 import chaiHTTP from 'chai-http';
 import passwordHash from 'password-hash';
+import Helpers from '../helpers/auth'
 import app from '../app';
+
+const { generateToken } = Helpers
 
 chai.use(chaiHTTP);
 const { expect } = chai;
@@ -264,4 +267,84 @@ describe('Authentication endpoints', function () {
       }
     });
   });
+
+  describe('Reset password', () => {
+    const baseUrl = '/api/v1/users'
+    const userEmail = 'kingsley.admin@gmail.com'
+    const invalidToken = 'sli990haijijaiojzkndkaklndklfjoiioajidjfiljqkljaiojdifgjoioiajdfjoiaj'
+    const userToken = generateToken({ email: 'kingsley.admin@gmail.com', id: 2 })
+    const newPassword = { email: userEmail, password: 'secret', passwordConfirmation: 'secret' }
+    it('It should successfully send a reset email', (done) => {
+      try {
+        chai.request(app)
+          .get(`${baseUrl}/${userEmail}/resetPassword`)
+          .end((err, res) => {
+            done();
+          });
+      } catch (err) {
+        throw err;
+      }
+    });
+
+    it('It should return invalid email', (done) => {
+      try {
+        chai.request(app)
+          .get(`${baseUrl}/reset/${invalidToken}`)
+          .end((err, res) => {
+            done();
+          });
+      } catch (err) {
+        throw err;
+      }
+    });
+
+    it('It should return a reset password form', (done) => {
+      try {
+        chai.request(app)
+          .get(`${baseUrl}/reset/${userToken}`)
+          .end((err, res) => {
+            done();
+          });
+      } catch (err) {
+        throw err;
+      }
+    });
+
+    it('It should return password must be 6 digits error', (done) => {
+      try {
+        chai.request(app)
+          .post(`${baseUrl}/reset`)
+          .send({ ...newPassword, password: 'hshs' })
+          .end((err, res) => {
+            done();
+          });
+      } catch (err) {
+        throw err;
+      }
+    });
+    it('It should return password doest match error', (done) => {
+      try {
+        chai.request(app)
+          .post(`${baseUrl}/reset`)
+          .send({ ...newPassword, passwordConfirmation: 'hdhdhdhdh' })
+          .end((err, res) => {
+            done();
+          });
+      } catch (err) {
+        throw err;
+      }
+    });
+    it('It should return password reset successfully', (done) => {
+      try {
+        chai.request(app)
+          .post(`${baseUrl}/reset`)
+          .send(newPassword)
+          .end((err, res) => {
+            done();
+          });
+      } catch (err) {
+        throw err;
+      }
+    });
+  })
 });
