@@ -104,7 +104,6 @@ class UserController {
       }
       return res.send(helper.resetTemplate(email));
     } catch (err) {
-      console.log(err)
       res.send(helper.errorTemplate('Invalid token'));
     }
   }

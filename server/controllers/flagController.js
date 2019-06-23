@@ -10,7 +10,7 @@ class FlagController {
         return res.status(201).json({
           status: 201,
           data: [flag],
-          message: 'Car Ad has been flaged successfully',
+          message: 'Car Ad has been flaged successfully'
         });
       }
     } catch (err) {
