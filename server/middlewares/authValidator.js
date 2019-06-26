@@ -28,7 +28,7 @@ class AuthValidator {
     req.check('email', 'Email is required').notEmpty().isEmail()
       .withMessage('Invalid email');
     req.check('phone', 'The phone number is required').notEmpty().trim()
-      .isLength({ min: 11 })
+      .isLength({ min: 11, max: 11 })
       .withMessage('Enter a valid phone number');
     req.check('password', 'Password is required')
       .notEmpty().trim().isLength({ min: 6 })

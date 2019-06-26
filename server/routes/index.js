@@ -14,7 +14,7 @@ const docs = require('../../swagger.json');
 
 const router = express.Router();
 
-const { createAccount, loginUser, resetPassword, resetPasswordForm, passwordResetEmail } = AuthController;
+const { createAccount, loginUser, resetPassword, resetPasswordForm, passwordResetEmail, validateToken } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
 const { createCarAd, updateCarAdStatus, updateCarAdPrice,
   getACar, getAllCars, deleteCarAd, getCarsByStatus, getCarsByState, getCarsByManufacturer,
@@ -38,6 +38,7 @@ router.get('/api/docs', swagger.setup(docs));
 const authBaseUrl = '/api/v1/auth';
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
 router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/validateToken`, validateToken);
 
 //Password reset routes
 const passwordResetBaseUrl = '/api/v1/users'
