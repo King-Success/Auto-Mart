@@ -15,13 +15,12 @@ const login = (data) => {
   const config = {
     method: 'POST',
     body: data,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json' }
   };
   const url = 'https://andela-auto-mart.herokuapp.com/api/v1/auth/login';
   fetch(url, config)
     .then(res => res.json())
     .then((result) => {
-      console.log(result)
       if (result.status !== 200) {
         wipeAlert()
         error.style.display = 'block'
