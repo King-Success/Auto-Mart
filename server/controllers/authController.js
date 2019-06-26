@@ -4,7 +4,7 @@ import helper from '../helpers'
 import Mailer from '../helpers/mail'
 import userModel from '../models/users';
 
-const { generateToken, verifyToken } = Auth;
+const { generateToken, verifyToken, isTokenExp } = Auth;
 const { sendMail } = Mailer
 
 class UserController {
@@ -57,6 +57,23 @@ class UserController {
       return res.status(401).json({ error: true, message: 'Invalid email or password' });
     } catch (err) {
       return res.status(500).json({ error: true, message: 'Internal Server error' });
+    }
+  }
+
+  /**
+    *
+    * @param {object} req - request
+    * @param {object} res - response
+    */
+
+  static async validateToken(req, res) {
+    const { token } = req.body;
+    try {
+      const payload = await verifyToken(token)
+      if (!payload) return res.status(401).json({ status: 401, error: 'Invalid token' });
+      return res.status(200).json({ status: 200, data: payload });
+    } catch (err) {
+      return res.status(401).json({ status: 401, error: 'Invalid token' });
     }
   }
 

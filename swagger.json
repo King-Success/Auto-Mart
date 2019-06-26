@@ -828,8 +828,8 @@
         }
       },
       "example": {
-        "firstName": "John",
-        "lastName": "Doe",
+        "firstname": "John",
+        "lastname": "Doe",
         "email": "johndoe@example.com",
         "password": "secret",
         "phone": "09000000000",
@@ -837,7 +837,7 @@
         "address": "123 Ajao Estate"
       },
       "required": [
-        "phone, email, firstName, lastName, password, address"
+        "phone, email, firstname, lastname, password, address"
       ]
     },
     "order": {
