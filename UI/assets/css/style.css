@@ -62,6 +62,117 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.alert {
+    height: 30px;
+    margin-bottom: 15px;
+}
+ 
+/* spinner credit: https://loading.io/css/ */
+.alert #spinner {
+    display: none;
+    color: official;
+    /* display: inline-block; */
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+#spinner div {
+    transform-origin: 32px 32px;
+    animation: lds-spinner 1.2s linear infinite;
+}
+
+#spinner div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 3px;
+    left: 29px;
+    width: 5px;
+    height: 14px;
+    border-radius: 20%;
+    background: #fff;
+}
+
+#spinner div:nth-child(1) {
+    transform: rotate(0deg);
+    animation-delay: -1.1s;
+}
+
+#spinner div:nth-child(2) {
+    transform: rotate(30deg);
+    animation-delay: -1s;
+}
+
+#spinner div:nth-child(3) {
+    transform: rotate(60deg);
+    animation-delay: -0.9s;
+}
+
+#spinner div:nth-child(4) {
+    transform: rotate(90deg);
+    animation-delay: -0.8s;
+}
+
+#spinner div:nth-child(5) {
+    transform: rotate(120deg);
+    animation-delay: -0.7s;
+}
+
+#spinner div:nth-child(6) {
+    transform: rotate(150deg);
+    animation-delay: -0.6s;
+}
+
+#spinner div:nth-child(7) {
+    transform: rotate(180deg);
+    animation-delay: -0.5s;
+}
+
+#spinner div:nth-child(8) {
+    transform: rotate(210deg);
+    animation-delay: -0.4s;
+}
+
+#spinner div:nth-child(9) {
+    transform: rotate(240deg);
+    animation-delay: -0.3s;
+}
+
+#spinner div:nth-child(10) {
+    transform: rotate(270deg);
+    animation-delay: -0.2s;
+}
+
+#spinner div:nth-child(11) {
+    transform: rotate(300deg);
+    animation-delay: -0.1s;
+}
+
+#spinner div:nth-child(12) {
+    transform: rotate(330deg);
+    animation-delay: 0s;
+}
+
+@keyframes lds-spinner {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.alert #error {
+    display: none;
+    color: red;
+}
+
+.alert #success {
+    display: none;
+    color: greenyellow;
+}
+
 /* navigation start */
 
 .navbar {
@@ -285,6 +396,7 @@ body {
 .buttons__wrapper .btn:hover {
     padding-left: 60px;
     padding-right: 60px;
+    cursor: pointer;
 }
 
 .buttons__wrapper .btn:nth-child(2) {
@@ -448,6 +560,7 @@ body {
 }
 
 .signup__card button {
+    cursor: pointer;
     width: 82.5%;
     height: 40px;
     border: none;
@@ -1255,30 +1368,27 @@ button:hover {
     .seller__details .details__card {
         width: 100%;
     }
-/* } */
-
-@media screen and (max-width: 980px) {
-    .car {
-        width: 95%;
-        flex-direction: row;
+    /* } */
+    @media screen and (max-width: 980px) {
+        .car {
+            width: 95%;
+            flex-direction: row;
+        }
+        .car .car__details {
+            width: 65%
+        }
+        .car .seller__details {
+            width: 35%;
+        }
     }
-    .car .car__details {
-        width: 65%
+    /* footer */
+    .copyright {
+        width: 100%;
+        height: 50px;
+        background: #d4dfed;
+        border-top: 1px solid white;
+        color: black;
+        text-align: center;
+        -webkit-font-smoothing: antialiased;
     }
-    .car .seller__details {
-        width: 35%;
-    }
-}
-
-/* footer */
-
-.copyright {
-    width: 100%;
-    height: 50px;
-    background: #d4dfed;
-    border-top: 1px solid white;
-    color: black;
-    text-align: center;
-    -webkit-font-smoothing: antialiased;
-}
 }
