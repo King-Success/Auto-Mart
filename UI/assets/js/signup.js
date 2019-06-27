@@ -30,6 +30,7 @@ const createAccount = (data) => {
         wipeAlert()
         error.style.display = 'block'
         error.textContent = result.message ? result.message : result.error ? result.error : result.errors ? result.errors[0] : '';
+        return false
       }
       const { data } = result;
       const { token, user } = data[0];
