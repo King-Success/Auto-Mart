@@ -24,64 +24,39 @@
                 <a href="../index.html" class="logo">
                     Auto Mart
                 </a>
-                <ul  class="front-main-nav" id="main__nav__menu">
-                    <li><a href="profile.html" class="nav-link">Profile</a></li>
-                    <li><a class="nav-link" id="logout">Logout</a></li> 
+                <ul class="front-main-nav" id="main__nav__menu">
+                    <li><a href="profile.html" class="nav-link">profile</a></li>
+                    <li><a class="nav-link" id="logout">logout</a></li>
                 </ul>
             </nav>
             <header id="post__ad" class="container d-flex flex-col flex-center-vertical">
                 <div class="main__wrapper">
                     <div class="card__wrapper ">
                         <div class="post__ad__left">
-                            <label class="f-15" for="state">Car state
-                                <select name="" id="">
-                                    <option value="null">State</option>
-                                    <option value="new">New</option>
-                                    <option value="used">Used</option>
-                                </select>
-                            </label>
-                            <label class="f-15" for="state">Price
-                                <input type="text" placeholder="Price">
-                            </label>
-                            <label class="f-15" for="state">Manufacturer
-                                <input type="text" placeholder="Manufacturer">
-                            </label>
-                            <label class="f-15" for="state">Model
-                                <input type="text" placeholder="Model">
-                            </label>
-                            <label class="f-15" for="state">Year
-                                <select name="" id="">
-                                    <option value="null">Year</option>
-                                    <option value="2001">2001</option>
-                                    <option value="2001">2002</option>
-                                </select>
-                            </label>
-                        </div>
-                        <div class="post__ad__right">
-                            <label class="f-15" for="state">Body type
-                                <select name="" id="">
-                                    <option value="null">Body type</option>
-                                    <option value="new">Car</option>
-                                    <option value="used">Truck</option>
-                                    <option value="used">Trailer</option>
-                                    <option value="used">Van</option>
-                                </select>
-                            </label>
-                            <label class="f-15" for="state">Color
-                                <input type="text" placeholder="Color">
-                            </label>
-                            <label class="f-15" for="state">Mileage
-                                <input type="text" placeholder="Mileage">
-                            </label>
-                            <label class="f-15" for="state">Description
-                                <textarea rows="5" cols="36"></textarea>
-                            </label>
-                            <div class="uploader">
-                                <img src="assets/img/no-photo.svg" width="95.19999999999999px">
-                                <label for="photo" class="photo__input__label"></label>
-                                <input name="photo" id="fileupload" type="file" accept="image/*" multiple="multiple"
-                                    class="image__select" style="height: 136px; width: 136px;">
+                            <div class="alert smooth" style="margin-bottom: 0; text-align: center" >
+                                <p id="error"></p>
+                                <p id="success"></p>
+                            </div> <select name="" id="state">
+                                <option value="">state e.g new</option>
+                                <option value="New">new</option>
+                                <option value="Used">used</option>
+                            </select>
+                            <input type="text" id="price" placeholder="price e.g 120000.00">
+                            <input type="text" id="manufacturer" placeholder="manufacturer e.g Tesla">
+                            <input type="text" id="model" placeholder="model e.g model S">
+                            <select name="" id="type">
+                                <option value="">type e.g suv</option>
+                                <option value="Car">car</option>
+                                <option value="Truck">truck</option>
+                                <option value="SUV">suv</option>
+                            </select>
+                            <div id="image-preview">
+                                <img src="" alt="" id="preview" width="100%" height="100%">
                             </div>
+                            <input type="file" name="" id="upload-image">
+                            <button class="btn" id="upload-image-btn"> <i class="fas fa-plus"></i> upload image
+                            </button>
+                            <button class="btn" id="submit-btn"> submit </button>
                         </div>
                     </div>
                 </div>
@@ -94,6 +69,7 @@
 
     <script src="assets/js/index.js"></script>
     <script src="assets/js/auth.js"></script>
+    <script src="assets/js/post-ad.js"></script>
     <script src="assets/js/logout.js"></script>
 
 

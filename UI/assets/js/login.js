@@ -21,10 +21,12 @@ const login = (data) => {
   fetch(url, config)
     .then(res => res.json())
     .then((result) => {
-      if (result.status !== 200) {
+      if (result.error || !result.data) {
+        console.log(result)
         wipeAlert()
         error.style.display = 'block'
         error.textContent = result.message ? result.message : result.error ? result.error : result.errors ? result.errors[0] : '';
+        return false
       }
       const { data } = result;
       const { token, user } = data[0];
