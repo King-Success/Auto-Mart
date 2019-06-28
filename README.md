@@ -30,7 +30,7 @@ My Heroku Link can be found [ here ](https://andela-auto-mart.herokuapp.com)
 9. User can view all unsold cars.
 10. User can view all unsold cars within a price range.
 11. Admin can delete a posted AD record.
-12. Admin can view all posted ads whether sold or unsold.
+12. Admin can view all posted ADs whether sold or unsold.
 
 ### Additional Features
 1. User can reset password.
@@ -39,6 +39,7 @@ My Heroku Link can be found [ here ](https://andela-auto-mart.herokuapp.com)
 4. User can view all used unsold cars.
 5. User can view all new unsold cars.
 6. User can view all unsold cars of a specific make (manufacturer).
+7. User can view his Ads history.
 
 ### Prerequisites
 - [Node.js](nodejs.org) must be installed 

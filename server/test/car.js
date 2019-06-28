@@ -403,6 +403,30 @@ describe('Car endpoints', function () {
           });
       });
     });
+    describe('Get user cars', () => {
+      it('It should return all users cars', (done) => {
+        chai.request(app)
+          .get(`${baseUrl}/history`)
+          .set('authorization', userToken)
+          .end((err, res) => {
+            expect(res).to.have.status(200);
+            expect(res.body).to.have.property('data');
+            expect(res.body.data).to.be.an('array');
+            done();
+          });
+      });
+      it('It should return no cars found error', (done) => {
+        chai.request(app)
+          .get(`${baseUrl}/history`)
+          .set('authorization', adminToken)
+          .end((err, res) => {
+            expect(res).to.have.status(404);
+            expect(res.body).to.have.property('error');
+            expect(res.body.error).to.be.eql('No cars found');
+      done();
+          });
+      });
+    });
     describe('Filter cars by price', () => {
       it('It should ensure that minPrice is provided', (done) => {
         chai.request(app)
