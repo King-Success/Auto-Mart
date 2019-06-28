@@ -18,7 +18,7 @@ const { createAccount, loginUser, resetPassword, resetPasswordForm, passwordRese
 const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
 const { createCarAd, updateCarAdStatus, updateCarAdPrice,
   getACar, getAllCars, deleteCarAd, getCarsByStatus, getCarsByState, getCarsByManufacturer,
-  getCarsByPriceRange, getCarsByBodyType } = CarController;
+  getCarsByPriceRange, getCarsByBodyType, getUserCars } = CarController;
 const { validateCar, isCarExist, isCarOwner, validateStatus,
   validatePrice, validateParams } = CarValidator;
 const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
@@ -50,6 +50,7 @@ router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 const carBaseUrl = '/api/v1/car';
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
 router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
+router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
 router.patch(`${carBaseUrl}/:carId/status`, isTokenValid, isCarExist, isCarOwner, validateStatus, updateCarAdStatus);
 router.patch(`${carBaseUrl}/:carId/price`, isTokenValid, isCarExist, isCarOwner, validatePrice, updateCarAdPrice);
 router.get(`${carBaseUrl}/getByStatus`, isTokenValid, validateParams, getCarsByStatus);
@@ -68,5 +69,6 @@ router.patch(`${orderBaseUrl}/:orderId/amount`, isTokenValid, isOrderOwner, vali
 //Flag route
 const flagBaseUrl = '/api/v1/flag';
 router.post(`${flagBaseUrl}`, isTokenValid, validateFlag, isCarExist, createFlag)
+
 
 export default router;

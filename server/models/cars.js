@@ -131,6 +131,25 @@ class Car {
     }
   }
 
+  static async getByOwner(owner) {
+    const values = [owner];
+    const client = await pool.connect();
+    let car;
+    const text = 'SELECT * FROM cars WHERE owner = $1';
+    try {
+      car = await client.query({ text, values });
+      if (car.rows && car.rowCount) {
+        car = car.rows;
+        return car;
+      }
+      return false;
+    } catch (err) {
+      throw err;
+    } finally {
+      client.release();
+    }
+  }
+
   static async delete(id) {
     const values = [id];
     const client = await pool.connect();
