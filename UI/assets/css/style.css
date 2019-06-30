@@ -72,7 +72,7 @@ body {
 .alert #spinner {
     display: none;
     color: official;
-    display: inline-block;
+    /* display: inline-block; */
     position: relative;
     width: 64px;
     height: 64px;
