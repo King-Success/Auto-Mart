@@ -24,132 +24,60 @@
                 <a href="../index.html" class="logo">
                     Auto Mart
                 </a>
-                <ul  class="front-main-nav" id="main__nav__menu">
+                <ul class="front-main-nav" id="main__nav__menu">
                     <li><a class="nav-link" id="logout">Logout</a></li>
                 </ul>
             </nav>
             <header id="" class="container">
-                <!-- <h1>Post an Ad</h1> -->
                 <div class="profile">
                     <div class="aside">
                         <div class="avater__card">
-                            <div class="avater">
-                                <img src="assets/img/no-photo.svg" alt="">
+                            <div class="avater" id="avater">
+                                <img src="" alt="">
                             </div>
                             <div class="name">
-                                <h2>Arinze Kingsley</h2>
+                                <h2 id="user-name"></h2>
                             </div>
                         </div>
+                        <a href="post-ad.html"
+                            style="cursor: pointer; width: 50%; color: white; background: #092467; border-radius: 5px;"
+                            class="btn smooth">create new Ad</a>
                     </div>
-                    <div class="main">
-                        <div class="grid">
-                            <div class="grid__image">
-                                <img src="assets/img/car-banner.jpg" alt="car image">
-                            </div>
-                            <div class="grid__description">
-                                <div class="text">
-                                    <h1 class="title">Toyota Avalon</h1>
-                                    <ul class="f-15">
-                                        <li><strong>Body type</strong>: Car</li>
-                                        <li><strong>Year</strong>: 2006</li>
-                                        <li><strong>Color</strong>: Wine</li>
-                                        <li><strong>State</strong>: Used</li>
-                                        <li><strong>Mileage</strong>: 123,805</li>
-                                        <li><strong>Description</strong>: Lorem ipsum dollar sit amit, sut ent tips quo
-                                        </li>
-                                        <li><strong>Price</strong>: <em class="price">N 1,700,000</em></li>
-                                    </ul>
+                    <div class="main" id="cars-grid">
+                            <div class="alert smooth" style="text-align: center">
+                                <!-- spinner credit: https://loading.io/css/  -->
+                                <div id="spinner">
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
+                                  <div></div>
                                 </div>
-                                <div class="actions">
-                                    <a href="post-ad.html"><i class="far fa-edit"> Edit</i></a>
-                                    <a href=""><i class="far fa-eye"> 230,000</i></a>
-                                    <a href=""><i class="fas fa-users"> 100</i></a>
-                                    <a class="sold" href=""><i class="fas fa-shopping-cart"> Mark as Sold</i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="grid__image">
-                                <img src="assets/img/car-banner.jpg" alt="car image">
-                            </div>
-                            <div class="grid__description">
-                                <div class="text">
-                                    <h1 class="title">Toyota Avalon</h1>
-                                    <ul class="f-15">
-                                        <li><strong>Body type</strong>: Car</li>
-                                        <li><strong>Year</strong>: 2006</li>
-                                        <li><strong>Color</strong>: Wine</li>
-                                        <li><strong>State</strong>: Used</li>
-                                        <li><strong>Mileage</strong>: 123,805</li>
-                                        <li><strong>Description</strong>: Lorem ipsum dollar sit amit, sut ent tips quo
-                                        </li>
-                                        <li><strong>Price</strong>: <em class="price">N 1,700,000</em></li>
-                                    </ul>
-                                </div>
-                                <div class="actions">
-                                    <a href="post-ad.html"><i class="far fa-edit"> Edit</i></a>
-                                    <a href=""><i class="far fa-eye"> 230,000</i></a>
-                                    <a href=""><i class="fas fa-users"> 100</i></a>
-                                    <a class="sold" href=""><i class="fas fa-shopping-cart"> Mark as Sold</i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="grid__image">
-                                <img src="assets/img/car-banner.jpg" alt="car image">
-                            </div>
-                            <div class="grid__description">
-                                <div class="text">
-                                    <h1 class="title">Toyota Avalon</h1>
-                                    <ul class="f-15">
-                                        <li><strong>Body type</strong>: Car</li>
-                                        <li><strong>Year</strong>: 2006</li>
-                                        <li><strong>Color</strong>: Wine</li>
-                                        <li><strong>State</strong>: Used</li>
-                                        <li><strong>Mileage</strong>: 123,805</li>
-                                        <li><strong>Description</strong>: Lorem ipsum dollar sit amit, sut ent tips quo
-                                        </li>
-                                        <li><strong>Price</strong>: <em class="price">N 1,700,000</em></li>
-                                    </ul>
-                                </div>
-                                <div class="actions">
-                                    <a href="post-ad.html"><i class="far fa-edit"> Edit</i></a>
-                                    <a href=""><i class="far fa-eye"> 230,000</i></a>
-                                    <a href=""><i class="fas fa-users"> 100</i></a>
-                                    <a class="sold" href=""><i class="fas fa-shopping-cart"> Mark as Sold</i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="grid__image">
-                                <img src="assets/img/car-banner.jpg" alt="car image">
-                            </div>
-                            <div class="grid__description">
-                                <div class="text">
-                                    <h1 class="title">Toyota Avalon</h1>
-                                    <ul class="f-15">
-                                        <li><strong>Body type</strong>: Car</li>
-                                        <li><strong>Year</strong>: 2006</li>
-                                        <li><strong>Color</strong>: Wine</li>
-                                        <li><strong>State</strong>: Used</li>
-                                        <li><strong>Mileage</strong>: 123,805</li>
-                                        <li><strong>Description</strong>: Lorem ipsum dollar sit amit, sut ent tips quo
-                                        </li>
-                                        <li><strong>Price</strong>: <em class="price">N 1,700,000</em></li>
-                                    </ul>
-                                </div>
-                                <div class="actions">
-                                    <a href="post-ad.html"><i class="far fa-edit"> Edit</i></a>
-                                    <a href=""><i class="far fa-eye"> 230,000</i></a>
-                                    <a href=""><i class="fas fa-users"> 100</i></a>
-                                    <a class="sold" href=""><i class="fas fa-shopping-cart"> Mark as Sold</i></a>
-                                </div>
-                            </div>
-                        </div>
-
+                              </div>
                     </div>
                 </div>
             </header>
+            <div class="modal">
+                <div class="modal-content">
+                    <span class="close-button">&times;</span>
+                    <h2>Update advert price</h2>
+                    <div class="alert smooth">
+                        <p id="error" class="modal-error"></p>
+                        <p id="success"></p>
+                      </div>
+                    <div id="inputs">
+                        <input type="text" id="update-price" placeholder=" e.g 120000.00">
+                        <button class="btn" id="submit-btn"> update </button>
+                    </div>
+                </div>
+            </div>
             <div class="copyright">
                 <p class="footer-text"> All Rights Reserved &copy;2019</p>
             </div>
@@ -157,8 +85,12 @@
     </div>
 
     <script src="assets/js/index.js"></script>
+    <script src="assets/js/utils.js"></script>
     <script src="assets/js/auth.js"></script>
+    <script src="assets/js/modal.js"></script>
+    <script src="assets/js/profile.js"></script>
     <script src="assets/js/logout.js"></script>
+
 </body>
 
 </html>

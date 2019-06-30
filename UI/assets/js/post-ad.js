@@ -70,6 +70,7 @@ const createAd = (data) => {
       wipeForm();
       success.style.display = 'block';
       success.textContent = 'Advert created successfully';
+      window.location = 'profile.html'
     })
     .catch((err) => {
       console.log(err)
