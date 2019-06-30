@@ -243,6 +243,20 @@ body {
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
 
+@media screen and (max-width: 480px) {
+    .modal-content {
+        width: 16rem;
+        height: 18rem;
+    }
+}
+
+@media screen and (max-width: 312px) {
+    .modal-content {
+        width: 13rem;
+        height: 18rem;
+    }
+}
+
 /* navigation start */
 
 .navbar {

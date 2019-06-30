@@ -1,12 +1,16 @@
-const logoutButton = document.getElementById('logout');
+(function logout() {
+    const logoutButton = document.getElementById('logout');
 
-const logout = (e) => {
-    e.preventDefault()
-    localStorage.removeItem('user')
-    localStorage.removeItem('token')
-    if (localStorage.getItem('admin')) {
-        localStorage.removeItem('admin');
+    const logout = (e) => {
+        e.preventDefault()
+        localStorage.removeItem('user')
+        localStorage.removeItem('token')
+        if (localStorage.getItem('admin')) {
+            localStorage.removeItem('admin');
+        }
+        const location = window.location.pathname
+        const file = location.substring(location.lastIndexOf('/'))
+        window.location = file === '/index.html' ? 'index.html' : '../index.html';
     }
-    window.location = '../index.html';
-}
-logoutButton.addEventListener('click', logout);
+    if (logoutButton) logoutButton.addEventListener('click', logout);
+})()
