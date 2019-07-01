@@ -22,6 +22,23 @@ const formatDate = (timestamp) => {
     }
 }
 
+//credit: https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-currency-string-in-javascript?page=1&tab=votes#tab-top
+function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
+    try {
+        decimalCount = Math.abs(decimalCount);
+        decimalCount = isNaN(decimalCount) ? 2 : decimalCount;
+
+        const negativeSign = amount < 0 ? "-" : "";
+
+        let i = parseInt(amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)).toString();
+        let j = (i.length > 3) ? i.length % 3 : 0;
+
+        return negativeSign + (j ? i.substr(0, j) + thousands : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) + (decimalCount ? decimal + Math.abs(amount - i).toFixed(decimalCount).slice(2) : "");
+    } catch (e) {
+        console.log(e)
+    }
+};
+
 wipeAlert = (nodes, btn = null, text = '') => {
     if (btn) btn.textContent = text;
     for (let i = 0; i < nodes.length; i++) {
@@ -30,7 +47,7 @@ wipeAlert = (nodes, btn = null, text = '') => {
 }
 
 wipeForm = (fields) => {
-    for(let i = 0; i < fields.length; i++){
+    for (let i = 0; i < fields.length; i++) {
         fields[i].value = ''
     }
-  }
+}
