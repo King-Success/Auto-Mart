@@ -25,254 +25,71 @@
                     Auto Mart
                 </a>
                 <ul class="front-main-nav" id="main__nav__menu">
-                    <li><a href="UI/login.html" class="nav-link" id="login">Login</a></li>
-                    <li><a href="UI/signup.html" class="nav-link" id="signup">Signup</a></li>
+                    <li><a href="login.html" class="nav-link" id="login">Login</a></li>
+                    <li><a href="signup.html" class="nav-link" id="signup">Signup</a></li>
                 </ul>
             </nav>
             <header id="" class="container">
                 <div class="all__cars">
                     <div class="search__sort">
-                        <div class="search">
-                            <input type="text" class="search" placeholder="Enter keyword">
-                        </div>
                         <div class="state__make">
                             <div class="state">
-                                <select name="" id="">
-                                    <option value="">State</option>
-                                    <option value="">New</option>
-                                    <option value="">Used</option>
+                                <select name="" id="state">
+                                    <option value="" disabled selected>State</option>
+                                    <option value="New">New</option>
+                                    <option value="Used">Used</option>
                                 </select>
                             </div>
                             <div class="make">
-                                <select name="" id="">
-                                    <option value="">Make</option>
-                                    <option value="">Toyota</option>
-                                    <option value="">Honda</option>
-                                    <option value="">Tesla</option>
+                                <select name="" id="make">
+                                    <option value="" disabled selected>Manufacturer</option>
+                                    <option value="Toyota">Toyota</option>
+                                    <option value="Honda">Honda</option>
+                                    <option value="Tesla">Tesla</option>
                                 </select>
                             </div>
                         </div>
                         <div class="price__filter">
                             <div class="price">
-                                <input type="text" placeholder="Price">
+                                <select name="" id="body">
+                                    <option value="" disabled selected>Body type</option>
+                                    <option value="Car">Car</option>
+                                    <option value="Truck">Truck</option>
+                                    <option value="SUV">SUV</option>
+                                </select>
+                            </div>
+                            <div class="price">
+                                <input type="text" id="min-price" placeholder="Min price">
+                            </div>
+                        </div>
+                        <div class="price__filter">
+                            <div class="price">
+                                <input type="text" id="max-price" placeholder="Max Price">
                             </div>
                             <div class="go f-16">
-                                <button>Filter</button>
+                                <button id="filter">Filter</button>
                             </div>
                         </div>
                     </div>
                     <div class="all__cars__grid">
-                        <div class="grid">
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
+                        <div class="alert smooth" style="text-align: center">
+                            <!-- spinner credit: https://loading.io/css/  -->
+                            <div id="spinner" style="display: inline-block">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
                             </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
-                            <div class="post">
-                                <img src="assets/img/home-banner-background.jpg" alt="">
-                                <div class="details">
-                                    <a href="">
-                                        <h2 class="title">Toyota Avalon </h2>
-                                        <em class="price">N1,300,000</em>
-                                    </a>
-                                </div>
-                                <div class="actions">
-                                    <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
-                                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="grid" id="cars_grid">
                         </div>
                     </div>
                 </div>
@@ -285,6 +102,8 @@
 
     <script src="assets/js/index.js"></script>
     <script src="assets/js/auth.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/all-cars.js"></script>
     <script src="assets/js/logout.js"></script>
 </body>
 

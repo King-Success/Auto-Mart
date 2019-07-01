@@ -43,7 +43,7 @@ const createAccount = (data) => {
         localStorage.setItem('admin', user.isadmin);
         window.location.replace('all-cars.html');
       } else {
-        window.location.replace('profile.html');
+        window.location.replace('all-cars.html');
       }
 
     })

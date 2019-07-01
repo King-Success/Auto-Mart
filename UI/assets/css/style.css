@@ -1077,6 +1077,10 @@ button:hover {
     text-align: center;
 }
 
+.profile .aside .btns{
+    display: flex;
+}
+
 .profile .aside .avater__card {
     background: white;
     width: 80%;
