@@ -1,3 +1,38 @@
+const updateStatus = (e) => {
+    const carId = e.target.getAttribute('data-id')
+    const status = e.target.getAttribute('data-status')
+    const updateStatusLink = document.getElementById(`change-status-${carId}`)
+    const newStatus = status === 'Sold' ? 'Available' : 'Sold'
+    const url = `https://andela-auto-mart.herokuapp.com/api/v1/car/${carId}/status`;
+    const token = localStorage.getItem('token');
+    const config = {
+        method: 'PATCH',
+        body: JSON.stringify({ status: newStatus }),
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + token,
+
+        }
+    };
+    updateStatusLink.textContent = 'updating...'
+    fetch(url, config)
+        .then(res => res.json())
+        .then((result) => {
+            if (result.status === 200) {
+                const statusDisplay = document.getElementById(`status-display-${carId}`)
+                updateStatusLink.textContent = `mark as ${status.toLowerCase()}`
+                statusDisplay.textContent = ` ${newStatus}`
+                e.target.setAttribute('data-status', newStatus)
+                return false
+            }
+            updateStatusLink.textContent = `mark as ${status === 'Sold' ? 'available' : 'sold'}`
+        })
+        .catch((err) => {
+            console.log(err)
+            updateStatusLink.textContent = `mark as ${status === 'Sold' ? 'available' : 'sold'}`
+        });
+}
+
 (function profile() {
     const carsGrid = document.getElementById('cars-grid');
     const avatar = document.getElementById('avater');
@@ -50,10 +85,10 @@
                             </ul>
                         </div>
                         <div class="actions">
-                            <a href=""><i class="far fa-eye"> 0</i></a>
-                            <a href=""><i class="fas fa-users"> ${car.status}</i></a>
-                            <a onclick="toggleModal(event)" style="text-decoration: underline; cursor: pointer;"><i class="fas fa-edit" data-id="${car.id}"> update price</i></a>
-                            <a class="sold" href=""data-mark="${car.id}><i class="fas fa-shopping-cart"> mark as sold</i></a>
+                            <a><i class="far fa-eye"> 0</i></a>
+                            <a><i class="fas fa-shopping-cart" id="status-display-${car.id}"> ${car.status}</i></a>
+                            <a onclick="toggleModal(event)" style="text-decoration: underline; cursor: pointer;"><i class="fas fa-edit" data-id="${car.id}"> price</i></a>
+                            <a onclick="updateStatus(event)" style="text-decoration: underline; cursor: pointer;" class="sold"><i id="change-status-${car.id}" data-id="${car.id}" data-status="${car.status}"> mark as ${car.status === 'Sold' ? 'available' : 'sold'}</i></a>
                         </div>
                     </div>
                 </div>`;
@@ -120,4 +155,6 @@
                 console.log(err)
             });
     }
+
+
 })()
