@@ -14,22 +14,22 @@ const updateStatus = (e) => {
 
         }
     };
-    updateStatusLink.textContent = 'updating...'
+    updateStatusLink.textContent = ' updating...'
     fetch(url, config)
         .then(res => res.json())
         .then((result) => {
             if (result.status === 200) {
                 const statusDisplay = document.getElementById(`status-display-${carId}`)
-                updateStatusLink.textContent = `mark as ${status.toLowerCase()}`
+                updateStatusLink.textContent = ` mark as ${status.toLowerCase()}`
                 statusDisplay.textContent = ` ${newStatus}`
                 e.target.setAttribute('data-status', newStatus)
                 return false
             }
-            updateStatusLink.textContent = `mark as ${status === 'Sold' ? 'available' : 'sold'}`
+            updateStatusLink.textContent = ` mark as ${status === 'Sold' ? 'available' : 'sold'}`
         })
         .catch((err) => {
             console.log(err)
-            updateStatusLink.textContent = `mark as ${status === 'Sold' ? 'available' : 'sold'}`
+            updateStatusLink.textContent = ` mark as ${status === 'Sold' ? 'available' : 'sold'}`
         });
 }
 
@@ -81,14 +81,14 @@ const updateStatus = (e) => {
                                 <li><strong>state</strong>: ${car.state.toLowerCase()}</li>
                                 <li><strong>manufacturer</strong>: ${car.manufacturer}</li>
                                 <li><strong>posted on</strong>: ${formatDate(car.createdon)}</li>
-                                <li><strong>price</strong>: <em class="price">N ${car.price}</em></li>
+                                <li><strong>price</strong>: <em class="" style="color: green">&#8358; ${formatMoney(car.price)}</em></li>
                             </ul>
                         </div>
                         <div class="actions">
                             <a><i class="far fa-eye"> 0</i></a>
                             <a><i class="fas fa-shopping-cart" id="status-display-${car.id}"> ${car.status}</i></a>
                             <a onclick="toggleModal(event)" style="text-decoration: underline; cursor: pointer;"><i class="fas fa-edit" data-id="${car.id}"> price</i></a>
-                            <a onclick="updateStatus(event)" style="text-decoration: underline; cursor: pointer;" class="sold"><i id="change-status-${car.id}" data-id="${car.id}" data-status="${car.status}"> mark as ${car.status === 'Sold' ? 'available' : 'sold'}</i></a>
+                            <a onclick="updateStatus(event)" style="text-decoration: underline; cursor: pointer;" class="sold"><i class="fas fa-toggle-on" id="change-status-${car.id}" data-id="${car.id}" data-status="${car.status}"> mark as ${car.status === 'Sold' ? 'available' : 'sold'}</i></a>
                         </div>
                     </div>
                 </div>`;
