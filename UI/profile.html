@@ -25,8 +25,9 @@
                     Auto Mart
                 </a>
                 <ul class="front-main-nav" id="main__nav__menu">
-                    <li><a href="UI/login.html" class="nav-link" id="login">Login</a></li>
-                    <li><a href="UI/signup.html" class="nav-link" id="signup">Signup</a></li>                </ul>
+                    <li><a href="login.html" class="nav-link" id="login">Login</a></li>
+                    <li><a href="signup.html" class="nav-link" id="signup">Signup</a></li>
+                </ul>
             </nav>
             <header id="" class="container">
                 <div class="profile">
@@ -39,28 +40,33 @@
                                 <h2 id="user-name"></h2>
                             </div>
                         </div>
-                        <a href="post-ad.html"
-                            style="cursor: pointer; width: 50%; color: white; background: #092467; border-radius: 5px;"
-                            class="btn smooth">create new Ad</a>
+                        <div class="btns">
+                            <a href="post-ad.html"
+                                style="cursor: pointer; width: 50%; color: white; background: #092467; border-radius: 5px;"
+                                class="btn smooth">create new Ad</a> <br>
+                            <a href="all-cars.html"
+                                style="cursor: pointer; width: 50%; color: white; background: #092467; border-radius: 5px;"
+                                class="btn smooth">buy car</a>
+                        </div>
                     </div>
                     <div class="main" id="cars-grid">
-                            <div class="alert smooth" style="text-align: center">
-                                <!-- spinner credit: https://loading.io/css/  -->
-                                <div id="spinner">
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                  <div></div>
-                                </div>
-                              </div>
+                        <div class="alert smooth" style="text-align: center">
+                            <!-- spinner credit: https://loading.io/css/  -->
+                            <div id="spinner">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -71,7 +77,7 @@
                     <div class="alert smooth">
                         <p id="error" class="modal-error"></p>
                         <p id="success"></p>
-                      </div>
+                    </div>
                     <div id="inputs">
                         <input type="text" id="update-price" placeholder=" e.g 120000.00">
                         <button class="btn" id="submit-btn"> update </button>
