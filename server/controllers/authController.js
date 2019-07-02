@@ -61,6 +61,25 @@ class UserController {
   }
 
   /**
+ *
+ * @param {object} req - request
+ * @param {object} res - response
+ */
+  static async getAccount(req, res) {
+    try {
+      const { userId } = req.params;
+      const user = await userModel.findById(userId);
+      if (user) {
+        return res.status(200).json({ data: [user] });
+      }
+      return res.status(404).json({ status: 404, message: 'user not found' });
+    } catch (err) {
+      return res.status(500).json({ status: 500, message: 'Internal Server error' });
+    }
+  }
+
+
+  /**
     *
     * @param {object} req - request
     * @param {object} res - response
