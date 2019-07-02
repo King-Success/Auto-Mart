@@ -14,7 +14,7 @@ const docs = require('../../swagger.json');
 
 const router = express.Router();
 
-const { createAccount, loginUser, resetPassword, resetPasswordForm, passwordResetEmail, validateToken } = AuthController;
+const { createAccount, getAccount, loginUser, resetPassword, resetPasswordForm, passwordResetEmail, validateToken } = AuthController;
 const { validateSignUp, userExists, validateLogin, isTokenValid, isAdmin } = AuthValidator;
 const { createCarAd, updateCarAdStatus, updateCarAdPrice,
   getACar, getAllCars, deleteCarAd, getCarsByStatus, getCarsByState, getCarsByManufacturer,
@@ -69,6 +69,10 @@ router.patch(`${orderBaseUrl}/:orderId/amount`, isTokenValid, isOrderOwner, vali
 //Flag route
 const flagBaseUrl = '/api/v1/flag';
 router.post(`${flagBaseUrl}`, isTokenValid, validateFlag, isCarExist, createFlag)
+
+//User route
+const userBaseUrl = '/api/v1/user';
+router.get(`${userBaseUrl}/:userId`, isTokenValid, getAccount);
 
 
 export default router;
