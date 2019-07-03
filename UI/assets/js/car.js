@@ -1,3 +1,59 @@
+const token = localStorage.getItem("token");
+
+const disableOrder = () => {
+  const reportButton = document.querySelector("#order");
+  reportButton.disabled = true;
+  reportButton.classList.remove('opacity');
+  reportButton.style.opacity = 0.4;
+  return false;
+};
+
+const flagAd = carId => { // eslint-disable-line no-unused-vars
+  const reportButton = document.querySelector(".report");
+  reportButton.textContent = "Reporting...";
+  const urlFlag = `https://andela-auto-mart.herokuapp.com/api/v1/flag`;
+  const body = JSON.stringify({
+    carId,
+    reason: "Default",
+    description: "Default"
+  });
+  const configFlag = {
+    method: "POST",
+    body,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    }
+  };
+  fetch(urlFlag, configFlag)
+    .then(res => res.json())
+    .then(flagPayload => {
+      if (flagPayload.status === 201) {
+        reportButton.innerHTML = 'Reported <i class="fas fa-check"></i>';
+        disableOrder();
+        setTimeout(() => {
+          reportButton.innerHTML = 'Report this ad <i class="far fa-flag"></i>';
+          return false;
+        }, 2000);
+        return false;
+      }
+      reportButton.innerHTML = 'Failed <i class="fas fa-times"></i>';
+      setTimeout(() => {
+        reportButton.innerHTML = 'Report this ad <i class="far fa-flag"></i>';
+        return false;
+      }, 2000);
+      return false;
+    })
+    .catch(err => {
+      console.log(err); // eslint-disable-line no-console
+      reportButton.innerHTML = 'Failed <i class="fas fa-times"></i>';
+      setTimeout(() => {
+        reportButton.innerHTML = 'Report this ad <i class="far fa-flag"></i>';
+        return false;
+      }, 2000);
+    });
+};
+
 (function allCars() {
   const carDetail = document.querySelector(".car");
   const alertBox = document.querySelector(".alert");
@@ -6,7 +62,6 @@
 
   const urlParams = new URLSearchParams(window.location.search);
   const carId = urlParams.get("carId");
-  const token = localStorage.getItem("token");
   const urlCar = `https://andela-auto-mart.herokuapp.com/api/v1/car/${carId}`;
   const configCar = {
     method: "GET",
@@ -78,11 +133,13 @@
                       </div>
                       <div class="actions">
                           <div class="buy">
-                              <button class="f-20 opacity">Add to cart <i
+                              <button id="order" class="f-20 opacity">Add to cart <i
                                       class="fas fa-shopping-cart"></i></button>
                           </div>
                           <div class="others">
-                              <button class="report opacity">Report this ad <i class="far fa-flag"></i></button>
+                              <button onclick="flagAd(${
+                                car.id
+                              })" class="report opacity">Report this ad <i class="far fa-flag"></i></button>
                           </div>
                       </div>
                   </div>
