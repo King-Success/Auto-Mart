@@ -1,87 +1,95 @@
+/* eslint-disable no-console */
 (function login() {
-  const email = document.getElementById('email');
-  const password = document.getElementById('password');
-  const loginButton = document.getElementById('login-button');
-  const spinner = document.getElementById('spinner');
-  const error = document.getElementById('error');
-  const success = document.getElementById('success');
+  const email = document.getElementById("email");
+  const password = document.getElementById("password");
+  const loginButton = document.getElementById("login-button");
+  const spinner = document.getElementById("spinner");
+  const error = document.getElementById("error");
+  const success = document.getElementById("success");
 
   const wipeAlert = () => {
-    spinner.style.display = 'none';
-    error.style.display = 'none';
-    success.style.display = 'none';
-  }
+    spinner.style.display = "none";
+    error.style.display = "none";
+    success.style.display = "none";
+  };
 
-  const login = (data) => {
+  const login = data => {
     const config = {
-      method: 'POST',
+      method: "POST",
       body: data,
-      headers: { 'Content-Type': 'application/json' }
+      headers: { "Content-Type": "application/json" }
     };
-    const url = 'https://andela-auto-mart.herokuapp.com/api/v1/auth/login';
+    const url = "https://andela-auto-mart.herokuapp.com/api/v1/auth/login";
     fetch(url, config)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.error || !result.data) {
-          wipeAlert()
-          error.style.display = 'block'
-          error.textContent = result.message ? result.message : result.error ? result.error : result.errors ? result.errors[0] : '';
-          return false
+          wipeAlert();
+          error.style.display = "block";
+          /* eslint-disable indent */
+          error.textContent = result.message
+            ? result.message
+            : result.error
+            ? result.error
+            : result.errors
+            ? result.errors[0]
+            : "";
+          return false;
         }
         const { data } = result;
         const { token, user } = data[0];
-        wipeAlert()
-        success.style.display = 'block'
-        success.textContent = 'Login successful';
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
-        if (user.isadmin) {
-          localStorage.setItem('admin', user.isadmin);
-          window.location.replace('all-cars.html');
-        } else {
-          window.location.replace('all-cars.html');
-        }
-
-      })
-      .catch((err) => {
-        console.log(err)
         wipeAlert();
-        error.style.display = 'block';
-        error.textContent = 'Oops, check you network and try again';
+        success.style.display = "block";
+        success.textContent = "Login successful";
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
+        if (user.isadmin) {
+          localStorage.setItem("admin", user.isadmin);
+          window.location.replace("all-cars.html");
+        } else {
+          window.location.replace("all-cars.html");
+        }
+        return false;
+      })
+      .catch(err => {
+        console.log(err);
+        wipeAlert();
+        error.style.display = "block";
+        error.textContent = "Oops, check you network and try again";
       });
-
-  }
+  };
 
   const validator = () => {
-    if (email.value === '') {
+    if (email.value === "") {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Email is required';
+      error.style.display = "block";
+      error.textContent = "Email is required";
       email.focus();
       return false;
     }
 
-    if (password.value === '') {
+    if (password.value === "") {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Password is required';
+      error.style.display = "block";
+      error.textContent = "Password is required";
       password.focus();
       return false;
     }
-  }
+    return false;
+  };
 
-  const handler = (e) => {
+  const handler = e => {
     e.preventDefault();
     wipeAlert();
-    spinner.style.display = 'inline-block';
-    validator()
+    spinner.style.display = "inline-block";
+    validator();
     let data = {
       email: email.value,
       password: password.value
-    }
-    data = JSON.stringify(data)
-    login(data)
-  }
+    };
+    data = JSON.stringify(data);
+    login(data);
+  };
 
-  loginButton.addEventListener('click', handler);
-})()
+  loginButton.addEventListener("click", handler);
+})();
