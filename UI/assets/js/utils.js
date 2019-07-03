@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars, no-undef,
+no-console, quote-props, no-param-reassign, no-restricted-globals */
 const formatDate = timestamp => {
   const months = {
     "01": "Jan",
@@ -22,7 +24,7 @@ const formatDate = timestamp => {
   }
 };
 
-//credit: https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-currency-string-in-javascript?page=1&tab=votes#tab-top
+// credit: https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-currency-string-in-javascript?page=1&tab=votes#tab-top
 function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
   try {
     decimalCount = Math.abs(decimalCount);
@@ -30,15 +32,16 @@ function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
 
     const negativeSign = amount < 0 ? "-" : "";
 
-    let i = parseInt(
-      (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount))
+    const i = parseInt(
+      (amount = Math.abs(Number(amount) || 0).toFixed(decimalCount)),
+      10
     ).toString();
-    let j = i.length > 3 ? i.length % 3 : 0;
+    const j = i.length > 3 ? i.length % 3 : 0;
 
     return (
       negativeSign +
       (j ? i.substr(0, j) + thousands : "") +
-      i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + thousands) +
+      i.substr(j).replace(/(\d{3})(?=\d)/g, `$1 ${thousands}`) +
       (decimalCount
         ? decimal +
           Math.abs(amount - i)
@@ -49,17 +52,18 @@ function formatMoney(amount, decimalCount = 2, decimal = ".", thousands = ",") {
   } catch (e) {
     console.log(e);
   }
+  return false;
 }
 
 wipeAlert = (nodes, btn = null, text = "") => {
   if (btn) btn.textContent = text;
-  for (let i = 0; i < nodes.length; i++) {
+  for (let i = 0; i < nodes.length; i += 1) {
     nodes[i].style.display = "none";
   }
 };
 
 wipeForm = fields => {
-  for (let i = 0; i < fields.length; i++) {
+  for (let i = 0; i < fields.length; i += 1) {
     fields[i].value = "";
   }
 };

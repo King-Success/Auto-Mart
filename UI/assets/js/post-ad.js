@@ -1,178 +1,182 @@
+/* eslint-disable no-console */
 (function postAd() {
-  const state = document.getElementById('state');
-  const price = document.getElementById('price');
-  const manufacturer = document.getElementById('manufacturer');
-  const model = document.getElementById('model');
-  const type = document.getElementById('type');
-  const error = document.getElementById('error');
-  const success = document.getElementById('success');
-  const uploadImage = document.getElementById('upload-image');
-  const uploadBtn = document.getElementById('upload-image-btn');
-  const preview = document.getElementById('preview');
-  const submitButton = document.getElementById('submit-btn');
+  const state = document.getElementById("state");
+  const price = document.getElementById("price");
+  const manufacturer = document.getElementById("manufacturer");
+  const model = document.getElementById("model");
+  const type = document.getElementById("type");
+  const error = document.getElementById("error");
+  const success = document.getElementById("success");
+  const uploadImage = document.getElementById("upload-image");
+  const uploadBtn = document.getElementById("upload-image-btn");
+  const preview = document.getElementById("preview");
+  const submitButton = document.getElementById("submit-btn");
 
-
-  uploadBtn.addEventListener('click', () => {
+  uploadBtn.addEventListener("click", () => {
     uploadImage.click();
   });
 
-  uploadImage.addEventListener('change', () => {
+  uploadImage.addEventListener("change", () => {
     const upload = uploadImage.files[0];
     const fileReader = new FileReader();
 
     fileReader.addEventListener("load", () => {
       preview.src = fileReader.result;
-      uploadBtn.innerHTML = 'change image';
+      uploadBtn.innerHTML = "change image";
     });
 
     fileReader.readAsDataURL(upload);
-
   });
 
   const wipeAlert = () => {
-    submitButton.innerHTML = 'submit';
-    error.style.display = 'none';
-    success.style.display = 'none';
-  }
+    submitButton.innerHTML = "submit";
+    error.style.display = "none";
+    success.style.display = "none";
+  };
 
-  wipeForm = () => {
-    state.value = ''
-    price.value = ''
-    manufacturer.value = ''
-    model.value = ''
-    type.value = ''
-    preview.src = ''
-  }
+  const wipeForm = () => {
+    state.value = "";
+    price.value = "";
+    manufacturer.value = "";
+    model.value = "";
+    type.value = "";
+    preview.src = "";
+  };
 
-
-  const createAd = (data) => {
-    const url = 'https://andela-auto-mart.herokuapp.com/api/v1/car';
-    const token = localStorage.getItem('token');
+  const createAd = data => {
+    const url = "https://andela-auto-mart.herokuapp.com/api/v1/car";
+    const token = localStorage.getItem("token");
     const config = {
-      method: 'POST',
+      method: "POST",
       body: data,
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token,
-
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
       }
     };
     fetch(url, config)
       .then(res => res.json())
-      .then((result) => {
+      .then(result => {
         if (result.status !== 201) {
-          wipeAlert()
-          error.style.display = 'block'
-          error.textContent = result.message ? result.message : result.error ? result.error : result.errors ? result.errors[0] : '';
-          return false
+          wipeAlert();
+          error.style.display = "block";
+          /* eslint-disable indent */
+          error.textContent = result.message
+            ? result.message
+            : result.error
+            ? result.error
+            : result.errors
+            ? result.errors[0]
+            : "";
+          return false;
         }
         wipeAlert();
         wipeForm();
-        success.style.display = 'block';
-        success.textContent = 'Advert created successfully';
-        window.location = 'profile.html'
+        success.style.display = "block";
+        success.textContent = "Advert created successfully";
+        window.location = "profile.html";
+        return false;
       })
-      .catch((err) => {
-        console.log(err)
+      .catch(err => {
+        console.log(err);
       });
+  };
 
-  }
-
-  const cloudinaryUpload = (imageFile) => {
+  const cloudinaryUpload = imageFile => {
     const formData = new FormData();
-    formData.append('file', imageFile);
-    formData.append('upload_preset', 'pw3cblme');
+    formData.append("file", imageFile);
+    formData.append("upload_preset", "pw3cblme");
 
     const config = {
-      method: 'POST',
-      body: formData,
+      method: "POST",
+      body: formData
     };
-    const url = 'https://api.cloudinary.com/v1_1/code4king/image/upload'
+    const url = "https://api.cloudinary.com/v1_1/code4king/image/upload";
     const result = fetch(url, config)
       .then(res => res.json())
       .then(res => res.secure_url)
       .catch(err => console.log(err));
-    return result
-  }
+    return result;
+  };
   const validator = () => {
-    if (state.value === '') {
+    if (state.value === "") {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'State is required';
+      error.style.display = "block";
+      error.textContent = "State is required";
       state.focus();
       return false;
     }
 
-    if (price.value === '') {
+    if (price.value === "") {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Price is required';
+      error.style.display = "block";
+      error.textContent = "Price is required";
       price.focus();
       return false;
     }
 
-    if (manufacturer.value === '') {
+    if (manufacturer.value === "") {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Manufacturer is required';
+      error.style.display = "block";
+      error.textContent = "Manufacturer is required";
       manufacturer.focus();
       return false;
     }
 
-    if (model.value === '') {
+    if (model.value === "") {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Model is required';
+      error.style.display = "block";
+      error.textContent = "Model is required";
       model.focus();
       return false;
     }
 
-    if (type.value === '') {
+    if (type.value === "") {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Type is required';
+      error.style.display = "block";
+      error.textContent = "Type is required";
       type.focus();
       return false;
     }
     const file = uploadImage.files[0];
     if (!file) {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Image is required';
+      error.style.display = "block";
+      error.textContent = "Image is required";
       return false;
     }
 
     if (file && file > 2097152) {
       wipeAlert();
-      error.style.display = 'block'
-      error.textContent = 'Image is too large';
+      error.style.display = "block";
+      error.textContent = "Image is too large";
       return false;
     }
-    return true
-  }
+    return true;
+  };
 
-  const handler = (e) => {
+  const handler = e => {
     e.preventDefault();
     wipeAlert();
-    submitButton.innerHTML = 'saving...';
-    const valid = validator()
-    if (!valid) return false
+    submitButton.innerHTML = "saving...";
+    const valid = validator();
+    if (!valid) return false;
     let data = {
       state: state.value,
       price: price.value,
       manufacturer: manufacturer.value,
       model: model.value,
       bodyType: type.value,
-      mainImageUrl: ''
-    }
+      mainImageUrl: ""
+    };
     const imageFile = uploadImage.files[0];
-    cloudinaryUpload(imageFile)
-      .then((secureUrl) => {
-        data.mainImageUrl = secureUrl
-        data = JSON.stringify(data)
-        createAd(data)
-      })
-  }
+    cloudinaryUpload(imageFile).then(secureUrl => {
+      data.mainImageUrl = secureUrl;
+      data = JSON.stringify(data);
+      createAd(data);
+    });
+    return false;
+  };
 
-  submitButton.addEventListener('click', handler);
-})()
+  submitButton.addEventListener("click", handler);
+})();
