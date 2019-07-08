@@ -1,8 +1,42 @@
 const isAdmin = localStorage.getItem("admin");
+const token = localStorage.getItem("token");
+let carsGrid;
+let alertBox;
+
 if (!isAdmin) window.location.replace("unsold-cars.html");
+
+const deleteCar = carId => { // eslint-disable-line no-unused-vars
+  const trash = document.getElementById("trash");
+  trash.classList.remove("fa-trash");
+  trash.classList.add("fa-spinner");
+  const url = `https://andela-auto-mart.herokuapp.com/api/v1/car/${carId}`;
+  const config = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`
+    }
+  };
+  fetch(url, config)
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 204) {
+        window.location.reload();
+        return false;
+      }
+      trash.classList.remove("fa-spinner");
+      trash.classList.add("fa-trash");
+      return false;
+    })
+    .catch(err => {
+      console.log(err);
+      trash.classList.remove("fa-spinner");
+      trash.classList.add("fa-trash");
+    });
+};
 (function allCars() {
-  const carsGrid = document.getElementById("cars_grid");
-  const alertBox = document.querySelector(".alert");
+  carsGrid = document.getElementById("cars_grid");
+  alertBox = document.querySelector(".alert");
   const filterButton = document.getElementById("filter");
   const stateField = document.getElementById("state");
   const manufacturerField = document.getElementById("make");
@@ -56,7 +90,9 @@ if (!isAdmin) window.location.replace("unsold-cars.html");
                           )}</em>                                </a>
                   </div>
                   <div class="actions">
-                      <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
+                      <a onclick="deleteCar(${
+                        car.id
+                      })"><i class="fas fa-trash f-15" style="color: red" id="trash"></i></a>
                       <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
                       <a href=""><i class="far fa-user-circle f-15"></i></a>
                   </div>
@@ -67,7 +103,6 @@ if (!isAdmin) window.location.replace("unsold-cars.html");
       });
   };
 
-  const token = localStorage.getItem("token");
   const url = "https://andela-auto-mart.herokuapp.com/api/v1/car";
   const config = {
     method: "GET",
