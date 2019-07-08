@@ -27,6 +27,11 @@
           if (result.status === 200) {
             return true;
           }
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          if (localStorage.getItem("admin")) {
+            localStorage.removeItem("admin");
+          }
           window.location = "login.html";
           return false;
         })
