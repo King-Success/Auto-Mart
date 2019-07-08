@@ -17,6 +17,8 @@
         ? "#"
         : file === "/index.html"
         ? "UI/profile.html"
+        : file === "/Auto-Mart"
+        ? "UI/profile.html"
         : "profile.html";
     }
     if (signin) {
