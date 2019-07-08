@@ -1,3 +1,5 @@
+const isAdmin = localStorage.getItem("admin");
+if (!isAdmin) window.location.replace("unsold-cars.html");
 (function allCars() {
   const carsGrid = document.getElementById("cars_grid");
   const alertBox = document.querySelector(".alert");
@@ -40,24 +42,25 @@
       .forEach(car => {
         /* eslint-disable no-undef, indent */
         grid = `<div class="grid">
-            <div class="post">
-            <a href="car.html?carId=${car.id}"style="height: 70%">
-                <img src="${car.mainimageurl}" alt="${
+              <div class="post">
+              <a href="car.html?carId=${car.id}"style="height: 70%">
+                  <img src="${car.mainimageurl}" alt="${
           car.model
         }" style="height: 100%">
-        </a>
-                <div class="details">
-                    <a href="">
-                        <h2 class="title">${car.model.toUpperCase()} </h2>
-                        <em style="color: green">&#8358; ${formatMoney(
-                          car.price
-                        )}</em>                                </a>
-                </div>
-                <div class="actions">
-                    <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
-                    <a href=""><i class="far fa-user-circle f-15"></i></a>
-                </div>
-            </div>`;
+          </a>
+                  <div class="details">
+                      <a href="">
+                          <h2 class="title">${car.model.toUpperCase()} </h2>
+                          <em style="color: green">&#8358; ${formatMoney(
+                            car.price
+                          )}</em>                                </a>
+                  </div>
+                  <div class="actions">
+                      <a href=""><i class="fas fa-trash f-15" style="color: red"></i></a>
+                      <a href=""><i class="far fa-eye f-15"><span class="f-13">10</span></i></a>
+                      <a href=""><i class="far fa-user-circle f-15"></i></a>
+                  </div>
+              </div>`;
         /* eslint-disable  */
 
         carsGrid.insertAdjacentHTML("beforeend", grid);
@@ -65,8 +68,7 @@
   };
 
   const token = localStorage.getItem("token");
-  const url =
-    "https://andela-auto-mart.herokuapp.com/api/v1/car/getByStatus?status=Available";
+  const url = "https://andela-auto-mart.herokuapp.com/api/v1/car";
   const config = {
     method: "GET",
     headers: {
