@@ -47,7 +47,7 @@
           localStorage.setItem("admin", user.isadmin);
           window.location.replace("all-cars.html");
         } else {
-          window.location.replace("all-cars.html");
+          window.location.replace("unsold-cars.html");
         }
         return false;
       })

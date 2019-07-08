@@ -30,29 +30,51 @@
                 </ul>
             </nav>
             <header id="" class="container">
-                <div class="profile">
-                    <div class="aside">
-                        <div class="avater__card">
-                            <div class="avater" id="avater">
-                                <img src="" alt="">
+                <div class="all__cars">
+                    <div class="search__sort">
+                        <div class="state__make">
+                            <div class="state">
+                                <select name="" id="state">
+                                    <option value="" disabled selected>State</option>
+                                    <option value="New">New</option>
+                                    <option value="Used">Used</option>
+                                </select>
                             </div>
-                            <div class="name">
-                                <h2 id="user-name"></h2>
+                            <div class="make">
+                                <select name="" id="make">
+                                    <option value="" disabled selected>Manufacturer</option>
+                                    <option value="Toyota">Toyota</option>
+                                    <option value="Honda">Honda</option>
+                                    <option value="Tesla">Tesla</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="btns">
-                            <a href="post-ad.html"
-                                style="cursor: pointer; width: 50%; color: white; background: #092467; border-radius: 5px;"
-                                class="btn smooth">create new Ad</a> <br>
-                            <a href="unsold-cars.html"
-                                style="cursor: pointer; width: 50%; color: white; background: #092467; border-radius: 5px;"
-                                class="btn smooth">buy car</a>
+                        <div class="price__filter">
+                            <div class="price">
+                                <select name="" id="body">
+                                    <option value="" disabled selected>Body type</option>
+                                    <option value="Car">Car</option>
+                                    <option value="Truck">Truck</option>
+                                    <option value="SUV">SUV</option>
+                                </select>
+                            </div>
+                            <div class="price">
+                                <input type="text" id="min-price" placeholder="Min price">
+                            </div>
+                        </div>
+                        <div class="price__filter">
+                            <div class="price">
+                                <input type="text" id="max-price" placeholder="Max Price">
+                            </div>
+                            <div class="go f-16">
+                                <button id="filter">Filter</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="main" id="cars-grid">
+                    <div class="all__cars__grid">
                         <div class="alert smooth" style="text-align: center">
                             <!-- spinner credit: https://loading.io/css/  -->
-                            <div id="spinner">
+                            <div id="spinner" style="display: inline-block">
                                 <div></div>
                                 <div></div>
                                 <div></div>
@@ -66,24 +88,12 @@
                                 <div></div>
                                 <div></div>
                             </div>
+                        </div>
+                        <div class="grid" id="cars_grid">
                         </div>
                     </div>
                 </div>
             </header>
-            <div class="modal">
-                <div class="modal-content">
-                    <span class="close-button">&times;</span>
-                    <h2>Update advert price</h2>
-                    <div class="alert smooth">
-                        <p id="error" class="modal-error"></p>
-                        <p id="success"></p>
-                    </div>
-                    <div id="inputs">
-                        <input type="text" id="update-price" placeholder=" e.g 120000.00">
-                        <button class="btn" id="submit-btn"> update </button>
-                    </div>
-                </div>
-            </div>
             <div class="copyright">
                 <p class="footer-text"> All Rights Reserved &copy;2019</p>
             </div>
@@ -91,12 +101,10 @@
     </div>
 
     <script src="assets/js/index.js"></script>
-    <script src="assets/js/utils.js"></script>
     <script src="assets/js/auth.js"></script>
-    <script src="assets/js/modal.js"></script>
-    <script src="assets/js/profile.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/unsold-cars.js"></script>
     <script src="assets/js/logout.js"></script>
-
 </body>
 
 </html>
