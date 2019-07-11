@@ -4,8 +4,8 @@ class Car {
   static async create(values) {
     const client = await pool.connect();
     let car;
-    const text = `INSERT INTO cars(owner,state, price, manufacturer, model, bodyType, mainImageUrl)
-      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+    const text = `INSERT INTO cars(owner,state, price, manufacturer, model, body_type, main_image_url)
+      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id, owner, state, status, price, manufacturer, model, body_type, main_image_url, created_on`;
     try {
       car = await client.query({ text, values });
       if (car.rowCount) {

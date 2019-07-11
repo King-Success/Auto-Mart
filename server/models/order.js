@@ -4,8 +4,8 @@ class Order {
   static async create(values) {
     const client = await pool.connect();
     let order;
-    const text = `INSERT INTO orders(buyer, carId, amount)
-      VALUES($1, $2, $3) RETURNING *`;
+    const text = `INSERT INTO orders(buyer, car_id, amount)
+      VALUES($1, $2, $3) RETURNING id, buyer, car_id, amount, status, created_on`;
     try {
       order = await client.query({ text, values });
       if (order.rowCount) {
