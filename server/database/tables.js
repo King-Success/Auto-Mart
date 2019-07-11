@@ -6,7 +6,7 @@ const users = `CREATE TABLE IF NOT EXISTS users (
     is_admin BOOLEAN DEFAULT false,
     password VARCHAR(100) NOT NULL,
     phone VARCHAR(15) NOT NULL UNIQUE,
-    passportUrl VARCHAR(200) DEFAULT NULL,
+    passport_url VARCHAR(200) DEFAULT NULL,
     address VARCHAR(200) DEFAULT NULL,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP

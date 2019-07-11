@@ -21,19 +21,19 @@ class AuthValidator {
      * @param {callback} next
      */
   static validateSignUp(req, res, next) {
-    req.check('first_name', 'First name is required').notEmpty().trim().isAlpha()
-      .withMessage('First name can only contain alphabets');
-    req.check('last_name', 'Last name is required').notEmpty().trim().isAlpha()
-      .withMessage('Last name can only contain alphabets');
-    req.check('email', 'Email is required').notEmpty().isEmail()
+    req.check('first_name', 'first_name is required').notEmpty().trim().isAlpha()
+      .withMessage('first_name can only contain alphabets');
+    req.check('last_name', 'last_name is required').notEmpty().trim().isAlpha()
+      .withMessage('last_name can only contain alphabets');
+    req.check('email', 'email is required').notEmpty().isEmail()
       .withMessage('Invalid email');
-    req.check('phone', 'The phone number is required').notEmpty().trim()
+    req.check('phone', 'phone number is required').notEmpty().trim()
       .isLength({ min: 11, max: 11 })
       .withMessage('Enter a valid phone number');
-    req.check('password', 'Password is required')
+    req.check('password', 'password is required')
       .notEmpty().trim().isLength({ min: 6 })
-      .withMessage('Password cannot be less then 6 characters');
-    req.check('address', 'Address is required').notEmpty().trim();
+      .withMessage('password cannot be less then 6 characters');
+    req.check('address', 'address is required').notEmpty().trim();
 
     const errors = req.validationErrors();
 
@@ -80,9 +80,9 @@ class AuthValidator {
   * @returns
   */
   static validateLogin(req, res, next) {
-    req.check('email', 'Email is required').notEmpty().isEmail().trim()
+    req.check('email', 'email is required').notEmpty().isEmail().trim()
       .withMessage('Invalid email');
-    req.check('password', 'Password is required').notEmpty().trim();
+    req.check('password', 'password is required').notEmpty().trim();
 
     const errors = req.validationErrors();
     if (errors) {
