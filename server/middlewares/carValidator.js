@@ -49,7 +49,7 @@ class CarValidator {
         }
         return res.status(401).json({ status: 401, error: 'Permission denied, you can only update Ads posted by you' });
       }
-      return res.status(404).json({ status: 404, error: `Car Ad with id: ${carId} does not exist` });
+      return res.status(404).json({ status: 404, error: `Car Ad with id: ${car_id} does not exist` });
     } catch (error) {
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     }
