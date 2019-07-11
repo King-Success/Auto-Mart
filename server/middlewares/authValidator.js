@@ -21,9 +21,9 @@ class AuthValidator {
      * @param {callback} next
      */
   static validateSignUp(req, res, next) {
-    req.check('firstname', 'First name is required').notEmpty().trim().isAlpha()
+    req.check('first_name', 'First name is required').notEmpty().trim().isAlpha()
       .withMessage('First name can only contain alphabets');
-    req.check('lastname', 'Last name is required').notEmpty().trim().isAlpha()
+    req.check('last_name', 'Last name is required').notEmpty().trim().isAlpha()
       .withMessage('Last name can only contain alphabets');
     req.check('email', 'Email is required').notEmpty().isEmail()
       .withMessage('Invalid email');
