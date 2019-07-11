@@ -5,10 +5,10 @@ const { extractErrors } = Helpers;
 
 class OrderValidator {
   static validateOrder(req, res, next) {
-    req.checkBody('carId', 'Car Id is required').notEmpty().trim();
-    req.checkBody('amount', 'Order amount is required').notEmpty()
-      .isCurrency({ allow_negatives: false, require_decimal: true })
-      .withMessage('Order amount must be a valid number in two decimal place, e.g 123000.00');
+    req.checkBody('car_id', 'car_id is required').notEmpty().trim();
+    req.checkBody('amount', 'amount is required').notEmpty()
+      .isCurrency({ allow_negatives: false, require_decimal: false })
+      .withMessage('amount must be a valid number');
 
     const errors = req.validationErrors();
     if (errors) {
@@ -35,8 +35,8 @@ class OrderValidator {
   }
 
   static validateAmount(req, res, next) {
-    req.checkBody('amount', 'Order amount is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
-      .withMessage('Order amount must be a valid number in two decimal place, e.g 123000.00');
+    req.checkBody('amount', 'amount is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+      .withMessage('amount must be a valid number');
 
     const errors = req.validationErrors();
     if (errors) {
