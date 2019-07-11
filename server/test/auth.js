@@ -1,10 +1,10 @@
 import chai from 'chai';
 import chaiHTTP from 'chai-http';
 import passwordHash from 'password-hash';
-import Helpers from '../helpers/auth'
+import Helpers from '../helpers/auth';
 import app from '../app';
 
-const { generateToken } = Helpers
+const { generateToken } = Helpers;
 
 chai.use(chaiHTTP);
 const { expect } = chai;
@@ -27,7 +27,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('First name is required');
             expect(res.body.errors[1]).to.eql('First name can only contain alphabets');
@@ -43,7 +43,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Last name is required');
             expect(res.body.errors[1]).to.eql('Last name can only contain alphabets');
@@ -59,7 +59,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Email is required');
             expect(res.body.errors[1]).to.eql('Invalid email');
@@ -75,7 +75,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Invalid email');
             done();
@@ -90,7 +90,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('The phone number is required');
             expect(res.body.errors[1]).to.eql('Enter a valid phone number');
@@ -106,7 +106,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Enter a valid phone number');
             done();
@@ -121,7 +121,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Password is required');
             expect(res.body.errors[1]).to.eql('Password cannot be less then 6 characters');
@@ -137,7 +137,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Password cannot be less then 6 characters');
             done();
@@ -152,7 +152,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Address is required');
             done();
@@ -168,7 +168,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(409);
             expect(res.body.error).to.eql(`User with email ${email} already exists`);
             done();
@@ -182,7 +182,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/signup`)
           .send(defaultUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(201);
             expect(res.body).to.have.property('data');
             expect(res.body.data).to.be.an('array');
@@ -222,7 +222,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/login`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(400);
             expect(res.body.errors[0]).to.eql('Password is required');
             done();
@@ -237,7 +237,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/login`)
           .send(newUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(401);
             expect(res.body.error).to.eql(true);
             expect(res.body).to.have.property('message');
@@ -253,7 +253,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/login`)
           .send(defaultUser)
-          .end((err, res) => {
+          .end((_, res) => {
             expect(res).to.have.status(200);
             expect(res.body).to.have.property('data');
             expect(res.body).to.have.property('message');
@@ -269,16 +269,16 @@ describe('Authentication endpoints', function () {
   });
 
   describe('Reset password', () => {
-    const baseUrl = '/api/v1/users'
-    const userEmail = 'kingsley.admin@gmail.com'
-    const invalidToken = 'sli990haijijaiojzkndkaklndklfjoiioajidjfiljqkljaiojdifgjoioiajdfjoiaj'
-    const userToken = generateToken({ email: 'kingsley.admin@gmail.com', id: 2 })
-    const newPassword = { email: userEmail, password: 'secret', passwordConfirmation: 'secret' }
+    const baseUrl = '/api/v1/users';
+    const userEmail = 'kingsley.admin@gmail.com';
+    const invalidToken = 'sli990haijijaiojzkndkaklndklfjoiioajidjfiljqkljaiojdifgjoioiajdfjoiaj';
+    const userToken = generateToken({ email: 'kingsley.admin@gmail.com', id: 2 });
+    const newPassword = { email: userEmail, password: 'secret', passwordConfirmation: 'secret' };
     it('It should successfully send a reset email', (done) => {
       try {
         chai.request(app)
           .get(`${baseUrl}/${userEmail}/resetPassword`)
-          .end((err, res) => {
+          .end(() => {
             done();
           });
       } catch (err) {
@@ -290,7 +290,7 @@ describe('Authentication endpoints', function () {
       try {
         chai.request(app)
           .get(`${baseUrl}/reset/${invalidToken}`)
-          .end((err, res) => {
+          .end(() => {
             done();
           });
       } catch (err) {
@@ -302,7 +302,7 @@ describe('Authentication endpoints', function () {
       try {
         chai.request(app)
           .get(`${baseUrl}/reset/${userToken}`)
-          .end((err, res) => {
+          .end(() => {
             done();
           });
       } catch (err) {
@@ -315,7 +315,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/reset`)
           .send({ ...newPassword, password: 'hshs' })
-          .end((err, res) => {
+          .end(() => {
             done();
           });
       } catch (err) {
@@ -327,7 +327,7 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/reset`)
           .send({ ...newPassword, passwordConfirmation: 'hdhdhdhdh' })
-          .end((err, res) => {
+          .end(() => {
             done();
           });
       } catch (err) {
@@ -339,12 +339,12 @@ describe('Authentication endpoints', function () {
         chai.request(app)
           .post(`${baseUrl}/reset`)
           .send(newPassword)
-          .end((err, res) => {
+          .end(() => {
             done();
           });
       } catch (err) {
         throw err;
       }
     });
-  })
+  });
 });

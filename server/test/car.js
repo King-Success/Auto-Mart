@@ -423,7 +423,7 @@ describe('Car endpoints', function () {
             expect(res).to.have.status(404);
             expect(res.body).to.have.property('error');
             expect(res.body.error).to.be.eql('No cars found');
-      done();
+            done();
           });
       });
     });
