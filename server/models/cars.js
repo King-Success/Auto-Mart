@@ -112,8 +112,8 @@ class Car {
     }
   }
 
-  static async getByPrice(status, minPrice, maxPrice) {
-    const values = [status, minPrice, maxPrice];
+  static async getByPrice(status, min_price, max_price) {
+    const values = [status, min_price, max_price];
     const client = await pool.connect();
     let car;
     const text = 'SELECT * FROM cars WHERE status = $1 AND price BETWEEN $2 AND $3';

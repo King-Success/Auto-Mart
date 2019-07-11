@@ -16,7 +16,7 @@ const cars = `CREATE TABLE IF NOT EXISTS cars(
     id SERIAL PRIMARY KEY,
     owner INTEGER REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
     state VARCHAR(100) NOT NULL,
-    status VARCHAR(100) DEFAULT('Available'),
+    status VARCHAR(100) DEFAULT('available'),
     price Numeric(12, 2) NOT NULL,
     manufacturer VARCHAR(200) NOT NULL,
     model VARCHAR(200) NOT NULL,

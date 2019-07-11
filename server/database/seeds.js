@@ -6,14 +6,14 @@ const debugg = debug('seed');
 
 const password = passwordHash.generate('secret');
 
-const userA = `INSERT INTO users(firstname, lastname, email, phone, password, address)
+const userA = `INSERT INTO users(first_name, last_name, email, phone, password, address)
                   VALUES('Edwin', 'Diaz', 'diz.user@gmail.com', '09098878767', '${password}', '101 str, Ajao Estate, Lagos, Nigeria')`;
 
 
-const userB = `INSERT INTO users(firstname, lastname, email, phone, password, address)
+const userB = `INSERT INTO users(first_name, last_name, email, phone, password, address)
 VALUES('Elon', 'Musk', 'elon.user@gmail.com', '09096678767', '${password}', '101 str, Ikeja GRA, Lagos, Nigeria')`;
 
-const admin = `INSERT INTO users(firstname, lastname, isAdmin, email, phone, password, address)
+const admin = `INSERT INTO users(first_name, last_name, is_admin, email, phone, password, address)
                   VALUES('Kingsley', 'Arinze', true, 'kingsley.admin@gmail.com', '07066554435', '${password}', '707 str, Martins Estate, Lagos, Nigeria')`;
 
 const carA = `INSERT INTO cars(owner, state, price, manufacturer, model, bodyType, mainImageUrl)

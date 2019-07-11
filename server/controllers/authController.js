@@ -71,8 +71,8 @@ class UserController {
       const user = await userModel.findByEmail(email);
       if (user) {
         if (passwordHash.verify(password, user.password)) {
-          const { id, isadmin } = user;
-          const token = await generateToken({ id, isadmin });
+          const { id, is_admin } = user;
+          const token = await generateToken({ id, is_admin });
           return res.status(200).json({
             status: 200,
             data: { token, ...user }

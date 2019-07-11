@@ -146,7 +146,7 @@ class AuthValidator {
         return res.status(401).json({ status: 401, message: 'Invalid token, kindly log in to continue' });
       }
       const verifiedToken = verifyToken(authorization);
-      if (!verifiedToken.isadmin) {
+      if (!verifiedToken.is_admin) {
         return res.status(401).json({ status: 401, message: 'Only an Admin can perform this task' });
       }
     } catch (err) {
