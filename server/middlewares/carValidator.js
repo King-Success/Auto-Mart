@@ -26,7 +26,7 @@ class CarValidator {
   }
 
   static async isCarExist(req, res, next) {
-    const carId = req.params.carId || req.body.carId;
+    const carId = req.params.car_id || req.body.car_id;
     try {
       const car = await carModel.getById(carId);
       if (!car) {
@@ -40,9 +40,9 @@ class CarValidator {
 
   static async isCarOwner(req, res, next) {
     const { id: ownerId } = req.body.tokenPayload;
-    const { carId } = req.params;
+    const { car_id } = req.params;
     try {
-      const car = await carModel.getById(carId);
+      const car = await carModel.getById(car_id);
       if (car) {
         if (car.owner === ownerId) {
           return next();
