@@ -52,7 +52,7 @@ const {
   validatePrice,
   validateParams
 } = CarValidator;
-const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
+const { validateOrder, isOrderOwner } = OrderValidator;
 const { createOrder, updateOrderAmount } = OrderController;
 const { createFlag } = FlagController;
 const { validateFlag } = FlagValidator;
@@ -68,7 +68,7 @@ router.get("/api/docs", swagger.setup(docs));
 // Auth routes
 const authBaseUrl = "/api/v1/auth";
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
-router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/signin`, validateLogin, loginUser);
 router.post(`${authBaseUrl}/validateToken`, validateToken);
 
 // Password reset routes
@@ -80,8 +80,8 @@ router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 // Car routes
 const carBaseUrl = "/api/v1/car";
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
-router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
-router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
+router.get(`${carBaseUrl}`, isTokenValid, getAllCars);
+// router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
 router.patch(
   `${carBaseUrl}/:carId/status`,
   isTokenValid,
@@ -98,36 +98,36 @@ router.patch(
   validatePrice,
   updateCarAdPrice
 );
-router.get(
-  `${carBaseUrl}/getByStatus`,
-  isTokenValid,
-  validateParams,
-  getCarsByStatus
-);
-router.get(
-  `${carBaseUrl}/getByState`,
-  isTokenValid,
-  validateParams,
-  getCarsByState
-);
-router.get(
-  `${carBaseUrl}/getByManufacturer`,
-  isTokenValid,
-  validateParams,
-  getCarsByManufacturer
-);
-router.get(
-  `${carBaseUrl}/getByPrice`,
-  isTokenValid,
-  validateParams,
-  getCarsByPriceRange
-);
-router.get(
-  `${carBaseUrl}/getByBodyType`,
-  isTokenValid,
-  validateParams,
-  getCarsByBodyType
-);
+// router.get(
+//   `${carBaseUrl}/getByStatus`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByStatus
+// );
+// router.get(
+//   `${carBaseUrl}/getByState`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByState
+// );
+// router.get(
+//   `${carBaseUrl}/getByManufacturer`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByManufacturer
+// );
+// router.get(
+//   `${carBaseUrl}/getByPrice`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByPriceRange
+// );
+// router.get(
+//   `${carBaseUrl}/getByBodyType`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByBodyType
+// );
 router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
 router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
@@ -144,22 +144,21 @@ router.patch(
   `${orderBaseUrl}/:orderId/price`,
   isTokenValid,
   isOrderOwner,
-  validateAmount,
   updateOrderAmount
 );
 
-// Flag route
-const flagBaseUrl = "/api/v1/flag";
-router.post(
-  `${flagBaseUrl}`,
-  isTokenValid,
-  validateFlag,
-  isCarExist,
-  createFlag
-);
+// // Flag route
+// const flagBaseUrl = "/api/v1/flag";
+// router.post(
+//   `${flagBaseUrl}`,
+//   isTokenValid,
+//   validateFlag,
+//   isCarExist,
+//   createFlag
+// );
 
-// User route
-const userBaseUrl = "/api/v1/user";
-router.get(`${userBaseUrl}/:userId`, isTokenValid, getAccount);
+// // User route
+// const userBaseUrl = "/api/v1/user";
+// router.get(`${userBaseUrl}/:userId`, isTokenValid, getAccount);
 
 export default router;

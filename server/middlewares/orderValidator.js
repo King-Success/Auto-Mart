@@ -12,7 +12,7 @@ class OrderValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      return res.status(400).json({ status: 400, errors: extractErrors(errors) });
+      return res.status(400).json({ status: 400, error: extractErrors(errors) });
     }
     return next();
   }
@@ -35,8 +35,8 @@ class OrderValidator {
   }
 
   static validateAmount(req, res, next) {
-    req.checkBody('amount', 'amount is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
-      .withMessage('amount must be a valid number');
+    req.checkBody('price', 'price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+      .withMessage('price must be a valid number');
 
     const errors = req.validationErrors();
     if (errors) {

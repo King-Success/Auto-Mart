@@ -28,6 +28,10 @@ class CarController {
           data: car
         });
       }
+      return res.status(400).json({
+        status: 400,
+        error: "wrong inputs"
+      });
     } catch (err) {
       return res
         .status(500)
@@ -37,7 +41,8 @@ class CarController {
 
   static async updateCarAdStatus(req, res) {
     const { carId } = req.params;
-    const { status } = req.body;
+    let { status } = req.body;
+    if (!status) status = "sold";
     const data = { name: "status", value: status };
     try {
       const car = await carModel.update(carId, data);
@@ -55,11 +60,15 @@ class CarController {
   }
 
   static async updateCarAdPrice(req, res) {
+    // console.log("titititit");
+
     const { carId } = req.params;
     const { price } = req.body;
     const data = { name: "price", value: price };
     try {
       const car = await carModel.update(carId, data);
+      // console.log("yooooo", car);
+      console.log('yoooo', car)
       if (car) {
         return res.status(200).json({
           status: 200,
@@ -67,9 +76,10 @@ class CarController {
         });
       }
       return res
-        .status(500)
+        .status(404)
         .json({ status: 404, error: `Car with id: ${carId} does not exist` });
     } catch (err) {
+      console.log(err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });
@@ -81,7 +91,7 @@ class CarController {
       const { carId } = req.params;
       const car = await carModel.getById(carId);
       if (car) {
-        return res.status(200).json(car);
+        return res.status(200).json({ status: 200, data: car });
       }
       return res.status(404).json({
         status: 404,
@@ -118,12 +128,13 @@ class CarController {
       if (car) {
         return res.status(200).json({
           status: 204,
+          data: [],
           message: "Car Ad successfully deleted"
         });
       }
       return res
         .status(404)
-        .json({ status: 404, message: `Car with id: ${carId} not found` });
+        .json({ status: 404, error: `Car with id: ${carId} not found` });
     } catch (err) {
       return res
         .status(500)

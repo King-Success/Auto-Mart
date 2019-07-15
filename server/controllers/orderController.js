@@ -29,17 +29,14 @@ class OrderController {
 
   static async updateOrderAmount(req, res) {
     const { orderId } = req.params;
-    const { amount } = req.body;
-    const data = { name: "amount", value: amount };
+    const { price } = req.body;
+    const data = { name: "price", value: price };
     try {
       const oldOrder = await orderModel.getById(orderId);
       const order = await orderModel.update(orderId, data);
       if (order) {
-        const { amount: old_price_offered } = oldOrder;
-        const { amount: new_price_offered } = order;
-        delete order.amount;
-        delete order.buyer;
-        const data = { ...order, old_price_offered, new_price_offered };
+        const old_price_offered = oldOrder.new_price_offered || oldOrder.amount;
+        const data = { ...order, old_price_offered, new_price_offered: price };
         return res.status(200).json({
           status: 200,
           data

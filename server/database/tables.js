@@ -5,7 +5,7 @@ const users = `CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(100) NOT NULL UNIQUE,
     is_admin BOOLEAN DEFAULT false,
     password VARCHAR(100) NOT NULL,
-    phone VARCHAR(15) NOT NULL UNIQUE,
+    phone VARCHAR(15)  DEFAULT NULL,
     passport_url VARCHAR(200) DEFAULT NULL,
     address VARCHAR(200) DEFAULT NULL,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -21,7 +21,7 @@ const cars = `CREATE TABLE IF NOT EXISTS cars(
     manufacturer VARCHAR(200) NOT NULL,
     model VARCHAR(200) NOT NULL,
     body_type VARCHAR(200) NOT NULL,
-    main_image_url VARCHAR(200) NOT NULL,
+    main_image_url VARCHAR(200) DEFAULT NULL,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`;
