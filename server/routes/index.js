@@ -68,7 +68,7 @@ router.get("/api/docs", swagger.setup(docs));
 // Auth routes
 const authBaseUrl = "/api/v1/auth";
 router.post(`${authBaseUrl}/signup`, validateSignUp, userExists, createAccount);
-router.post(`${authBaseUrl}/login`, validateLogin, loginUser);
+router.post(`${authBaseUrl}/signin`, validateLogin, loginUser);
 router.post(`${authBaseUrl}/validateToken`, validateToken);
 
 // Password reset routes
