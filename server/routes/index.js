@@ -78,58 +78,58 @@ router.get(`${passwordResetBaseUrl}/reset/:token`, resetPasswordForm);
 router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 
 // Car routes
-const carBaseUrl = "/api/v1/car";
-router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
-router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
-router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
-router.patch(
-  `${carBaseUrl}/:carId/status`,
-  isTokenValid,
-  isCarExist,
-  isCarOwner,
-  validateStatus,
-  updateCarAdStatus
-);
-router.patch(
-  `${carBaseUrl}/:carId/price`,
-  isTokenValid,
-  isCarExist,
-  isCarOwner,
-  validatePrice,
-  updateCarAdPrice
-);
-router.get(
-  `${carBaseUrl}/getByStatus`,
-  isTokenValid,
-  validateParams,
-  getCarsByStatus
-);
-router.get(
-  `${carBaseUrl}/getByState`,
-  isTokenValid,
-  validateParams,
-  getCarsByState
-);
-router.get(
-  `${carBaseUrl}/getByManufacturer`,
-  isTokenValid,
-  validateParams,
-  getCarsByManufacturer
-);
-router.get(
-  `${carBaseUrl}/getByPrice`,
-  isTokenValid,
-  validateParams,
-  getCarsByPriceRange
-);
-router.get(
-  `${carBaseUrl}/getByBodyType`,
-  isTokenValid,
-  validateParams,
-  getCarsByBodyType
-);
-router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
-router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
+// const carBaseUrl = "/api/v1/car";
+// router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
+// router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
+// router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
+// router.patch(
+//   `${carBaseUrl}/:carId/status`,
+//   isTokenValid,
+//   isCarExist,
+//   isCarOwner,
+//   validateStatus,
+//   updateCarAdStatus
+// );
+// router.patch(
+//   `${carBaseUrl}/:carId/price`,
+//   isTokenValid,
+//   isCarExist,
+//   isCarOwner,
+//   validatePrice,
+//   updateCarAdPrice
+// );
+// router.get(
+//   `${carBaseUrl}/getByStatus`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByStatus
+// );
+// router.get(
+//   `${carBaseUrl}/getByState`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByState
+// );
+// router.get(
+//   `${carBaseUrl}/getByManufacturer`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByManufacturer
+// );
+// router.get(
+//   `${carBaseUrl}/getByPrice`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByPriceRange
+// );
+// router.get(
+//   `${carBaseUrl}/getByBodyType`,
+//   isTokenValid,
+//   validateParams,
+//   getCarsByBodyType
+// );
+// router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
+// router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
 // Order routes
 const orderBaseUrl = "/api/v1/order";
