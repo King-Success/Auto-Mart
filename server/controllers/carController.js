@@ -68,7 +68,7 @@ class CarController {
     try {
       const car = await carModel.update(carId, data);
       // console.log("yooooo", car);
-
+      console.log('yoooo', car)
       if (car) {
         return res.status(200).json({
           status: 200,
@@ -76,9 +76,10 @@ class CarController {
         });
       }
       return res
-        .status(500)
+        .status(404)
         .json({ status: 404, error: `Car with id: ${carId} does not exist` });
     } catch (err) {
+      console.log(err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });
