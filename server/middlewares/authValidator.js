@@ -39,12 +39,6 @@ class AuthValidator {
       .isEmail()
       .withMessage("invalid email");
     req
-      .check("phone", "phone number is required")
-      .notEmpty()
-      .trim()
-      .isLength({ min: 11, max: 11 })
-      .withMessage("Enter a valid phone number");
-    req
       .check("password", "password is required")
       .notEmpty()
       .trim()
@@ -58,6 +52,7 @@ class AuthValidator {
     const errors = req.validationErrors();
 
     if (errors) {
+      console.log('auth valid', errors);
       return res.status(400).json({
         errors: extractErrors(errors),
         status: 400

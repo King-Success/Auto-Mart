@@ -52,7 +52,7 @@ const {
   validatePrice,
   validateParams
 } = CarValidator;
-const { validateOrder, isOrderOwner, validateAmount } = OrderValidator;
+const { validateOrder, isOrderOwner } = OrderValidator;
 const { createOrder, updateOrderAmount } = OrderController;
 const { createFlag } = FlagController;
 const { validateFlag } = FlagValidator;
@@ -144,7 +144,7 @@ router.patch(
   `${orderBaseUrl}/:orderId/price`,
   isTokenValid,
   isOrderOwner,
-  validateAmount,
+  validatePrice,
   updateOrderAmount
 );
 
