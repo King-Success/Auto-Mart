@@ -95,6 +95,7 @@ router.patch(
   isTokenValid,
   isCarExist,
   isCarOwner,
+  validatePrice,
   updateCarAdPrice
 );
 // router.get(
