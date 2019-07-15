@@ -80,24 +80,24 @@ router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 // Car routes
 const carBaseUrl = "/api/v1/car";
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
-// router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
+router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
 // router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
-// router.patch(
-//   `${carBaseUrl}/:carId/status`,
-//   isTokenValid,
-//   isCarExist,
-//   isCarOwner,
-//   validateStatus,
-//   updateCarAdStatus
-// );
-// router.patch(
-//   `${carBaseUrl}/:carId/price`,
-//   isTokenValid,
-//   isCarExist,
-//   isCarOwner,
-//   validatePrice,
-//   updateCarAdPrice
-// );
+router.patch(
+  `${carBaseUrl}/:carId/status`,
+  isTokenValid,
+  isCarExist,
+  isCarOwner,
+  validateStatus,
+  updateCarAdStatus
+);
+router.patch(
+  `${carBaseUrl}/:carId/price`,
+  isTokenValid,
+  isCarExist,
+  isCarOwner,
+  validatePrice,
+  updateCarAdPrice
+);
 // router.get(
 //   `${carBaseUrl}/getByStatus`,
 //   isTokenValid,
