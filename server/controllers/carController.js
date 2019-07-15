@@ -29,6 +29,7 @@ class CarController {
         });
       }
     } catch (err) {
+      console.log('create car', err)
       return res
         .status(500)
         .json({ error: true, message: "Internal server error" });
