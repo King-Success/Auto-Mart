@@ -132,7 +132,7 @@ class CarController {
       console.log("delete car not found err", car);
       return res
         .status(404)
-        .json({ status: 404, message: `Car with id: ${carId} not found` });
+        .json({ status: 404, error: `Car with id: ${carId} not found` });
     } catch (err) {
       console.log("delete car server err", err);
       return res

@@ -13,7 +13,7 @@ class OrderValidator {
     const errors = req.validationErrors();
     if (errors) {
       console.log('order valid', errors);
-      return res.status(400).json({ status: 400, errors: extractErrors(errors) });
+      return res.status(400).json({ status: 400, error: extractErrors(errors) });
     }
     return next();
   }

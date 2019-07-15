@@ -54,7 +54,7 @@ class AuthValidator {
     if (errors) {
       console.log('auth valid', errors);
       return res.status(400).json({
-        errors: extractErrors(errors),
+        error: extractErrors(errors),
         status: 400
       });
     }
