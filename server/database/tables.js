@@ -21,7 +21,7 @@ const cars = `CREATE TABLE IF NOT EXISTS cars(
     manufacturer VARCHAR(200) NOT NULL,
     model VARCHAR(200) NOT NULL,
     body_type VARCHAR(200) NOT NULL,
-    main_image_url VARCHAR(200) NOT NULL,
+    main_image_url VARCHAR(200) DEFAULT NULL,
     created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP
   )`;
