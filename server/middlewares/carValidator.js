@@ -97,7 +97,7 @@ class CarValidator {
     if (errors) {
       return res
         .status(400)
-        .json({ status: 400, errors: extractErrors(errors) });
+        .json({ status: 400, error: extractErrors(errors) });
     }
     return next();
   }
