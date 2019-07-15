@@ -78,8 +78,8 @@ router.get(`${passwordResetBaseUrl}/reset/:token`, resetPasswordForm);
 router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 
 // Car routes
-// const carBaseUrl = "/api/v1/car";
-// router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
+const carBaseUrl = "/api/v1/car";
+router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
 // router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
 // router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
 // router.patch(
