@@ -4,8 +4,8 @@ class Car {
   static async create(values) {
     const client = await pool.connect();
     let car;
-    const text = `INSERT INTO cars(owner,state, price, manufacturer, model, bodyType, mainImageUrl)
-      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *`;
+    const text = `INSERT INTO cars(owner,state, price, manufacturer, model, body_type, main_image_url)
+      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING id, owner, state, status, price, manufacturer, model, body_type, main_image_url, created_on`;
     try {
       car = await client.query({ text, values });
       if (car.rowCount) {
@@ -112,13 +112,14 @@ class Car {
     }
   }
 
-  static async getByPrice(status, minPrice, maxPrice) {
-    const values = [status, minPrice, maxPrice];
+  static async getByPrice(status, min_price, max_price) {
+    const values = [status, min_price, max_price];
     const client = await pool.connect();
     let car;
     const text = 'SELECT * FROM cars WHERE status = $1 AND price BETWEEN $2 AND $3';
     try {
       car = await client.query({ text, values });
+      console.log(car.rows);
       if (car.rows && car.rowCount) {
         car = car.rows;
         return car;

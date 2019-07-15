@@ -4,9 +4,9 @@ const { extractErrors } = Helpers;
 
 class FlagValidator {
   static validateFlag(req, res, next) {
-    req.checkBody('carId', 'Car Id is required').notEmpty().trim();
-    req.checkBody('reason', 'Reason is required').notEmpty();
-    req.checkBody('description', 'Description is required').notEmpty();
+    req.checkBody('car_id', 'car_id is required').notEmpty().trim();
+    req.checkBody('reason', 'reason is required').notEmpty();
+    req.checkBody('description', 'description is required').notEmpty();
 
     const errors = req.validationErrors();
     if (errors) {

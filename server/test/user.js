@@ -17,7 +17,7 @@ describe('User endpoints', function () {
     const userRes = await chai.request(app)
       .post('/api/v1/auth/login')
       .send(defaultUser);
-    const token = userRes.body.data[0].token;
+    const token = userRes.body.data.token;
     userToken = `Bearer ${token}`;
   });
   describe('Get a single user', () => {
@@ -34,15 +34,15 @@ describe('User endpoints', function () {
         });
     });
     it('It should return a user not found error', (done) => {
-        chai.request(app)
-          .get(`${baseUrl}/5000`)
-          .set('authorization', userToken)
-          .end((err, res) => {
-            expect(res).to.have.status(404);
-            expect(res.body).to.have.property('message');
-            expect(res.body.message).to.have.eq('user not found');
-            done();
-          });
-      });
+      chai.request(app)
+        .get(`${baseUrl}/5000`)
+        .set('authorization', userToken)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.have.eq('user not found');
+          done();
+        });
+    });
   });
 });

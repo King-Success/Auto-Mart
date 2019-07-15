@@ -4,8 +4,8 @@ class User {
   static async create(values) {
     const client = await pool.connect();
     let user;
-    const text = `INSERT INTO users(firstname, lastname, email, password, phone, address)
-      VALUES($1, $2, $3, $4, $5, $6) RETURNING id, firstname, lastname, email, isAdmin, phone, passportUrl, address, createdOn`;
+    const text = `INSERT INTO users(first_name, last_name, email, password, phone, address)
+      VALUES($1, $2, $3, $4, $5, $6) RETURNING id, first_name, last_name, email, is_admin, phone, passport_url, address, created_on`;
     try {
       user = await client.query({ text, values });
       if (user.rowCount) {

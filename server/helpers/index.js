@@ -79,6 +79,7 @@ class Helpers {
             </body>
             </html>`;
   }
+
   static resetEmail(url) {
     return `<!DOCTYPE html>
             <html lang="en">

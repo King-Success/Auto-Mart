@@ -664,10 +664,10 @@
         }
       }
     },
-    "/order/{orderId}/amount": {
+    "/order/{orderId}/price": {
       "patch": {
-        "description": "Update order amount",
-        "summary": "Handle update of order amount",
+        "description": "Update order price",
+        "summary": "Handle update of order price",
         "tags": [
           "Order"
         ],

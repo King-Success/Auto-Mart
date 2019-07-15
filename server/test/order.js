@@ -17,24 +17,24 @@ describe('Order endpoints', function () {
     const userRes = await chai.request(app)
       .post('/api/v1/auth/login')
       .send(defaultUser);
-    const token = userRes.body.data[0].token;
+    const token = userRes.body.data.token;
     userToken = `Bearer ${token}`;
   });
   describe('Create new order', () => {
     const defaultOrder = {
-      carId: 1,
-      amount: '45000000.00',
+      car_id: 1,
+      amount: '45000000',
     };
     const invalidCarId = 6859;
     it('It should ensure that car id is not empty', (done) => {
-      const newOrder = { ...defaultOrder, carId: '' };
+      const newOrder = { ...defaultOrder, car_id: '' };
       chai.request(app)
         .post(`${baseUrl}`)
         .send(newOrder)
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car Id is required');
+          expect(res.body.errors[0]).to.eql('car_id is required');
           done();
         });
     });
@@ -46,13 +46,13 @@ describe('Order endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Order amount is required');
-          expect(res.body.errors[1]).to.eql('Order amount must be a valid number in two decimal place, e.g 123000.00');
+          expect(res.body.errors[0]).to.eql('amount is required');
+          expect(res.body.errors[1]).to.eql('amount must be a valid number');
           done();
         });
     });
     it('It should ensure that car exist', (done) => {
-      const newOrder = { ...defaultOrder, carId: invalidCarId };
+      const newOrder = { ...defaultOrder, car_id: invalidCarId };
       chai.request(app)
         .post(`${baseUrl}`)
         .send(newOrder)
@@ -71,52 +71,50 @@ describe('Order endpoints', function () {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('data');
-          expect(res.body.data).to.be.an('array');
-          expect(res.body.data).to.have.length(1);
+          expect(res.body.data).to.be.an('object');
           done();
         });
     });
   });
 
   describe('Update order amount', () => {
-    const newAmount = { amount: '1200000.00' };
-    const invalidAmount = { amount: '120000' };
+    const newAmount = { amount: '1200000' };
+    const invalidAmount = { amount: '120y000' };
     const orderId = 1;
     it('It should ensure that amount is provided', (done) => {
       chai.request(app)
-        .patch(`${baseUrl}/${orderId}/amount`)
+        .patch(`${baseUrl}/${orderId}/price`)
         .send({ amount: '' })
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Order amount is required');
-          expect(res.body.errors[1]).to.eql('Order amount must be a valid number in two decimal place, e.g 123000.00');
+          expect(res.body.errors[0]).to.eql('amount is required');
+          expect(res.body.errors[1]).to.eql('amount must be a valid number');
           done();
         });
     });
 
     it('It should return invalid amount error', (done) => {
       chai.request(app)
-        .patch(`${baseUrl}/${orderId}/amount`)
+        .patch(`${baseUrl}/${orderId}/price`)
         .send(invalidAmount)
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Order amount must be a valid number in two decimal place, e.g 123000.00');
+          expect(res.body.errors[0]).to.eql('amount must be a valid number');
           done();
         });
     });
 
     it('It should successfully update order amount', (done) => {
       chai.request(app)
-        .patch(`${baseUrl}/${orderId}/amount`)
+        .patch(`${baseUrl}/${orderId}/price`)
         .send(newAmount)
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('data');
-          expect(res.body.data).to.be.an('array');
-          expect(res.body.data).to.have.length(1);
+          expect(res.body.data).to.be.an('object');
           done();
         });
     });

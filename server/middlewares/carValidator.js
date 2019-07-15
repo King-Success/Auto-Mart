@@ -6,17 +6,17 @@ const { extractErrors } = Helpers;
 
 class CarValidator {
   static validateCar(req, res, next) {
-    req.checkBody('state', 'Car state is required').notEmpty().trim().isAlpha()
-      .withMessage('Car state can only contain alphabets')
-      .isIn(['New', 'Used'])
-      .withMessage('Car state must be either New or Used, notice the uppercase');
-    req.checkBody('price', 'Car price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
-      .withMessage('Car price must be a valid number in two decimal place, e.g 123000.00');
-    req.checkBody('manufacturer', 'Car manufacturer is required').notEmpty().trim();
-    req.checkBody('model', 'Car model is required').notEmpty().trim();
-    req.checkBody('bodyType', 'Car body type is required').notEmpty();
-    req.checkBody('mainImageUrl', 'Car main image url is required').notEmpty().isString()
-      .withMessage('Car main image url must be a string');
+    req.checkBody('state', 'state is required').notEmpty().trim().isAlpha()
+      .withMessage('state can only contain alphabets')
+      .isIn(['new', 'used'])
+      .withMessage('state must be either new or used');
+    req.checkBody('price', 'price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+      .withMessage('price must be a valid number');
+    req.checkBody('manufacturer', 'manufacturer is required').notEmpty().trim();
+    req.checkBody('model', 'model is required').notEmpty().trim();
+    req.checkBody('body_type', 'body_type is required').notEmpty();
+    req.checkBody('main_image_url', 'main_image_url is required').notEmpty().isString()
+      .withMessage('main_image_url must be a string');
 
     const errors = req.validationErrors();
     if (errors) {
@@ -26,7 +26,7 @@ class CarValidator {
   }
 
   static async isCarExist(req, res, next) {
-    const carId = req.params.carId || req.body.carId;
+    const carId = req.params.carId || req.body.car_id;
     try {
       const car = await carModel.getById(carId);
       if (!car) {
@@ -56,10 +56,10 @@ class CarValidator {
   }
 
   static validateStatus(req, res, next) {
-    req.checkBody('status', 'Car status is required').notEmpty().trim().isIn(['Sold', 'Available'])
-      .withMessage('Car status can only be Sold or Available, notice the uppercase')
+    req.checkBody('status', 'status is required').notEmpty().trim().isIn(['sold', 'available'])
+      .withMessage('status can only be sold or available')
       .isString()
-      .withMessage('Car status must be a string');
+      .withMessage('status must be a string');
 
     const errors = req.validationErrors();
     if (errors) {
@@ -69,8 +69,8 @@ class CarValidator {
   }
 
   static validatePrice(req, res, next) {
-    req.checkBody('price', 'Car price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
-      .withMessage('Car price must be a valid number in two decimal place, e.g 123000.00');
+    req.checkBody('price', 'price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+      .withMessage('price must be a valid number');
 
     const errors = req.validationErrors();
     if (errors) {
@@ -81,8 +81,8 @@ class CarValidator {
 
   static validateParams(req, res, next) {
     const keys = Object.keys(req.query);
-    const allowedStatuses = ['Available', 'Sold'];
-    const allowedStates = ['New', 'Used'];
+    const allowedStatuses = ['available', 'sold'];
+    const allowedStates = ['new', 'used'];
     let error;
     if (keys.length === 0) {
       return authValidator.isAdmin(req, res, next);
@@ -90,24 +90,24 @@ class CarValidator {
     keys.forEach((key) => {
       switch (key) {
         case 'status':
-          if (!allowedStatuses.includes(req.query[key])) error = 'status must either be Sold or Availble, notice the uppercase';
+          if (!allowedStatuses.includes(req.query[key])) error = 'status must either be sold or availble';
           break;
-        case 'minPrice':
-          req.checkQuery('maxPrice', 'There must also be a maxPrice').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
-            .withMessage('Maximum price must be a valid number in two decimal place, e.g 123000.00');
+        case 'min_price':
+          req.checkQuery('max_price', 'There must also be a max_price').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+            .withMessage('max_price must be a valid number');
           error = req.validationErrors()[0];
           break;
-        case 'maxPrice':
-          req.checkQuery('minPrice', 'There must also be a minPrice').notEmpty().isCurrency({ allow_negatives: false, require_decimal: true })
-            .withMessage('Minimum price must be a valid number in two decimal place, e.g 123000.00');
+        case 'max_price':
+          req.checkQuery('min_price', 'There must also be a min_price').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+            .withMessage('Minimum price must be a valid number');
           error = req.validationErrors()[0];
           break;
         case 'state':
-          if (!allowedStates.includes(req.query[key])) error = 'state must either be Used or New, notice the uppercase';
+          if (!allowedStates.includes(req.query[key])) error = 'state must either be used or new';
           break;
         case 'manufacturer':
           break;
-        case 'bodyType':
+        case 'body_type':
           break;
         default:
           error = 'Invalid filter provided';
