@@ -119,7 +119,6 @@ class Car {
     const text = 'SELECT * FROM cars WHERE status = $1 AND price BETWEEN $2 AND $3';
     try {
       car = await client.query({ text, values });
-      console.log(car.rows);
       if (car.rows && car.rowCount) {
         car = car.rows;
         return car;
