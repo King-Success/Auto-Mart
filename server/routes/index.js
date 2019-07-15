@@ -140,13 +140,13 @@ router.post(
   isCarExist,
   createOrder
 );
-// router.patch(
-//   `${orderBaseUrl}/:orderId/price`,
-//   isTokenValid,
-//   isOrderOwner,
-//   validatePrice,
-//   updateOrderAmount
-// );
+router.patch(
+  `${orderBaseUrl}/:orderId/price`,
+  isTokenValid,
+  isOrderOwner,
+  validatePrice,
+  updateOrderAmount
+);
 
 // // Flag route
 // const flagBaseUrl = "/api/v1/flag";
