@@ -29,7 +29,6 @@ class CarValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      console.log('from car validator', errors);
       return res
         .status(400)
         .json({ status: 400, error: extractErrors(errors) });
