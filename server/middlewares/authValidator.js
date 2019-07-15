@@ -52,7 +52,7 @@ class AuthValidator {
     const errors = req.validationErrors();
 
     if (errors) {
-      console.log('auth valid', errors);
+      // console.log('auth valid', errors);
       return res.status(400).json({
         error: extractErrors(errors),
         status: 400

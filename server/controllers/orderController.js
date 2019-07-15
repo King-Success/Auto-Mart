@@ -21,6 +21,7 @@ class OrderController {
         });
       }
     } catch (err) {
+      console.log('create order', err)
       return res
         .status(500)
         .json({ error: true, message: "Internal server error" });
