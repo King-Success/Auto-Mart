@@ -28,7 +28,13 @@ class CarController {
           data: car
         });
       }
+      console.log('400', car);
+      return res.status(400).json({
+        status: 400,
+        error: 'wrong inputs'
+      });
     } catch (err) {
+      console.log('server error', err);
       return res
         .status(500)
         .json({ error: true, message: "Internal server error" });
