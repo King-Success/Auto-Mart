@@ -45,7 +45,7 @@ class OrderController {
           data
         });
       }
-      return res.status(500).json({
+      return res.status(400).json({
         status: 404,
         error: `Car order with id: ${orderId} does not exist`
       });

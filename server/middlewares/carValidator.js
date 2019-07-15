@@ -10,7 +10,7 @@ class CarValidator {
       .withMessage('state can only contain alphabets')
       .isIn(['new', 'used'])
       .withMessage('state must be either new or used');
-    req.checkBody('price', 'Car price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
+    req.checkBody('price', 'price is required').notEmpty().isCurrency({ allow_negatives: false, require_decimal: false })
       .withMessage('price must be a valid number');
     req.checkBody('manufacturer', 'manufacturer is required').notEmpty().trim();
     req.checkBody('model', 'model is required').notEmpty().trim();
@@ -26,7 +26,7 @@ class CarValidator {
   }
 
   static async isCarExist(req, res, next) {
-    const carId = req.params.car_id || req.body.car_id;
+    const carId = req.params.carId || req.body.car_id;
     try {
       const car = await carModel.getById(carId);
       if (!car) {
@@ -40,16 +40,16 @@ class CarValidator {
 
   static async isCarOwner(req, res, next) {
     const { id: ownerId } = req.body.tokenPayload;
-    const { car_id } = req.params;
+    const { carId } = req.params;
     try {
-      const car = await carModel.getById(car_id);
+      const car = await carModel.getById(carId);
       if (car) {
         if (car.owner === ownerId) {
           return next();
         }
         return res.status(401).json({ status: 401, error: 'Permission denied, you can only update Ads posted by you' });
       }
-      return res.status(404).json({ status: 404, error: `Car Ad with id: ${car_id} does not exist` });
+      return res.status(404).json({ status: 404, error: `Car Ad with id: ${carId} does not exist` });
     } catch (error) {
       return res.status(500).json({ status: 500, error: 'Internal server error' });
     }

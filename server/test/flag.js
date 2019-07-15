@@ -17,12 +17,12 @@ describe('Flag endpoints', function () {
     const userRes = await chai.request(app)
       .post('/api/v1/auth/login')
       .send(defaultUser);
-    const token = userRes.body.data[0].token;
+    const token = userRes.body.data.token;
     userToken = `Bearer ${token}`;
   });
   describe('Flag a car Ad', () => {
     const defaultOrder = {
-      carId: 1,
+      car_id: 1,
       reason: 'Wrong pictures',
       description: 'All the images provided are not original'
     };
@@ -33,9 +33,7 @@ describe('Flag endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(201);
-          expect(res.body).to.have.property('data');
-          expect(res.body.data).to.be.an('array');
-          expect(res.body.data).to.have.length(1);
+          expect(res.body).to.be.an('object');
           done();
         });
     });

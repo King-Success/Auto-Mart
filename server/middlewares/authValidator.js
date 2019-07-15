@@ -26,7 +26,7 @@ class AuthValidator {
     req.check('last_name', 'last_name is required').notEmpty().trim().isAlpha()
       .withMessage('last_name can only contain alphabets');
     req.check('email', 'email is required').notEmpty().isEmail()
-      .withMessage('Invalid email');
+      .withMessage('invalid email');
     req.check('phone', 'phone number is required').notEmpty().trim()
       .isLength({ min: 11, max: 11 })
       .withMessage('Enter a valid phone number');
@@ -81,7 +81,7 @@ class AuthValidator {
   */
   static validateLogin(req, res, next) {
     req.check('email', 'email is required').notEmpty().isEmail().trim()
-      .withMessage('Invalid email');
+      .withMessage('invalid email');
     req.check('password', 'password is required').notEmpty().trim();
 
     const errors = req.validationErrors();

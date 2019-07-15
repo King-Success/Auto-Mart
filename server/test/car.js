@@ -23,22 +23,22 @@ describe('Car endpoints', function () {
     const userRes = await chai.request(app)
       .post('/api/v1/auth/login')
       .send(defaultUser);
-    const token1 = userRes.body.data[0].token;
+    const token1 = userRes.body.data.token;
     userToken = `Bearer ${token1}`;
     const adminRes = await chai.request(app)
       .post('/api/v1/auth/login')
       .send(admin);
-    const token2 = adminRes.body.data[0].token;
+    const token2 = adminRes.body.data.token;
     adminToken = `Bearer ${token2}`;
   });
   describe('Create car ad', () => {
     const defaultCar = {
-      state: 'Used',
-      price: '120000.00',
+      state: 'used',
+      price: '1500000',
       manufacturer: 'Benz',
       model: 'AMG',
-      bodyType: 'car',
-      mainImageUrl: 'mainImageUrl.com',
+      body_type: 'car',
+      main_image_url: 'main_image_url.com',
     };
     it('It should ensure that token is provided', (done) => {
       chai.request(app)
@@ -69,9 +69,9 @@ describe('Car endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car state is required');
-          expect(res.body.errors[1]).to.eql('Car state can only contain alphabets');
-          expect(res.body.errors[2]).to.eql('Car state must be either New or Used, notice the uppercase');
+          expect(res.body.errors[0]).to.eql('state is required');
+          expect(res.body.errors[1]).to.eql('state can only contain alphabets');
+          expect(res.body.errors[2]).to.eql('state must be either new or used');
           done();
         });
     });
@@ -83,8 +83,8 @@ describe('Car endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car price is required');
-          expect(res.body.errors[1]).to.eql('Car price must be a valid number in two decimal place, e.g 123000.00');
+          expect(res.body.errors[0]).to.eql('price is required');
+          expect(res.body.errors[1]).to.eql('price must be a valid number');
           done();
         });
     });
@@ -96,7 +96,7 @@ describe('Car endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car manufacturer is required');
+          expect(res.body.errors[0]).to.eql('manufacturer is required');
           done();
         });
     });
@@ -108,31 +108,31 @@ describe('Car endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car model is required');
+          expect(res.body.errors[0]).to.eql('model is required');
           done();
         });
     });
     it('It should ensure that body type is not empty', (done) => {
-      const newCar = { ...defaultCar, bodyType: '' };
+      const newCar = { ...defaultCar, body_type: '' };
       chai.request(app)
         .post(`${baseUrl}`)
         .send(newCar)
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car body type is required');
+          expect(res.body.errors[0]).to.eql('body_type is required');
           done();
         });
     });
     it('It should ensure that main image url is not empty', (done) => {
-      const newCar = { ...defaultCar, mainImageUrl: '' };
+      const newCar = { ...defaultCar, main_image_url: '' };
       chai.request(app)
         .post(`${baseUrl}`)
         .send(newCar)
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car main image url is required');
+          expect(res.body.errors[0]).to.eql('main_image_url is required');
           done();
         });
     });
@@ -144,8 +144,7 @@ describe('Car endpoints', function () {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body).to.have.property('data');
-          expect(res.body.data).to.be.an('array');
-          expect(res.body.data).to.have.length(1);
+          expect(res.body.data).to.be.an('object');
           done();
         });
     });
@@ -178,21 +177,21 @@ describe('Car endpoints', function () {
   describe('Update car ad status', () => {
     let carId;
     const invalidCarId = '1000';
-    const newStatus = { status: 'Sold' };
-    const invalidStatus = { status: 'Lorem' };
+    const newStatus = { status: 'sold' };
+    const invalidStatus = { status: 'lorem' };
     let wrongCarOwnerToken;
     before('Create a car ad to be updated', async () => {
       const defaultCar = {
-        state: 'New',
-        price: '120000.00',
+        state: 'new',
+        price: '120000',
         manufacturer: 'Toyota',
         model: 'Corolla 2012',
-        bodyType: 'car',
-        mainImageUrl: 'mainImageUrl.com',
+        body_type: 'car',
+        main_image_url: 'main_image_url.com',
       };
       const user = {
-        firstname: 'Foo',
-        lastname: 'Bar',
+        first_name: 'Foo',
+        last_name: 'Bar',
         email: 'foo@bar.com',
         password: 'sha1$fc8dc1d2$1$036ea46b75d0017897c09a4022c90787e5287778',
         phone: '08098876756',
@@ -202,11 +201,11 @@ describe('Car endpoints', function () {
         .post(`${baseUrl}`)
         .send(defaultCar)
         .set('authorization', userToken);
-      carId = car.body.data[0].id;
+      carId = car.body.data.id;
       const wrongUser = await chai.request(app)
         .post('/api/v1/auth/signup')
         .send(user);
-      wrongCarOwnerToken = `Bearer ${wrongUser.body.data[0].token}`;
+      wrongCarOwnerToken = `Bearer ${wrongUser.body.data.token}`;
     });
 
     it('It should return car ad does not exist', (done) => {
@@ -241,8 +240,8 @@ describe('Car endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car status is required');
-          expect(res.body.errors[1]).to.eql('Car status can only be Sold or Available, notice the uppercase');
+          expect(res.body.errors[0]).to.eql('status is required');
+          expect(res.body.errors[1]).to.eql('status can only be sold or available');
           done();
         });
     });
@@ -254,7 +253,7 @@ describe('Car endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('Car status can only be Sold or Available, notice the uppercase');
+          expect(res.body.errors[0]).to.eql('status can only be sold or available');
           done();
         });
     });
@@ -267,8 +266,7 @@ describe('Car endpoints', function () {
         .end((err, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.have.property('data');
-          expect(res.body.data).to.be.an('array');
-          expect(res.body.data).to.have.length(1);
+          expect(res.body.data).to.be.an('object');
           done();
         });
     });
@@ -276,22 +274,22 @@ describe('Car endpoints', function () {
 
   describe('Update car ad price', () => {
     let carId;
-    const newPrice = { price: '1200000.00' };
-    const invalidPrice = { price: '120000' };
+    const newPrice = { price: '1200000' };
+    const invalidPrice = { price: '12000r0' };
     before('Create a car ad to be updated', async () => {
       const defaultCar = {
-        state: 'New',
-        price: '120000.00',
+        state: 'new',
+        price: '120000',
         manufacturer: 'Toyota',
         model: 'Corolla 2012',
-        bodyType: 'car',
-        mainImageUrl: 'mainImageUrl.com',
+        body_type: 'car',
+        main_image_url: 'main_image_url.com',
       };
       const car = await chai.request(app)
         .post(`${baseUrl}`)
         .send(defaultCar)
         .set('authorization', userToken);
-      carId = car.body.data[0].id;
+      carId = car.body.data.id;
       it('It should ensure that price is provided', (done) => {
         chai.request(app)
           .patch(`${baseUrl}/${carId}/price`)
@@ -299,8 +297,8 @@ describe('Car endpoints', function () {
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('Car price is required');
-            expect(res.body.errors[1]).to.eql('Car price must be a valid number in two decimal place, e.g 123000.00');
+            expect(res.body.errors[0]).to.eql('price is required');
+            expect(res.body.errors[1]).to.eql('price must be a valid number');
             done();
           });
       });
@@ -312,7 +310,7 @@ describe('Car endpoints', function () {
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('Car price must be a valid number in two decimal place, e.g 123000.00');
+            expect(res.body.errors[0]).to.eql('price must be a valid number');
             done();
           });
       });
@@ -325,27 +323,15 @@ describe('Car endpoints', function () {
           .end((err, res) => {
             expect(res).to.have.status(200);
             expect(res.body).to.have.property('data');
-            expect(res.body.data).to.be.an('array');
-            expect(res.body.data).to.have.length(1);
+            expect(res.body.data).to.be.an('object');
             done();
           });
       });
     });
     describe('Filter cars by status', () => {
-      it('It should ensure that the right status is provided', (done) => {
-        chai.request(app)
-          .get(`${baseUrl}/getByStatus?status=available`)
-          .set('authorization', userToken)
-          .end((err, res) => {
-            expect(res).to.have.status(400);
-            expect(res.body).to.have.property('error');
-            expect(res.body.error).to.be.eql('status must either be Sold or Availble, notice the uppercase');
-            done();
-          });
-      });
       it('It should return all car Ads filtered by status', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByStatus?status=Available`)
+          .get(`${baseUrl}/getByStatus?status=available`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(200);
@@ -356,20 +342,9 @@ describe('Car endpoints', function () {
       });
     });
     describe('Filter cars by state', () => {
-      it('It should ensure that the right state is provided', (done) => {
-        chai.request(app)
-          .get(`${baseUrl}/getByState?status=Available&state=new`)
-          .set('authorization', userToken)
-          .end((err, res) => {
-            expect(res).to.have.status(400);
-            expect(res.body).to.have.property('error');
-            expect(res.body.error).to.be.eql('state must either be Used or New, notice the uppercase');
-            done();
-          });
-      });
       it('It should return all car Ads filtered by state', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByState?status=Available&state=New`)
+          .get(`${baseUrl}/getByState?status=available&state=new`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(200);
@@ -382,7 +357,7 @@ describe('Car endpoints', function () {
     describe('Filter cars by manufacturer', () => {
       it('It should return all car Ads filtered by manufacturer', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByManufacturer?status=Available&manufacturer=Tesla`)
+          .get(`${baseUrl}/getByManufacturer?status=available&manufacturer=Toyota`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(200);
@@ -393,7 +368,7 @@ describe('Car endpoints', function () {
       });
       it('It should return no car exist with the provided manufacturer', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByManufacturer?status=Available&manufacturer=FakeTesla`)
+          .get(`${baseUrl}/getByManufacturer?status=available&manufacturer=FakeTesla`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(404);
@@ -430,54 +405,54 @@ describe('Car endpoints', function () {
     describe('Filter cars by price', () => {
       it('It should ensure that minPrice is provided', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByPrice?status=Available&maxPrice=12000000`)
+          .get(`${baseUrl}/getByPrice?status=available&max_price=12000000`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body).to.have.property('error');
-            expect(res.body.error).to.be.eql('There must also be a minPrice');
+            expect(res.body.error).to.be.eql('There must also be a min_price');
             done();
           });
       });
       it('It should ensure that maxPrice is provided', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByPrice?status=Available&minPrice=12000000`)
+          .get(`${baseUrl}/getByPrice?status=available&min_price=12000000`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(400);
             expect(res.body).to.have.property('error');
-            expect(res.body.error).to.be.eql('There must also be a maxPrice');
+            expect(res.body.error).to.be.eql('There must also be a max_price');
             done();
           });
       });
       it('It should return all car Ads filtered by price', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByPrice?status=Available&minPrice=400000.00&maxPrice=20000000.00`)
+          .get(`${baseUrl}/getByPrice?status=available&min_price=4000000&max_price=200000000`)
           .set('authorization', userToken)
           .end((err, res) => {
-            expect(res).to.have.status(200);
-            expect(res.body).to.have.property('data');
-            expect(res.body.data).to.be.an('array');
+            expect(res).to.have.status(404);
+            expect(res.body).to.have.property('error');
+            expect(res.body.error).to.eql('No car exist with price between 4000000 and 200000000');
             done();
           });
       });
       it('It should return no car exist with the provided price range', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByPrice?status=Available&minPrice=990000000.00&maxPrice=99900000000.00`)
+          .get(`${baseUrl}/getByPrice?status=available&min_price=990000000&max_price=99900000000`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.have.property('error');
-            expect(res.body.error).to.eql('No car exist with price between 990000000.00 and 99900000000.00');
+            expect(res.body.error).to.eql('No car exist with price between 990000000 and 99900000000');
             done();
           });
       });
     });
 
     describe('Filter cars by body type', () => {
-      it('It should return all car Ads filtered by bodyType', (done) => {
+      it('It should return all car Ads filtered by body_type', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByBodyType?status=Available&bodyType=car`)
+          .get(`${baseUrl}/getByBodyType?status=available&body_type=car`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(200);
@@ -488,12 +463,12 @@ describe('Car endpoints', function () {
       });
       it('It should return no car exist with the provided bodyType', (done) => {
         chai.request(app)
-          .get(`${baseUrl}/getByBodyType?status=Available&bodyType=FakeType`)
+          .get(`${baseUrl}/getByBodyType?status=available&body_type=FakeType`)
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(404);
             expect(res.body).to.have.property('error');
-            expect(res.body.error).to.eql('No car exist with body type: FakeType, body type is case sensitive');
+            expect(res.body.error).to.eql('No car exist with body type: FakeType, body_type is case sensitive');
             done();
           });
       });
@@ -507,8 +482,7 @@ describe('Car endpoints', function () {
           .set('authorization', userToken)
           .end((err, res) => {
             expect(res).to.have.status(200);
-            expect(res.body).to.have.property('data');
-            expect(res.body.data).to.be.an('array');
+            expect(res.body).to.be.an('object');
             done();
           });
       });
@@ -533,10 +507,8 @@ describe('Car endpoints', function () {
           .set('authorization', adminToken)
           .end((err, res) => {
             expect(res).to.have.status(200);
-            expect(res.body).to.have.property('data');
             expect(res.body).to.have.property('message');
-            expect(res.body.data).to.be.an('array');
-            expect(res.body.message).to.eq('Car Ad deleted successfully');
+            expect(res.body.message).to.eq('Car Ad successfully deleted');
             done();
           });
       });

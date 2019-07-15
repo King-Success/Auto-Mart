@@ -17,7 +17,7 @@ describe('User endpoints', function () {
     const userRes = await chai.request(app)
       .post('/api/v1/auth/login')
       .send(defaultUser);
-    const token = userRes.body.data[0].token;
+    const token = userRes.body.data.token;
     userToken = `Bearer ${token}`;
   });
   describe('Get a single user', () => {
