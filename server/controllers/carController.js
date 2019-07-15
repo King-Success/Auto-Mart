@@ -30,7 +30,7 @@ class CarController {
       }
       return res.status(400).json({
         status: 400,
-        error: 'wrong inputs'
+        error: "wrong inputs"
       });
     } catch (err) {
       return res
@@ -60,14 +60,14 @@ class CarController {
   }
 
   static async updateCarAdPrice(req, res) {
-    console.log('titititit');
+    console.log("titititit");
 
     const { carId } = req.params;
     const { price } = req.body;
     const data = { name: "price", value: price };
     try {
       const car = await carModel.update(carId, data);
-      console.log('yooooo', car);
+      console.log("yooooo", car);
 
       if (car) {
         return res.status(200).json({
@@ -90,7 +90,7 @@ class CarController {
       const { carId } = req.params;
       const car = await carModel.getById(carId);
       if (car) {
-        return res.status(200).json(car);
+        return res.status(200).json({ status: 200, data: car });
       }
       return res.status(404).json({
         status: 404,
@@ -127,6 +127,7 @@ class CarController {
       if (car) {
         return res.status(200).json({
           status: 204,
+          data: [],
           message: "Car Ad successfully deleted"
         });
       }
