@@ -183,7 +183,7 @@ class AuthValidator {
           .status(401)
           .json({
             status: 401,
-            message: "Invalid token, kindly log in to continue"
+            error: "Invalid token, kindly log in to continue"
           });
       }
       const verifiedToken = verifyToken(authorization);
@@ -192,7 +192,7 @@ class AuthValidator {
           .status(401)
           .json({
             status: 401,
-            message: "Only an Admin can perform this task"
+            error: "Only an Admin can perform this task"
           });
       }
     } catch (err) {
@@ -200,7 +200,7 @@ class AuthValidator {
         .status(401)
         .json({
           status: 500,
-          message: "Internal server error, please try again"
+          error: "Internal server error, please try again"
         });
     }
     return next();
