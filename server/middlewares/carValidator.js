@@ -103,6 +103,7 @@ class CarValidator {
   }
 
   static validatePrice(req, res, next) {
+    console.log('yooooo', req.body);
     req
       .checkBody("price", "price is required")
       .notEmpty()
@@ -111,7 +112,6 @@ class CarValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      console.log(errors);
       return res
         .status(400)
         .json({ status: 400, error: extractErrors(errors) });
