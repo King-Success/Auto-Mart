@@ -30,7 +30,7 @@ class OrderController {
   static async updateOrderAmount(req, res) {
     const { orderId } = req.params;
     const { price } = req.body;
-    const data = { name: "price", value: price };
+    const data = { name: "amount", value: price };
     try {
       const oldOrder = await orderModel.getById(orderId);
       const order = await orderModel.update(orderId, data);
@@ -47,6 +47,7 @@ class OrderController {
         error: `Car order with id: ${orderId} does not exist`
       });
     } catch (err) {
+      console.log(err)
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });
