@@ -132,34 +132,34 @@ router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
 // router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
 // Order routes
-const orderBaseUrl = "/api/v1/order";
-router.post(
-  `${orderBaseUrl}`,
-  isTokenValid,
-  validateOrder,
-  isCarExist,
-  createOrder
-);
-router.patch(
-  `${orderBaseUrl}/:orderId/price`,
-  isTokenValid,
-  isOrderOwner,
-  validatePrice,
-  updateOrderAmount
-);
+// const orderBaseUrl = "/api/v1/order";
+// router.post(
+//   `${orderBaseUrl}`,
+//   isTokenValid,
+//   validateOrder,
+//   isCarExist,
+//   createOrder
+// );
+// router.patch(
+//   `${orderBaseUrl}/:orderId/price`,
+//   isTokenValid,
+//   isOrderOwner,
+//   validatePrice,
+//   updateOrderAmount
+// );
 
-// Flag route
-const flagBaseUrl = "/api/v1/flag";
-router.post(
-  `${flagBaseUrl}`,
-  isTokenValid,
-  validateFlag,
-  isCarExist,
-  createFlag
-);
+// // Flag route
+// const flagBaseUrl = "/api/v1/flag";
+// router.post(
+//   `${flagBaseUrl}`,
+//   isTokenValid,
+//   validateFlag,
+//   isCarExist,
+//   createFlag
+// );
 
-// User route
-const userBaseUrl = "/api/v1/user";
-router.get(`${userBaseUrl}/:userId`, isTokenValid, getAccount);
+// // User route
+// const userBaseUrl = "/api/v1/user";
+// router.get(`${userBaseUrl}/:userId`, isTokenValid, getAccount);
 
 export default router;
