@@ -132,14 +132,14 @@ router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
 router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
 // Order routes
-// const orderBaseUrl = "/api/v1/order";
-// router.post(
-//   `${orderBaseUrl}`,
-//   isTokenValid,
-//   validateOrder,
-//   isCarExist,
-//   createOrder
-// );
+const orderBaseUrl = "/api/v1/order";
+router.post(
+  `${orderBaseUrl}`,
+  isTokenValid,
+  validateOrder,
+  isCarExist,
+  createOrder
+);
 // router.patch(
 //   `${orderBaseUrl}/:orderId/price`,
 //   isTokenValid,
