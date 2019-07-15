@@ -36,7 +36,7 @@ class OrderController {
       if (order) {
         return res.status(200).json({
           status: 200,
-          order
+          data: order
         });
       }
       return res.status(400).json({
