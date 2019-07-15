@@ -21,7 +21,6 @@ class OrderController {
         });
       }
     } catch (err) {
-      console.log('create order', err)
       return res
         .status(500)
         .json({ error: true, message: "Internal server error" });
@@ -46,13 +45,11 @@ class OrderController {
           data
         });
       }
-      console.log('order does not exit', order);
       return res.status(400).json({
         status: 404,
         error: `Car order with id: ${orderId} does not exist`
       });
     } catch (err) {
-      console.log('order update price server error', err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });

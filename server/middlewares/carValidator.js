@@ -29,7 +29,6 @@ class CarValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      // console.log("car valid", errors);
       return res
         .status(400)
         .json({ status: 400, error: extractErrors(errors) });
@@ -96,7 +95,6 @@ class CarValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      console.log('car status valid', errors);
       return res
         .status(400)
         .json({ status: 400, errors: extractErrors(errors) });
@@ -113,7 +111,6 @@ class CarValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      console.log("price valid", errors);
       return res
         .status(400)
         .json({ status: 400, errors: extractErrors(errors) });
