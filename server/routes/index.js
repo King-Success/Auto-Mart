@@ -80,7 +80,7 @@ router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 // Car routes
 const carBaseUrl = "/api/v1/car";
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
-router.get(`${carBaseUrl}`, isTokenValid, isAdmin, getAllCars);
+router.get(`${carBaseUrl}`, isTokenValid, getAllCars);
 // router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
 router.patch(
   `${carBaseUrl}/:carId/status`,
@@ -128,8 +128,8 @@ router.patch(
 //   validateParams,
 //   getCarsByBodyType
 // );
-// router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
-// router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
+router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
+router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
 // Order routes
 // const orderBaseUrl = "/api/v1/order";

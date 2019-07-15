@@ -60,11 +60,15 @@ class CarController {
   }
 
   static async updateCarAdPrice(req, res) {
+    console.log('titititit');
+
     const { carId } = req.params;
     const { price } = req.body;
     const data = { name: "price", value: price };
     try {
       const car = await carModel.update(carId, data);
+      console.log('yooooo', car);
+
       if (car) {
         return res.status(200).json({
           status: 200,

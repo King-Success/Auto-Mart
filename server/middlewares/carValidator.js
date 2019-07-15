@@ -103,7 +103,6 @@ class CarValidator {
   }
 
   static validatePrice(req, res, next) {
-    console.log('yooooo', req.body);
     req
       .checkBody("price", "price is required")
       .notEmpty()
