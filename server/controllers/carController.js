@@ -37,7 +37,8 @@ class CarController {
 
   static async updateCarAdStatus(req, res) {
     const { carId } = req.params;
-    const { status } = req.body;
+    let { status } = req.body;
+    if (!status) status = "sold";
     const data = { name: "status", value: status };
     try {
       const car = await carModel.update(carId, data);
@@ -48,6 +49,7 @@ class CarController {
         });
       }
     } catch (err) {
+      console.log("update car status server err", err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });
@@ -66,10 +68,12 @@ class CarController {
           data: car
         });
       }
+      console.log("update car status not found err", car);
       return res
         .status(500)
         .json({ status: 404, error: `Car with id: ${carId} does not exist` });
     } catch (err) {
+      console.log("update car price server err", err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });
@@ -83,11 +87,13 @@ class CarController {
       if (car) {
         return res.status(200).json(car);
       }
+      console.log("get car status not found", car);
       return res.status(404).json({
         status: 404,
         error: `Car with id: ${carId} does not exist`
       });
     } catch (err) {
+      console.log("get car server err", err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal server error" });
@@ -100,11 +106,13 @@ class CarController {
       if (cars) {
         return res.status(200).json({ status: 200, data: cars });
       }
+      console.log("get all car not found err", cars);
       return res.status(404).json({
         status: 404,
         error: "No car exist"
       });
     } catch (err) {
+      console.log("get all car server err", err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal server error" });
@@ -121,10 +129,12 @@ class CarController {
           message: "Car Ad successfully deleted"
         });
       }
+      console.log("delete car not found err", car);
       return res
         .status(404)
         .json({ status: 404, message: `Car with id: ${carId} not found` });
     } catch (err) {
+      console.log("delete car server err", err);
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });

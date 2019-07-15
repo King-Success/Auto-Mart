@@ -42,6 +42,7 @@ class UserController {
         });
       }
     } catch (err) {
+      console.log('singup cont', err)
       if (err.constraint === "users_email_key") {
         return res.status(409).json({
           error: true,
@@ -78,14 +79,17 @@ class UserController {
             data: { token, ...user }
           });
         }
+        console.log('login cont user', user)
         return res
           .status(401)
           .json({ error: true, message: "Invalid email or password" });
       }
+      console.log('login cont user', user)
       return res
         .status(401)
         .json({ error: true, message: "Invalid email or password" });
     } catch (err) {
+      console.log('login cont', err)
       return res
         .status(500)
         .json({ error: true, message: "Internal Server error" });
