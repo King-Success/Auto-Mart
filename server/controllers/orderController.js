@@ -30,7 +30,7 @@ class OrderController {
   static async updateOrderAmount(req, res) {
     const { orderId } = req.params;
     const { price } = req.body;
-    const data = { name: "price", value: price };
+    const data = { name: "amount", value: price };
     try {
       const order = await orderModel.update(orderId, data);
       if (order) {
