@@ -17,8 +17,9 @@
     "prefer-destructuring": 0,
     "no-shadow": 0,
     "func-names": 0,
-    "quotes": 0, 
+    "quotes": 0,
     "camelcase": 0,
-    "comma-dangle": 0
+    "comma-dangle": 0,
+    "arrow-parens": 0
   }
 }

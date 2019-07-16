@@ -9,13 +9,13 @@ const baseUrl = '/api/v1/order';
 describe('Order endpoints', function () {
   this.timeout(0);
   let userToken;
-  before('Login to get access token', async () => {
+  before('signin to get access token', async () => {
     const defaultUser = {
       email: 'elon.user@gmail.com',
       password: 'secret',
     };
     const userRes = await chai.request(app)
-      .post('/api/v1/auth/login')
+      .post('/api/v1/auth/signin')
       .send(defaultUser);
     const token = userRes.body.data.token;
     userToken = `Bearer ${token}`;
@@ -34,7 +34,7 @@ describe('Order endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('car_id is required');
+          expect(res.body.error[0]).to.eql('car_id is required');
           done();
         });
     });
@@ -46,8 +46,8 @@ describe('Order endpoints', function () {
         .set('authorization', userToken)
         .end((err, res) => {
           expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('amount is required');
-          expect(res.body.errors[1]).to.eql('amount must be a valid number');
+          expect(res.body.error[0]).to.eql('amount is required');
+          expect(res.body.error[1]).to.eql('amount must be a valid number');
           done();
         });
     });
@@ -77,34 +77,9 @@ describe('Order endpoints', function () {
     });
   });
 
-  describe('Update order amount', () => {
-    const newAmount = { amount: '1200000' };
-    const invalidAmount = { amount: '120y000' };
+  describe('Update order price', () => {
+    const newAmount = { price: '1200000' };
     const orderId = 1;
-    it('It should ensure that amount is provided', (done) => {
-      chai.request(app)
-        .patch(`${baseUrl}/${orderId}/price`)
-        .send({ amount: '' })
-        .set('authorization', userToken)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('amount is required');
-          expect(res.body.errors[1]).to.eql('amount must be a valid number');
-          done();
-        });
-    });
-
-    it('It should return invalid amount error', (done) => {
-      chai.request(app)
-        .patch(`${baseUrl}/${orderId}/price`)
-        .send(invalidAmount)
-        .set('authorization', userToken)
-        .end((err, res) => {
-          expect(res).to.have.status(400);
-          expect(res.body.errors[0]).to.eql('amount must be a valid number');
-          done();
-        });
-    });
 
     it('It should successfully update order amount', (done) => {
       chai.request(app)

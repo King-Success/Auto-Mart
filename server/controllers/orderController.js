@@ -47,7 +47,6 @@ class OrderController {
         error: `Car order with id: ${orderId} does not exist`
       });
     } catch (err) {
-      console.log(err)
       return res
         .status(500)
         .json({ status: 500, error: "Internal Server error" });

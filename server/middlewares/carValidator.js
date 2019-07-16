@@ -41,12 +41,10 @@ class CarValidator {
     try {
       const car = await carModel.getById(carId);
       if (!car) {
-        return res
-          .status(404)
-          .json({
-            status: 404,
-            error: `Car Ad with id: ${carId} does not exist`
-          });
+        return res.status(404).json({
+          status: 404,
+          error: `Car Ad with id: ${carId} does not exist`
+        });
       }
       next();
     } catch (error) {
@@ -65,19 +63,15 @@ class CarValidator {
         if (car.owner === ownerId) {
           return next();
         }
-        return res
-          .status(401)
-          .json({
-            status: 401,
-            error: "Permission denied, you can only update Ads posted by you"
-          });
-      }
-      return res
-        .status(404)
-        .json({
-          status: 404,
-          error: `Car Ad with id: ${carId} does not exist`
+        return res.status(401).json({
+          status: 401,
+          error: "Permission denied, you can only update Ads posted by you"
         });
+      }
+      return res.status(404).json({
+        status: 404,
+        error: `Car Ad with id: ${carId} does not exist`
+      });
     } catch (error) {
       return res
         .status(500)
@@ -111,7 +105,6 @@ class CarValidator {
 
     const errors = req.validationErrors();
     if (errors) {
-      console.log(errors);
       return res
         .status(400)
         .json({ status: 400, error: extractErrors(errors) });
@@ -130,8 +123,9 @@ class CarValidator {
     keys.forEach(key => {
       switch (key) {
         case "status":
-          if (!allowedStatuses.includes(req.query[key]))
+          if (!allowedStatuses.includes(req.query[key])) {
             error = "status must either be sold or availble";
+          }
           break;
         case "min_price":
           req
@@ -150,8 +144,9 @@ class CarValidator {
           error = req.validationErrors()[0];
           break;
         case "state":
-          if (!allowedStates.includes(req.query[key]))
+          if (!allowedStates.includes(req.query[key])) {
             error = "state must either be used or new";
+          }
           break;
         case "manufacturer":
           break;
