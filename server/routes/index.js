@@ -81,7 +81,7 @@ router.post(`${passwordResetBaseUrl}/reset`, resetPassword);
 const carBaseUrl = "/api/v1/car";
 router.post(`${carBaseUrl}`, isTokenValid, validateCar, createCarAd);
 router.get(`${carBaseUrl}`, isTokenValid, getAllCars);
-// router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
+router.get(`${carBaseUrl}/history`, isTokenValid, getUserCars);
 router.patch(
   `${carBaseUrl}/:carId/status`,
   isTokenValid,
@@ -98,36 +98,36 @@ router.patch(
   validatePrice,
   updateCarAdPrice
 );
-// router.get(
-//   `${carBaseUrl}/getByStatus`,
-//   isTokenValid,
-//   validateParams,
-//   getCarsByStatus
-// );
-// router.get(
-//   `${carBaseUrl}/getByState`,
-//   isTokenValid,
-//   validateParams,
-//   getCarsByState
-// );
-// router.get(
-//   `${carBaseUrl}/getByManufacturer`,
-//   isTokenValid,
-//   validateParams,
-//   getCarsByManufacturer
-// );
-// router.get(
-//   `${carBaseUrl}/getByPrice`,
-//   isTokenValid,
-//   validateParams,
-//   getCarsByPriceRange
-// );
-// router.get(
-//   `${carBaseUrl}/getByBodyType`,
-//   isTokenValid,
-//   validateParams,
-//   getCarsByBodyType
-// );
+router.get(
+  `${carBaseUrl}/getByStatus`,
+  isTokenValid,
+  validateParams,
+  getCarsByStatus
+);
+router.get(
+  `${carBaseUrl}/getByState`,
+  isTokenValid,
+  validateParams,
+  getCarsByState
+);
+router.get(
+  `${carBaseUrl}/getByManufacturer`,
+  isTokenValid,
+  validateParams,
+  getCarsByManufacturer
+);
+router.get(
+  `${carBaseUrl}/getByPrice`,
+  isTokenValid,
+  validateParams,
+  getCarsByPriceRange
+);
+router.get(
+  `${carBaseUrl}/getByBodyType`,
+  isTokenValid,
+  validateParams,
+  getCarsByBodyType
+);
 router.get(`${carBaseUrl}/:carId`, isTokenValid, getACar);
 router.delete(`${carBaseUrl}/:carId`, isTokenValid, isAdmin, deleteCarAd);
 
@@ -148,17 +148,17 @@ router.patch(
 );
 
 // // Flag route
-// const flagBaseUrl = "/api/v1/flag";
-// router.post(
-//   `${flagBaseUrl}`,
-//   isTokenValid,
-//   validateFlag,
-//   isCarExist,
-//   createFlag
-// );
+const flagBaseUrl = "/api/v1/flag";
+router.post(
+  `${flagBaseUrl}`,
+  isTokenValid,
+  validateFlag,
+  isCarExist,
+  createFlag
+);
 
-// // User route
-// const userBaseUrl = "/api/v1/user";
-// router.get(`${userBaseUrl}/:userId`, isTokenValid, getAccount);
+// User route
+const userBaseUrl = "/api/v1/user";
+router.get(`${userBaseUrl}/:userId`, isTokenValid, getAccount);
 
 export default router;
