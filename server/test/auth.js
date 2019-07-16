@@ -29,8 +29,8 @@ describe('Authentication endpoints', function () {
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('first_name is required');
-            expect(res.body.errors[1]).to.eql('first_name can only contain alphabets');
+            expect(res.body.error[0]).to.eql('first_name is required');
+            expect(res.body.error[1]).to.eql('first_name can only contain alphabets');
             done();
           });
       } catch (err) {
@@ -45,8 +45,8 @@ describe('Authentication endpoints', function () {
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('last_name is required');
-            expect(res.body.errors[1]).to.eql('last_name can only contain alphabets');
+            expect(res.body.error[0]).to.eql('last_name is required');
+            expect(res.body.error[1]).to.eql('last_name can only contain alphabets');
             done();
           });
       } catch (err) {
@@ -61,8 +61,8 @@ describe('Authentication endpoints', function () {
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('email is required');
-            expect(res.body.errors[1]).to.eql('invalid email');
+            expect(res.body.error[0]).to.eql('email is required');
+            expect(res.body.error[1]).to.eql('invalid email');
             done();
           });
       } catch (err) {
@@ -77,38 +77,7 @@ describe('Authentication endpoints', function () {
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('invalid email');
-            done();
-          });
-      } catch (err) {
-        throw err;
-      }
-    });
-    it('It should ensure that phone number is not empty', (done) => {
-      const newUser = { ...defaultUser, phone: '' };
-      try {
-        chai.request(app)
-          .post(`${baseUrl}/signup`)
-          .send(newUser)
-          .end((_, res) => {
-            expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('phone number is required');
-            expect(res.body.errors[1]).to.eql('Enter a valid phone number');
-            done();
-          });
-      } catch (err) {
-        throw err;
-      }
-    });
-    it('It should ensure that phone number is not less than 11 characters', (done) => {
-      const newUser = { ...defaultUser, phone: '0908775675' };
-      try {
-        chai.request(app)
-          .post(`${baseUrl}/signup`)
-          .send(newUser)
-          .end((_, res) => {
-            expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('Enter a valid phone number');
+            expect(res.body.error[0]).to.eql('invalid email');
             done();
           });
       } catch (err) {
@@ -123,8 +92,8 @@ describe('Authentication endpoints', function () {
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('password is required');
-            expect(res.body.errors[1]).to.eql('password cannot be less then 6 characters');
+            expect(res.body.error[0]).to.eql('password is required');
+            expect(res.body.error[1]).to.eql('password cannot be less then 6 characters');
             done();
           });
       } catch (err) {
@@ -139,7 +108,7 @@ describe('Authentication endpoints', function () {
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('password cannot be less then 6 characters');
+            expect(res.body.error[0]).to.eql('password cannot be less then 6 characters');
             done();
           });
       } catch (err) {
@@ -154,7 +123,7 @@ describe('Authentication endpoints', function () {
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('address is required');
+            expect(res.body.error[0]).to.eql('address is required');
             done();
           });
       } catch (err) {
@@ -194,7 +163,7 @@ describe('Authentication endpoints', function () {
     });
   });
 
-  describe('Login', () => {
+  describe('signin', () => {
     const defaultUser = {
       email: 'kingsley.admin@gmail.com',
       password: 'secret',
@@ -203,12 +172,12 @@ describe('Authentication endpoints', function () {
       const newUser = { ...defaultUser, email: '' };
       try {
         chai.request(app)
-          .post(`${baseUrl}/login`)
+          .post(`${baseUrl}/signin`)
           .send(newUser)
           .end((err, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('email is required');
-            expect(res.body.errors[1]).to.eql('invalid email');
+            expect(res.body.error[0]).to.eql('email is required');
+            expect(res.body.error[1]).to.eql('invalid email');
             done();
           });
       } catch (err) {
@@ -219,11 +188,11 @@ describe('Authentication endpoints', function () {
       const newUser = { ...defaultUser, password: '' };
       try {
         chai.request(app)
-          .post(`${baseUrl}/login`)
+          .post(`${baseUrl}/signin`)
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(400);
-            expect(res.body.errors[0]).to.eql('password is required');
+            expect(res.body.error[0]).to.eql('password is required');
             done();
           });
       } catch (err) {
@@ -234,11 +203,11 @@ describe('Authentication endpoints', function () {
       const newUser = { ...defaultUser, email: 'fakeuser@gmail.com' };
       try {
         chai.request(app)
-          .post(`${baseUrl}/login`)
+          .post(`${baseUrl}/signin`)
           .send(newUser)
           .end((_, res) => {
             expect(res).to.have.status(401);
-            expect(res.body.error).to.eql(true);
+            expect(res.body).to.have.property('error');
             expect(res.body).to.have.property('message');
             expect(res.body.message).to.eql('Invalid email or password');
             done();
@@ -247,10 +216,10 @@ describe('Authentication endpoints', function () {
         throw err;
       }
     });
-    it('It should successfully login user', (done) => {
+    it('It should successfully signin user', (done) => {
       try {
         chai.request(app)
-          .post(`${baseUrl}/login`)
+          .post(`${baseUrl}/signin`)
           .send(defaultUser)
           .end((_, res) => {
             expect(res).to.have.status(200);

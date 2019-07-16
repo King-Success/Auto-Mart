@@ -9,13 +9,13 @@ const baseUrl = '/api/v1/flag';
 describe('Flag endpoints', function () {
   this.timeout(0);
   let userToken;
-  before('Login to get access token', async () => {
+  before('signin to get access token', async () => {
     const defaultUser = {
       email: 'elon.user@gmail.com',
       password: 'secret',
     };
     const userRes = await chai.request(app)
-      .post('/api/v1/auth/login')
+      .post('/api/v1/auth/signin')
       .send(defaultUser);
     const token = userRes.body.data.token;
     userToken = `Bearer ${token}`;

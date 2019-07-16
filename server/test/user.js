@@ -15,7 +15,7 @@ describe('User endpoints', function () {
       password: 'secret',
     };
     const userRes = await chai.request(app)
-      .post('/api/v1/auth/login')
+      .post('/api/v1/auth/signin')
       .send(defaultUser);
     const token = userRes.body.data.token;
     userToken = `Bearer ${token}`;
