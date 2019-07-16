@@ -6,6 +6,9 @@
 Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With
 Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.
 
+### This branch/version is actively being consumed by the frontend app
+Adjustment were made on the response and request specifications after frontend app has been built, the branch contains response and request specs as used by the frontend app. The frontend app will be updated to use the lastest API version in the future
+
 ### UI Templates
 My UI templates can be found here: [ UI ](https://king-success.github.io/Auto-Mart)
 

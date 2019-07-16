@@ -41,10 +41,12 @@ class CarValidator {
     try {
       const car = await carModel.getById(carId);
       if (!car) {
-        return res.status(404).json({
-          status: 404,
-          error: `Car Ad with id: ${carId} does not exist`
-        });
+        return res
+          .status(404)
+          .json({
+            status: 404,
+            error: `Car Ad with id: ${carId} does not exist`
+          });
       }
       next();
     } catch (error) {
@@ -63,15 +65,20 @@ class CarValidator {
         if (car.owner === ownerId) {
           return next();
         }
-        return res.status(401).json({
-          status: 401,
-          error: "Permission denied, you can only update Ads posted by you"
-        });
+
+        return res
+          .status(401)
+          .json({
+            status: 401,
+            error: "Permission denied, you can only update Ads posted by you"
+          });
       }
-      return res.status(404).json({
-        status: 404,
-        error: `Car Ad with id: ${carId} does not exist`
-      });
+      return res
+        .status(404)
+        .json({
+          status: 404,
+          error: `Car Ad with id: ${carId} does not exist`
+        });
     } catch (error) {
       return res
         .status(500)
