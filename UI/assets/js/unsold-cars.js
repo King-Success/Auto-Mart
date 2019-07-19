@@ -66,7 +66,7 @@
 
   const token = localStorage.getItem("token");
   const url =
-    "https://andela-auto-mart.herokuapp.com/api/v1/car/getByStatus?status=Available";
+    "https://andela-auto-mart-staging.herokuapp.com/api/v1/car/getByStatus?status=Available";
   const config = {
     method: "GET",
     headers: {
@@ -151,7 +151,7 @@
         : filterRes.name === "Body"
         ? `bodyType=${filterRes.value}`
         : `${filterRes.name.toLowerCase()}=${filterRes.value}`;
-    const url = `https://andela-auto-mart.herokuapp.com/api/v1/car/getBy${
+    const url = `https://andela-auto-mart-staging.herokuapp.com/api/v1/car/getBy${
       filterRes.name === "Body" ? "bodyType" : filterRes.name
     }?status=Available&${queryString}`;
     const config = {

@@ -20,7 +20,7 @@
         body: JSON.stringify(data)
       };
       const url =
-        "https://andela-auto-mart.herokuapp.com/api/v1/auth/validateToken";
+        "https://andela-auto-mart-staging.herokuapp.com/api/v1/auth/validateToken";
       fetch(url, config)
         .then(res => res.json())
         .then(result => {

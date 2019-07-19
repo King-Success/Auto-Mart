@@ -11,7 +11,7 @@ const disableOrder = () => {
 const flagAd = carId => { // eslint-disable-line no-unused-vars
   const reportButton = document.querySelector(".report");
   reportButton.textContent = "Reporting...";
-  const urlFlag = `https://andela-auto-mart.herokuapp.com/api/v1/flag`;
+  const urlFlag = `https://andela-auto-mart-staging.herokuapp.com/api/v1/flag`;
   const body = JSON.stringify({
     carId,
     reason: "Default",
@@ -62,7 +62,7 @@ const flagAd = carId => { // eslint-disable-line no-unused-vars
 
   const urlParams = new URLSearchParams(window.location.search);
   const carId = urlParams.get("carId");
-  const urlCar = `https://andela-auto-mart.herokuapp.com/api/v1/car/${carId}`;
+  const urlCar = `https://andela-auto-mart-staging.herokuapp.com/api/v1/car/${carId}`;
   const configCar = {
     method: "GET",
     headers: {
@@ -77,7 +77,7 @@ const flagAd = carId => { // eslint-disable-line no-unused-vars
       if (carPayload.status === 200) {
         let { data: car } = carPayload;
         [car] = car;
-        const urlUser = `https://andela-auto-mart.herokuapp.com/api/v1/user/${
+        const urlUser = `https://andela-auto-mart-staging.herokuapp.com/api/v1/user/${
           car.owner
         }`;
         const configUser = {

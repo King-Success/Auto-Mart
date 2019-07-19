@@ -4,7 +4,7 @@ const updateStatus = e => {
   const status = e.target.getAttribute("data-status");
   const updateStatusLink = document.getElementById(`change-status-${carId}`);
   const newStatus = status === "Sold" ? "Available" : "Sold";
-  const url = `https://andela-auto-mart.herokuapp.com/api/v1/car/${carId}/status`;
+  const url = `https://andela-auto-mart-staging.herokuapp.com/api/v1/car/${carId}/status`;
   const token = localStorage.getItem("token");
   const config = {
     method: "PATCH",
@@ -73,7 +73,7 @@ const updateStatus = e => {
       updateButton.textContent = "update";
       return false;
     }
-    const url = `https://andela-auto-mart.herokuapp.com/api/v1/car/${carId}/price`;
+    const url = `https://andela-auto-mart-staging.herokuapp.com/api/v1/car/${carId}/price`;
     const token = localStorage.getItem("token");
     const config = {
       method: "PATCH",
@@ -112,7 +112,7 @@ const updateStatus = e => {
     return false;
   };
 
-  const url = "https://andela-auto-mart.herokuapp.com/api/v1/car/history";
+  const url = "https://andela-auto-mart-staging.herokuapp.com/api/v1/car/history";
   const config = {
     method: "GET",
     headers: {

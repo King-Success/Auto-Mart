@@ -22,7 +22,7 @@ const createAccount = data => {
     body: data,
     headers: { "Content-Type": "application/json" }
   };
-  const url = "https://andela-auto-mart.herokuapp.com/api/v1/auth/signup";
+  const url = "https://andela-auto-mart-staging.herokuapp.com/api/v1/auth/signup";
   fetch(url, config)
     .then(res => res.json())
     .then(result => {

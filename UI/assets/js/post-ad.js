@@ -44,7 +44,7 @@
   };
 
   const createAd = data => {
-    const url = "https://andela-auto-mart.herokuapp.com/api/v1/car";
+    const url = "https://andela-auto-mart-staging.herokuapp.com/api/v1/car";
     const token = localStorage.getItem("token");
     const config = {
       method: "POST",

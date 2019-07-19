@@ -9,7 +9,7 @@ const deleteCar = carId => { // eslint-disable-line no-unused-vars
   const trash = document.getElementById("trash");
   trash.classList.remove("fa-trash");
   trash.classList.add("fa-spinner");
-  const url = `https://andela-auto-mart.herokuapp.com/api/v1/car/${carId}`;
+  const url = `https://andela-auto-mart-staging.herokuapp.com/api/v1/car/${carId}`;
   const config = {
     method: "DELETE",
     headers: {
@@ -103,7 +103,7 @@ const deleteCar = carId => { // eslint-disable-line no-unused-vars
       });
   };
 
-  const url = "https://andela-auto-mart.herokuapp.com/api/v1/car";
+  const url = "https://andela-auto-mart-staging.herokuapp.com/api/v1/car";
   const config = {
     method: "GET",
     headers: {
@@ -188,7 +188,7 @@ const deleteCar = carId => { // eslint-disable-line no-unused-vars
         : filterRes.name === "Body"
         ? `bodyType=${filterRes.value}`
         : `${filterRes.name.toLowerCase()}=${filterRes.value}`;
-    const url = `https://andela-auto-mart.herokuapp.com/api/v1/car/getBy${
+    const url = `https://andela-auto-mart-staging.herokuapp.com/api/v1/car/getBy${
       filterRes.name === "Body" ? "bodyType" : filterRes.name
     }?status=Available&${queryString}`;
     const config = {
